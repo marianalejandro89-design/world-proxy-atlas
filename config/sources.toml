@@ -222,10 +222,32 @@ url = "https://proxywing.com/api/free-proxy-list?format=txt&proxy_format=protoco
 scheme_overrides = { https = "http" }
 
 
-# Official HProxy keyless API. Same publisher group as the HProxy GitHub mirrors,
-# so it adds fresh candidates without inflating publisher diversity.
+# Official HProxy keyless API. Same publisher group as the HProxy GitHub mirrors.
+# TXT API output is bare ip:port, so query each protocol separately.
 [[sources]]
-id = "hproxy-api-all"
+id = "hproxy-api-http"
 group = "hproxy"
-name = "HProxy keyless all-working-proxies API"
-url = "https://hproxy.com/api/proxy-list?format=txt"
+name = "HProxy keyless API HTTP"
+url = "https://hproxy.com/api/proxy-list?format=txt&protocol=http"
+default_protocol = "http"
+
+[[sources]]
+id = "hproxy-api-https"
+group = "hproxy"
+name = "HProxy keyless API HTTPS-capable HTTP CONNECT"
+url = "https://hproxy.com/api/proxy-list?format=txt&protocol=https"
+default_protocol = "http"
+
+[[sources]]
+id = "hproxy-api-socks4"
+group = "hproxy"
+name = "HProxy keyless API SOCKS4"
+url = "https://hproxy.com/api/proxy-list?format=txt&protocol=socks4"
+default_protocol = "socks4"
+
+[[sources]]
+id = "hproxy-api-socks5"
+group = "hproxy"
+name = "HProxy keyless API SOCKS5"
+url = "https://hproxy.com/api/proxy-list?format=txt&protocol=socks5"
+default_protocol = "socks5"
