@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "Please cite the repository when reusing the World Proxy Atlas software or methodology."
+title: "World Proxy Atlas"
+type: software
+authors:
+  - family-names: "World Proxy Atlas contributors"
+version: "1.1.0"
+date-released: "2026-11-11"
+repository-code: "https://github.com/marianalejandro89-design/world-proxy-atlas"
+license: MIT
