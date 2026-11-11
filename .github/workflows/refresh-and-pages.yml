@@ -1,0 +1,76 @@
+name: Refresh proxy data and deploy dashboard
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/refresh-and-pages.yml"
+      - "config/**"
+      - "src/**"
+      - "site/**"
+      - "tests/**"
+      - "pyproject.toml"
+
+concurrency:
+  group: world-proxy-atlas-refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  refresh-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment:
+      name: github-pages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[test]"
+
+      - name: Unit tests
+        run: python -m pytest -q
+
+      - name: Collect and validate
+        env:
+          ATLAS_MAX_CANDIDATES: "8000"
+          ATLAS_CONCURRENCY: "50"
+        run: python -m atlas.pipeline
+
+      - name: Commit generated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add proxies data site/data site/files
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(data): refresh verified proxy snapshot"
+            git push
+          fi
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
