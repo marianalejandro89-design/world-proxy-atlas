@@ -15,11 +15,10 @@ on:
       - "pyproject.toml"
 
 concurrency:
-  group: world-proxy-atlas-refresh-v2
-  cancel-in-progress: false
+  group: world-proxy-atlas-refresh-v3
+  cancel-in-progress: true
 
 permissions:
-  actions: write
   contents: write
   pages: write
   id-token: write
@@ -33,26 +32,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
-
-      - name: Cancel superseded refresh runs
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          current="$GITHUB_RUN_ID"
-          mapfile -t superseded < <(
-            gh run list --workflow refresh-and-pages.yml --branch main \
-              --json databaseId,status --limit 50 |
-            jq -r --arg current "$current" '
-              .[]
-              | select((.databaseId | tostring) != $current)
-              | select(.status != "completed")
-              | .databaseId
-            '
-          )
-          for run_id in "${superseded[@]}"; do
-            echo "Cancelling superseded refresh run $run_id"
-            gh api --method POST "repos/${GITHUB_REPOSITORY}/actions/runs/${run_id}/cancel" || true
-          done
 
       - name: Setup Python
         uses: actions/setup-python@v7
@@ -78,12 +57,25 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add proxies data site/data site/files
-          if ! git diff --cached --quiet; then
+          for attempt in 1 2 3; do
+            git fetch origin main
+            # Overlay this run's generated snapshot on the newest main tree.
+            # A soft reset avoids add/add conflicts when another run published first.
+            git reset --soft origin/main
+            git add proxies data site/data site/files
+            if git diff --cached --quiet; then
+              echo "Generated snapshot is already current."
+              exit 0
+            fi
             git commit -m "chore(data): refresh verified proxy snapshot"
-            git pull --rebase origin main
-            git push origin HEAD:main
-          fi
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "Push raced with another update (attempt $attempt/3); retrying."
+            sleep 2
+          done
+          echo "::error::Could not publish generated data after three attempts."
+          exit 1
 
       - name: Verify GitHub Pages is enabled for Actions publishing
         env:
