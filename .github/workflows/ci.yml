@@ -3,6 +3,15 @@ name: Continuous integration
 on:
   push:
     branches: [main]
+    paths:
+      - ".github/workflows/ci.yml"
+      - ".github/workflows/refresh-and-pages.yml"
+      - "config/**"
+      - "src/**"
+      - "tests/**"
+      - "pyproject.toml"
+      - "requirements.txt"
+      - "site/index.html"
   pull_request:
   workflow_dispatch:
 
