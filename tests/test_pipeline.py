@@ -1,4 +1,4 @@
-from atlas.pipeline import load_sources, parse_candidate, score
+from atlas.pipeline import Candidate, load_sources, parse_candidate, score, update_records
 
 
 def test_parse_and_normalize_socks5_hostname():
@@ -71,3 +71,42 @@ def test_proxywing_https_label_is_normalized_to_connect_http():
     candidate = parse_candidate("https://8.8.8.8:8080", proxywing)
     assert candidate is not None
     assert candidate.protocol == "http"
+
+
+
+def test_publication_requires_two_successful_checks():
+    candidate = Candidate("8.8.8.8", 8080, "http", ("feed-a",), ("publisher-a",))
+    passed = [{"candidate": candidate, "latency_ms": 500.0, "status_code": 200}]
+    first_records, state = update_records(passed, {}, "2026-11-11T10:00:00Z")
+    assert first_records == []
+
+    second_records, _ = update_records(passed, state, "2026-11-11T11:00:00Z")
+    assert len(second_records) == 1
+    assert second_records[0]["success_streak"] == 2
+    assert second_records[0]["quality_score"] >= 55
+
+
+def test_slow_proxy_is_never_published_even_after_repeat_success():
+    candidate = Candidate("8.8.8.8", 8080, "http", ("feed-a",), ("publisher-a",))
+    passed = [{"candidate": candidate, "latency_ms": 1501.0, "status_code": 200}]
+    _, state = update_records(passed, {}, "2026-11-11T10:00:00Z")
+    records, _ = update_records(passed, state, "2026-11-11T11:00:00Z")
+    assert records == []
+
+
+def test_failed_proxy_is_removed_from_public_snapshot_immediately():
+    candidate = Candidate("8.8.8.8", 8080, "http", ("feed-a",), ("publisher-a",))
+    passed = [{"candidate": candidate, "latency_ms": 400.0, "status_code": 200}]
+    _, state = update_records(passed, {}, "2026-11-11T10:00:00Z")
+    records, state = update_records(passed, state, "2026-11-11T11:00:00Z")
+    assert len(records) == 1
+
+    records_after_failure, retained_state = update_records(
+        [], state, "2026-11-11T12:00:00Z"
+    )
+    assert records_after_failure == []
+    assert retained_state[candidate.key]["success_streak"] == 0
+
+
+def test_quality_score_rewards_speed_repeatability_and_source_diversity():
+    assert score(300, 4, 2) > score(1400, 2, 0)
