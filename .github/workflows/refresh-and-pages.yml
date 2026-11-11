@@ -82,7 +82,7 @@ jobs:
             git fetch origin main
             # Overlay this run's generated snapshot on the newest main tree.
             # A soft reset avoids add/add conflicts when another run published first.
-            git reset --soft origin/main
+            git reset --mixed origin/main
             git add proxies data site/data site/files
             if git diff --cached --quiet; then
               echo "Generated snapshot is already current."
