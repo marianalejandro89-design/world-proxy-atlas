@@ -85,10 +85,17 @@ jobs:
             git push origin HEAD:main
           fi
 
+      - name: Verify GitHub Pages is enabled for Actions publishing
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh api "repos/${GITHUB_REPOSITORY}/pages" >/dev/null 2>&1; then
+            echo "::error title=One-time GitHub Pages setup required::Open Settings > Pages > Build and deployment, select GitHub Actions as the Source, and save. Then re-run this workflow."
+            exit 1
+          fi
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
