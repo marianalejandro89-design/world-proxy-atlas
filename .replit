@@ -1,0 +1,10 @@
+entrypoint = "site/index.html"
+run = "python -m http.server 8000 --directory site"
+
+[deployment]
+run = ["python", "-m", "http.server", "8000", "--directory", "site"]
+deploymentTarget = "static"
+
+[[ports]]
+localPort = 8000
+externalPort = 80
