@@ -34,7 +34,7 @@ A proxy may go offline immediately after validation. A successful check does not
 
 ## Collection catalogue
 
-The catalogue contains 34 endpoints across 14 publisher groups: 10 independently counted publishers plus four non-independent aggregator groups. Multiple protocol files from one publisher count as one group. See config/sources.toml and docs/SOURCE_DISCOVERY.md.
+The catalogue contains 33 endpoints across 14 publisher groups: 10 independently counted publishers plus four non-independent aggregator groups. Multiple protocol files from one publisher count as one group. See config/sources.toml and docs/SOURCE_DISCOVERY.md.
 
 Sources were discovered using English, Simplified Chinese, Russian, Spanish, Portuguese, Indonesian, German, French, Japanese and Korean search terms. Feeds are enabled only when endpoint, format, update signal and protocol meaning can be documented.
 
