@@ -19,6 +19,7 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
+  actions: write
   contents: write
   pages: write
   id-token: write
@@ -32,6 +33,26 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+
+      - name: Cancel superseded refresh runs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          current="$GITHUB_RUN_ID"
+          mapfile -t superseded < <(
+            gh run list --workflow refresh-and-pages.yml --branch main \
+              --json databaseId,status --limit 50 |
+            jq -r --arg current "$current" '
+              .[]
+              | select((.databaseId | tostring) != $current)
+              | select(.status != "completed")
+              | .databaseId
+            '
+          )
+          for run_id in "${superseded[@]}"; do
+            echo "Cancelling superseded refresh run $run_id"
+            gh api --method POST "repos/${GITHUB_REPOSITORY}/actions/runs/${run_id}/cancel" || true
+          done
 
       - name: Setup Python
         uses: actions/setup-python@v7
