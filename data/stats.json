@@ -1,14 +1,14 @@
 {
   "by_protocol": {
-    "http": 100,
+    "http": 124,
     "https": 0,
-    "socks4": 83,
-    "socks5": 26
+    "socks4": 67,
+    "socks5": 43
   },
   "feed_count": 33,
   "feeds_configured": 33,
-  "generated_at": "2026-11-11T23:33:54Z",
-  "median_latency_ms": 2159.8,
+  "generated_at": "2026-11-11T23:53:35Z",
+  "median_latency_ms": 1890.6,
   "quality_definition": "An HTTPS request returned HTTP 200 and the expected Example Domain marker.",
   "source_count": 10,
   "sources_configured": 10,
@@ -19,5 +19,5 @@
     "socks5": 0
   },
   "strong_count": 0,
-  "total_verified": 209
+  "total_verified": 234
 }
