@@ -10,7 +10,7 @@ on:
       - ".github/workflows/refresh-and-pages.yml"
       - "config/**"
       - "src/**"
-      - "site/**"
+      - "site/index.html"
       - "tests/**"
       - "pyproject.toml"
 
