@@ -1,4 +1,14 @@
 {
+  "http|1.10.248.236|80": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 4247.4,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxy-free-http"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
   "http|1.2.248.41|80": {
     "first_seen": "2026-11-11T23:25:07Z",
     "last_latency_ms": 4160.5,
@@ -6,19 +16,20 @@
     "sources": [
       "proxifly-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|101.251.204.174|8080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1538.0,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1863.6,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "litport-live",
       "monosans-all",
       "proxmint-all"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "http|102.0.20.92|8080": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -27,33 +38,64 @@
     "sources": [
       "monosans-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
-  "http|102.244.78.61|8085": {
-    "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1146.1,
-    "last_seen": "2026-11-11T23:25:07Z",
+  "http|102.244.78.61|8083": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1019.9,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
-      "proxio-http",
-      "proxmint-all",
+      "hproxy-api-http",
+      "hproxy-http",
+      "litport-live",
+      "proxifly-all",
       "proxy-free-http",
       "proxyscrape-all"
     ],
     "success_streak": 1,
     "total_passes": 1
   },
+  "http|102.244.78.61|8085": {
+    "first_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1023.1,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "litport-live",
+      "proxio-http",
+      "proxmint-all",
+      "proxy-free-http",
+      "proxyscrape-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "http|102.244.78.61|8088": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1058.9,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-http",
+      "litport-live",
+      "proxifly-all",
+      "proxmint-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
   "http|102.244.78.61|8089": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1156.8,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1022.3,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-http",
+      "litport-live",
       "proxy-free-http",
       "proxyscrape-all",
       "stormsia-working"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "http|102.244.78.61|8090": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -66,7 +108,7 @@
       "proxmint-all",
       "stormsia-working"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|103.124.138.93|8080": {
@@ -75,6 +117,16 @@
     "last_seen": "2026-11-11T23:25:07Z",
     "sources": [
       "proxyscrape-all"
+    ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|103.132.53.28|8080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3384.9,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-http"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -86,25 +138,35 @@
     "sources": [
       "monosans-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|103.133.26.11|8080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1380.4,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1644.5,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "maximilianfeix-all"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "http|103.133.26.73|3128": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1203.2,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1318.0,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "maximilianfeix-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "http|103.147.134.179|8080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3691.4,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "litport-live"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -116,7 +178,7 @@
     "sources": [
       "proxio-https-connect"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|103.173.140.181|8080": {
@@ -127,7 +189,7 @@
       "proxy-free-http",
       "proxyscrape-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|103.174.12.240|8082": {
@@ -136,6 +198,16 @@
     "last_seen": "2026-11-11T23:25:07Z",
     "sources": [
       "proxy-free-http"
+    ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|103.176.97.108|3128": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3988.2,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-http"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -148,7 +220,7 @@
       "hproxy-http",
       "proxmint-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|103.20.191.118|8080": {
@@ -159,15 +231,27 @@
       "hproxy-http",
       "proxio-https-connect"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|103.247.23.204|8080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 2410.9,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 4120.4,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-http",
       "proxio-http",
+      "proxy-free-http"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "http|103.66.148.86|9999": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3297.1,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-http",
       "proxy-free-http"
     ],
     "success_streak": 1,
@@ -180,17 +264,38 @@
     "sources": [
       "monosans-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|103.82.20.76|8080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 2133.0,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1082.5,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "hproxy-http",
       "proxmint-all",
       "proxy-free-http"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "http|103.86.117.23|8080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3824.6,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-http"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|103.87.85.198|80": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 4183.8,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-http",
+      "hproxy-http"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -202,25 +307,48 @@
     "sources": [
       "monosans-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|110.40.178.232|8080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 2958.7,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 3514.4,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-http",
+      "hproxy-http",
+      "proxyscraper-api-http"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "http|111.192.42.61|8888": {
+    "first_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 2279.9,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxmint-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "http|111.192.57.65|8888": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1451.2,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "monosans-all",
       "proxyscraper-api-http"
     ],
     "success_streak": 1,
     "total_passes": 1
   },
-  "http|111.192.42.61|8888": {
-    "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 2101.6,
-    "last_seen": "2026-11-11T23:25:07Z",
+  "http|111.196.24.150|8888": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1429.1,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
-      "proxmint-all"
+      "proxyscraper-api-http"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -234,7 +362,7 @@
       "proxmint-all",
       "proxyscraper-api-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|113.192.31.182|8080": {
@@ -245,7 +373,7 @@
       "hproxy-http",
       "proxy-free-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|114.249.210.198|8888": {
@@ -255,18 +383,18 @@
     "sources": [
       "proxyscraper-api-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|114.250.195.77|8888": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 2475.7,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 2480.3,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "monosans-all"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "http|114.252.202.38|8888": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -274,6 +402,18 @@
     "last_seen": "2026-11-11T23:25:07Z",
     "sources": [
       "proxyscraper-api-http"
+    ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|114.7.20.60|3128": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1337.2,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-http",
+      "monosans-all",
+      "proxywing-all"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -285,7 +425,7 @@
     "sources": [
       "hproxy-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|116.254.118.180|80": {
@@ -297,31 +437,42 @@
       "proxifly-all",
       "proxio-http"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|118.103.236.153|8080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3468.7,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxy-free-http"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
   "http|120.76.101.238|8080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1794.5,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 2965.6,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "hproxy-http"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "http|121.46.226.221|10808": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 902.4,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1088.5,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-http",
       "hproxy-http",
       "maximilianfeix-all",
       "proxio-http",
       "proxmint-all"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "http|122.3.207.67|8089": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -330,7 +481,7 @@
     "sources": [
       "monosans-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|123.121.109.57|8888": {
@@ -340,18 +491,18 @@
     "sources": [
       "proxyscraper-api-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|123.121.113.161|8888": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1780.6,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1807.9,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "monosans-all"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "http|123.121.125.219|8888": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -360,7 +511,7 @@
     "sources": [
       "proxyscraper-api-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|123.121.132.234|8888": {
@@ -370,18 +521,18 @@
     "sources": [
       "proxyscraper-api-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|123.121.140.72|8888": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1494.8,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1474.2,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "proxyscraper-api-http"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "http|123.121.99.174|8888": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -392,7 +543,7 @@
       "proxmint-all",
       "proxyscraper-api-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|123.57.0.163|8888": {
@@ -403,7 +554,7 @@
       "maximilianfeix-all",
       "proxio-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|124.106.122.97|8086": {
@@ -413,7 +564,7 @@
     "sources": [
       "hproxy-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|124.128.149.84|8090": {
@@ -423,7 +574,7 @@
     "sources": [
       "monosans-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|124.217.0.75|8082": {
@@ -433,7 +584,7 @@
     "sources": [
       "proxio-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|125.26.165.245|8080": {
@@ -443,19 +594,19 @@
     "sources": [
       "hproxy-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|128.199.202.122|3128": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 746.8,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 906.3,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "hproxy-http",
       "proxywing-all"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "http|13.215.184.250|80": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -464,7 +615,7 @@
     "sources": [
       "proxio-https-connect"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|134.209.29.120|3128": {
@@ -473,6 +624,19 @@
     "last_seen": "2026-11-11T23:25:07Z",
     "sources": [
       "hproxy-http",
+      "thordata-http",
+      "thordata-https-connect"
+    ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|138.68.60.8|3128": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 281.6,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-http",
+      "proxywing-all",
       "thordata-http",
       "thordata-https-connect"
     ],
@@ -486,7 +650,7 @@
     "sources": [
       "hproxy-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|139.59.1.14|3128": {
@@ -495,6 +659,17 @@
     "last_seen": "2026-11-11T23:25:07Z",
     "sources": [
       "hproxy-http"
+    ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|140.227.61.201|3128": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1658.9,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "monosans-all",
+      "proxifly-all"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -506,7 +681,7 @@
     "sources": [
       "monosans-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|146.190.80.158|9090": {
@@ -517,7 +692,7 @@
       "proxmint-all",
       "stormsia-working"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|148.222.136.64|999": {
@@ -527,7 +702,7 @@
     "sources": [
       "proxy-free-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|15.232.45.244|8082": {
@@ -537,26 +712,52 @@
     "sources": [
       "proxio-https-connect"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|152.0.60.100|999": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2950.8,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-http",
+      "proxio-http"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
   "http|154.3.76.16|999": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 3179.8,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 464.4,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-http",
       "hproxy-http",
+      "litport-live",
       "proxywing-all"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "http|154.59.56.73|999": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 3163.6,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 2067.4,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-http",
+      "hproxy-http",
+      "litport-live",
       "proxmint-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "http|154.73.28.79|8080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3610.8,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "monosans-all"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -568,18 +769,32 @@
     "sources": [
       "proxyscraper-api-http"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|157.20.122.98|8080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3601.1,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-http",
+      "litport-live",
+      "monosans-all",
+      "proxifly-all"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
   "http|159.223.41.216|9090": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 773.3,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 972.9,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
-      "monosans-all"
+      "monosans-all",
+      "proxmint-all"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "http|160.187.174.239|8080": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -590,13 +805,33 @@
       "proxy-free-http",
       "proxyscrape-all"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|160.22.198.21|8082": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 4060.9,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-http"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|160.22.45.58|8080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3306.6,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxy-free-http"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
   "http|161.35.70.249|80": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 605.6,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 395.2,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "hproxy-http",
       "proxywing-all",
@@ -604,7 +839,7 @@
       "thordata-https-connect"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "http|165.101.102.25|8088": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -613,7 +848,7 @@
     "sources": [
       "proxy-free-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|170.246.36.225|999": {
@@ -623,7 +858,7 @@
     "sources": [
       "hproxy-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|171.239.136.134|8080": {
@@ -634,7 +869,7 @@
       "proxy-free-http",
       "proxyscrape-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|177.234.212.131|999": {
@@ -644,7 +879,7 @@
     "sources": [
       "proxyscrape-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|177.234.217.45|999": {
@@ -655,19 +890,20 @@
       "proxifly-all",
       "proxy-free-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|177.234.217.46|999": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 3409.0,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1745.8,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "litport-live",
       "proxy-free-http",
       "proxyscraper-api-http"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "http|178.134.100.66|80": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -676,7 +912,7 @@
     "sources": [
       "proxyscrape-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|178.252.171.229|8080": {
@@ -685,6 +921,17 @@
     "last_seen": "2026-11-11T23:25:07Z",
     "sources": [
       "proxio-http"
+    ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|18.222.231.188|8118": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3405.6,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxio-https-connect",
+      "proxynest-http"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -696,15 +943,27 @@
     "sources": [
       "proxy-free-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|181.78.82.147|999": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 2907.8,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 3323.8,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-http",
       "hproxy-http"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "http|182.184.30.96|8080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3775.2,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-http",
+      "stormsia-working"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -716,6 +975,31 @@
     "sources": [
       "proxy-free-http"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|183.240.64.46|9090": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1406.9,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-http",
+      "maximilianfeix-all",
+      "monosans-all",
+      "proxifly-all",
+      "proxyscrape-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|184.170.104.86|80": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 957.9,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-http",
+      "proxyscrape-all"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
@@ -726,7 +1010,7 @@
     "sources": [
       "proxio-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|185.146.138.151|8080": {
@@ -736,7 +1020,7 @@
     "sources": [
       "monosans-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|185.22.233.169|1080": {
@@ -746,7 +1030,7 @@
     "sources": [
       "proxyscrape-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|186.180.19.122|8080": {
@@ -755,6 +1039,17 @@
     "last_seen": "2026-11-11T23:25:07Z",
     "sources": [
       "hproxy-http"
+    ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|186.96.111.214|999": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3030.2,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-http",
+      "proxy-free-http"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -770,6 +1065,50 @@
       "thordata-http",
       "thordata-https-connect"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|187.245.202.244|999": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3664.8,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "litport-live"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|187.249.159.38|999": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1917.4,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "litport-live",
+      "monosans-all",
+      "proxy-free-http"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|190.104.252.14|999": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1277.5,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-http"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|190.104.35.30|8081": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3475.6,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-http",
+      "hproxy-http",
+      "litport-live"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
@@ -780,15 +1119,48 @@
     "sources": [
       "hproxy-http"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|192.81.249.2|999": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2408.4,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxy-free-http",
+      "proxyscrape-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|194.124.37.122|8080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3213.8,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "monosans-all",
+      "proxy-free-http",
+      "thordata-http"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
   "http|198.199.86.11|80": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 267.1,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 62.2,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "hproxy-http"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "http|200.10.30.5|8083": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3870.0,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-http"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -798,6 +1170,17 @@
     "last_latency_ms": 2060.3,
     "last_seen": "2026-11-11T23:25:07Z",
     "sources": [
+      "monosans-all"
+    ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|200.110.173.17|999": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2159.8,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-http",
       "monosans-all"
     ],
     "success_streak": 1,
@@ -812,7 +1195,7 @@
       "proxyscrape-all",
       "stormsia-working"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|200.126.94.179|999": {
@@ -823,18 +1206,32 @@
       "hproxy-http",
       "proxifly-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|200.59.191.27|999": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 3458.9,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 2355.0,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-http",
       "hproxy-http",
+      "litport-live",
       "monosans-all",
       "proxio-https-connect",
       "proxmint-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "http|200.63.104.131|8089": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 4009.3,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxio-http",
+      "proxy-free-http",
+      "proxyscrape-all"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -846,20 +1243,71 @@
     "sources": [
       "proxy-free-http"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|201.76.9.115|8080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3617.6,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-http",
+      "proxifly-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|202.137.8.151|8080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 4059.7,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-http"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|202.154.19.165|8080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2440.1,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-http"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|203.128.69.230|8080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2632.7,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-http"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|204.157.104.16|999": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3285.6,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-http"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
   "http|209.97.150.167|8080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 243.6,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 46.4,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "hproxy-http",
       "proxio-http",
       "proxywing-all"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "http|212.200.223.89|8080": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -868,26 +1316,68 @@
     "sources": [
       "proxyscrape-all"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|221.221.146.81|8888": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2505.2,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxyscraper-api-http"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|221.221.158.205|8888": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1459.7,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "monosans-all"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
   "http|222.128.160.142|8888": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 3964.8,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1809.6,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "monosans-all",
       "proxmint-all"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "http|222.128.171.230|8888": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1455.8,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1494.5,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "proxmint-all",
+      "proxynest-http",
+      "proxyscraper-api-http"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "http|222.128.171.2|8888": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2485.1,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "monosans-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|222.128.180.15|8888": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1472.6,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxynest-http",
       "proxyscraper-api-http"
     ],
     "success_streak": 1,
@@ -900,7 +1390,7 @@
     "sources": [
       "hproxy-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|27.147.153.179|12051": {
@@ -911,7 +1401,7 @@
       "proxmint-all",
       "proxy-free-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|31.132.151.158|3128": {
@@ -923,19 +1413,40 @@
       "proxmint-all",
       "proxyscrape-all"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|31.57.178.211|8080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3462.0,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "litport-live"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
   "http|34.43.46.91|80": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 231.6,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 364.4,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "litport-live",
       "maximilianfeix-all",
       "monosans-all",
       "proxifly-all",
       "proxy-free-http",
       "proxyscrape-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "http|36.94.72.35|3128": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 4036.6,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxy-free-http"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -946,6 +1457,16 @@
     "last_seen": "2026-11-11T23:25:07Z",
     "sources": [
       "proxio-http"
+    ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|38.158.83.233|999": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1460.5,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-http"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -958,6 +1479,16 @@
       "hproxy-http",
       "proxmint-all"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|38.19.43.73|999": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2975.6,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "litport-live"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
@@ -969,7 +1500,7 @@
       "hproxy-http",
       "proxmint-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|38.253.84.67|999": {
@@ -980,7 +1511,7 @@
       "proxy-free-http",
       "proxyscrape-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|38.51.48.181|999": {
@@ -990,7 +1521,7 @@
     "sources": [
       "proxifly-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|38.63.98.16|999": {
@@ -1001,6 +1532,58 @@
       "proxifly-all",
       "proxy-free-http",
       "proxyscrape-all"
+    ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|38.7.18.119|999": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3687.6,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-http",
+      "hproxy-http"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|38.95.88.59|999": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3500.8,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxifly-all",
+      "proxy-free-http"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|43.159.54.178|80": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3263.5,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxio-https-connect"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|43.202.114.177|10806": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3406.8,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxio-https-connect"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|43.207.141.180|8082": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 4516.8,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxio-https-connect"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -1013,24 +1596,26 @@
       "monosans-all",
       "proxy-free-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|45.155.226.177|3128": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 542.7,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 359.6,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-http",
       "hproxy-http",
       "monosans-all",
       "proxifly-all",
       "proxmint-all",
+      "proxynest-http",
       "proxyscraper-api-http",
       "proxywing-all",
       "stormsia-working"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "http|45.170.131.218|999": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -1038,6 +1623,26 @@
     "last_seen": "2026-11-11T23:25:07Z",
     "sources": [
       "proxio-http"
+    ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|45.186.106.145|3128": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3214.2,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxio-https-connect"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|45.190.170.0|999": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3702.6,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-http"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -1049,20 +1654,93 @@
     "sources": [
       "monosans-all"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|45.195.90.142|8080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1127.4,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-http",
+      "litport-live",
+      "monosans-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|45.226.130.66|3128": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 683.9,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-http",
+      "hproxy-http",
+      "litport-live",
+      "monosans-all",
+      "proxifly-all",
+      "proxmint-all",
+      "proxy-free-http",
+      "stormsia-working"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|45.226.225.107|999": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3903.4,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "monosans-all",
+      "proxio-http"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|45.65.226.169|999": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3405.5,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-http",
+      "litport-live",
+      "proxy-free-http"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|45.65.226.171|999": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2250.0,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxy-free-http"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|45.71.114.185|999": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3307.8,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-http"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
   "http|47.103.30.64|8080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1454.9,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1602.9,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-http",
       "hproxy-http",
       "maximilianfeix-all",
       "proxyscraper-api-http"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "http|47.250.188.249|3128": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -1073,7 +1751,7 @@
       "proxifly-all",
       "proxyscrape-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|47.85.161.37|3128": {
@@ -1087,6 +1765,16 @@
       "proxyscrape-all",
       "proxywing-all"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|49.148.17.137|9999": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2820.7,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxy-free-http"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
@@ -1097,6 +1785,17 @@
     "sources": [
       "proxy-free-http",
       "proxyscrape-all"
+    ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|49.149.24.144|8082": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3683.0,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "monosans-all",
+      "proxio-https-connect"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -1110,25 +1809,46 @@
       "proxy-free-http",
       "proxyscrape-all"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "http|49.156.22.70|8082": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2165.5,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxio-http",
+      "stormsia-working"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
   "http|49.213.43.6|8080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 3514.9,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 3945.8,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "proxio-https-connect"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "http|49.229.100.235|8080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1122.7,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1310.0,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "monosans-all",
+      "proxynest-http"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "http|51.17.99.116|80": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1044.5,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
       "proxynest-http"
     ],
     "success_streak": 1,
@@ -1141,16 +1861,43 @@
     "sources": [
       "proxynest-http"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|79.164.141.198|10808": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 2978.6,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 2158.5,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-http",
       "monosans-all",
-      "proxyscrape-all"
+      "proxyscrape-all",
+      "stormsia-working"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "http|81.8.59.178|8080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3809.8,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-http"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "http|82.152.138.127|999": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 370.6,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-http",
+      "hproxy-http",
+      "litport-live",
+      "proxifly-all",
+      "proxmint-all",
+      "proxyscraper-api-http"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -1171,7 +1918,7 @@
       "proxywing-all",
       "stormsia-working"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|87.76.160.26|3128": {
@@ -1181,15 +1928,26 @@
     "sources": [
       "proxyscrape-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "http|88.222.65.45|3128": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 634.8,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 458.0,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "stormsia-working"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "http|94.101.187.3|3128": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2813.9,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-http",
+      "hproxy-http"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -1202,20 +1960,46 @@
       "hproxy-socks4",
       "proxio-socks4"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks4|102.164.251.242|4153": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3709.1,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4",
+      "monosans-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|103.114.97.59|80": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3463.6,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4",
+      "maximilianfeix-all",
+      "proxio-socks4",
+      "proxmint-all"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
   "socks4|103.122.32.62|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 988.4,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1221.1,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-socks4",
       "hproxy-socks4",
+      "litport-live",
       "maximilianfeix-all",
       "proxio-socks4"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks4|103.125.243.142|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -1224,18 +2008,18 @@
     "sources": [
       "proxio-socks4"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|103.132.54.150|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 2138.3,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 3285.8,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "proxio-socks4"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks4|103.140.35.11|4145": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -1246,7 +2030,7 @@
       "proxio-socks4",
       "proxmint-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|103.146.185.81|1081": {
@@ -1258,16 +2042,29 @@
       "monosans-all",
       "proxio-socks4"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|103.151.155.26|11080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 2203.3,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1260.3,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "proxio-socks4",
+      "proxmint-all",
       "proxyscrape-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "socks4|103.153.40.194|4145": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2323.0,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4",
+      "hproxy-socks4",
+      "monosans-all"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -1278,6 +2075,16 @@
     "last_seen": "2026-11-11T23:25:07Z",
     "sources": [
       "monosans-all",
+      "proxio-socks4"
+    ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks4|103.161.62.13|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1306.4,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
       "proxio-socks4"
     ],
     "success_streak": 1,
@@ -1291,6 +2098,28 @@
       "hproxy-socks4",
       "proxio-socks4"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks4|103.167.156.88|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1293.7,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxio-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|103.167.156.92|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1328.6,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "litport-live",
+      "proxio-socks4",
+      "proxyscrape-all"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
@@ -1301,7 +2130,7 @@
     "sources": [
       "hproxy-socks4"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|103.167.187.4|1080": {
@@ -1315,19 +2144,35 @@
       "proxy-free-socks4",
       "stormsia-working"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks4|103.168.246.3|4153": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1435.9,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4",
+      "hproxy-socks4",
+      "litport-live",
+      "monosans-all",
+      "proxio-socks4",
+      "proxmint-all"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
   "socks4|103.18.79.173|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 4118.1,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 3353.5,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-socks4",
       "maximilianfeix-all",
       "proxio-socks4"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks4|103.185.250.136|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -1340,6 +2185,18 @@
       "proxifly-all",
       "proxio-socks4"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks4|103.208.101.17|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3370.2,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-socks4",
+      "litport-live",
+      "proxio-socks4"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
@@ -1347,6 +2204,16 @@
     "first_seen": "2026-11-11T23:25:07Z",
     "last_latency_ms": 2025.2,
     "last_seen": "2026-11-11T23:25:07Z",
+    "sources": [
+      "proxio-socks4"
+    ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks4|103.231.105.158|4145": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2883.2,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "proxio-socks4"
     ],
@@ -1362,18 +2229,41 @@
       "maximilianfeix-all",
       "proxio-socks4"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|103.26.209.206|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 3113.8,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1289.7,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-socks4",
       "hproxy-socks4",
+      "litport-live",
       "proxio-socks4",
       "proxmint-all",
       "proxy-free-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "socks4|103.48.181.189|4145": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3133.0,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxio-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|103.48.183.113|4145": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3118.4,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "litport-live",
+      "proxio-socks4"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -1385,7 +2275,7 @@
     "sources": [
       "proxio-socks4"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|103.79.96.173|4153": {
@@ -1395,26 +2285,27 @@
     "sources": [
       "proxio-socks4"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|109.106.196.250|4145": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1090.6,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 870.1,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "litport-live",
       "maximilianfeix-all",
       "monosans-all",
       "proxio-socks4",
       "proxyscrape-all"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks4|110.38.234.74|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1423.3,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1201.7,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "maximilianfeix-all",
       "monosans-all",
@@ -1425,7 +2316,7 @@
       "proxyscrape-all"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks4|113.161.6.170|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -1439,6 +2330,19 @@
       "proxmint-all",
       "stormsia-working"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks4|113.53.91.26|4153": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1313.6,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4",
+      "monosans-all",
+      "proxio-socks4",
+      "proxmint-all"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
@@ -1451,7 +2355,7 @@
       "proxio-socks4",
       "proxmint-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|119.93.123.229|4145": {
@@ -1463,7 +2367,7 @@
       "maximilianfeix-all",
       "proxmint-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|12.11.59.114|1080": {
@@ -1473,6 +2377,37 @@
     "sources": [
       "monosans-all",
       "proxio-socks4"
+    ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks4|123.200.15.226|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1222.8,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4",
+      "hproxy-socks4",
+      "litport-live",
+      "maximilianfeix-all",
+      "monosans-all",
+      "proxio-socks4",
+      "proxmint-all",
+      "proxy-free-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|129.205.244.158|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1185.8,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4",
+      "hproxy-socks4",
+      "litport-live",
+      "maximilianfeix-all",
+      "monosans-all"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -1487,7 +2422,7 @@
       "proxio-socks4",
       "proxmint-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|14.241.242.177|1080": {
@@ -1498,6 +2433,18 @@
       "maximilianfeix-all",
       "monosans-all",
       "proxio-socks4"
+    ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks4|143.105.96.149|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1068.5,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "litport-live",
+      "proxio-socks4",
+      "proxy-free-socks4"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -1510,26 +2457,44 @@
       "hproxy-socks4",
       "proxifly-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|149.86.146.205|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1155.7,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 910.6,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
-      "proxifly-all"
+      "hproxy-api-socks4",
+      "proxifly-all",
+      "proxio-socks4",
+      "proxyscrape-all"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks4|152.231.81.19|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 2952.5,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 791.6,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-socks4",
+      "litport-live",
       "proxio-socks4",
       "proxmint-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "socks4|155.117.120.32|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 227.4,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-socks4",
+      "litport-live",
+      "proxifly-all",
+      "proxio-socks4"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -1545,17 +2510,122 @@
       "proxio-socks4",
       "proxmint-all"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks4|160.155.90.26|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2086.1,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4",
+      "hproxy-socks4",
+      "litport-live",
+      "monosans-all",
+      "proxio-socks4",
+      "proxmint-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|160.22.65.14|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3451.1,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxifly-all",
+      "proxyscrape-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|163.227.149.135|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1271.1,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4",
+      "proxio-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|168.227.158.49|4145": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2735.5,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|168.232.213.9|4153": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 624.2,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-socks4",
+      "proxio-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|170.254.173.6|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 505.8,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "litport-live",
+      "proxio-socks4",
+      "proxmint-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|170.80.221.192|4153": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 698.8,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4",
+      "hproxy-socks4",
+      "litport-live",
+      "proxio-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|171.248.222.230|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1083.0,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxio-socks4"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
   "socks4|175.100.37.171|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 3182.2,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 2423.6,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-socks4",
       "hproxy-socks4",
       "proxio-socks4",
       "proxmint-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "socks4|175.139.201.193|4153": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3277.1,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-socks4",
+      "proxio-socks4"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -1569,7 +2639,7 @@
       "monosans-all",
       "proxio-socks4"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|177.184.67.125|4145": {
@@ -1579,7 +2649,7 @@
     "sources": [
       "proxio-socks4"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|177.184.67.25|4145": {
@@ -1589,15 +2659,57 @@
     "sources": [
       "proxio-socks4"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks4|178.189.56.158|4153": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2708.0,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4",
+      "monosans-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|181.205.207.66|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 670.0,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4",
+      "hproxy-socks4",
+      "maximilianfeix-all",
+      "monosans-all",
+      "proxio-socks4",
+      "proxy-free-socks4",
+      "proxyscrape-all"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
   "socks4|181.209.98.106|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 2080.9,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 4020.3,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "hproxy-socks4",
+      "monosans-all",
+      "proxifly-all",
+      "proxio-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "socks4|182.53.96.56|4145": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3410.5,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4",
+      "hproxy-socks4",
+      "maximilianfeix-all",
       "monosans-all",
       "proxifly-all",
       "proxio-socks4"
@@ -1607,24 +2719,64 @@
   },
   "socks4|183.106.215.208|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1853.6,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 805.7,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-socks4",
       "hproxy-socks4",
+      "litport-live",
       "maximilianfeix-all",
       "proxio-socks4",
       "proxmint-all",
       "proxyscrape-all"
     ],
     "success_streak": 1,
+    "total_passes": 2
+  },
+  "socks4|183.89.217.91|4153": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1306.0,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxio-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|184.107.141.142|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3871.6,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4",
+      "hproxy-socks4",
+      "litport-live",
+      "proxifly-all",
+      "proxy-free-socks4"
+    ],
+    "success_streak": 1,
     "total_passes": 1
   },
   "socks4|185.190.90.2|4145": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 3990.6,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 3767.9,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "litport-live",
       "maximilianfeix-all",
+      "proxio-socks4",
+      "proxmint-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "socks4|185.32.4.126|4153": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 625.4,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "litport-live",
+      "monosans-all",
       "proxio-socks4",
       "proxmint-all"
     ],
@@ -1638,7 +2790,7 @@
     "sources": [
       "proxio-socks4"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|186.194.127.41|4153": {
@@ -1650,28 +2802,28 @@
       "proxio-socks4",
       "proxmint-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|186.225.132.10|4145": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1249.9,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 749.8,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "maximilianfeix-all"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks4|186.225.132.13|4145": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 985.9,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 756.7,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "maximilianfeix-all"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks4|187.210.136.88|4153": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -1682,7 +2834,7 @@
       "monosans-all",
       "proxio-socks4"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|189.90.118.105|4153": {
@@ -1693,13 +2845,24 @@
       "hproxy-socks4",
       "proxio-socks4"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks4|190.104.143.94|4153": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3975.4,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4",
+      "litport-live"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
   "socks4|190.89.4.182|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 4014.0,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 3873.8,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "hproxy-socks4",
       "maximilianfeix-all",
@@ -1707,14 +2870,43 @@
       "proxmint-all"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks4|191.102.82.83|4153": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 746.8,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1694.0,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-socks4",
       "monosans-all",
+      "proxio-socks4",
+      "proxmint-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "socks4|198.12.37.25|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1767.6,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4",
+      "hproxy-socks4",
+      "litport-live",
+      "maximilianfeix-all",
+      "proxio-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|200.16.211.78|4153": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1952.0,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "litport-live",
+      "monosans-all",
+      "proxifly-all",
       "proxio-socks4",
       "proxmint-all"
     ],
@@ -1729,20 +2921,62 @@
       "monosans-all",
       "proxio-socks4"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks4|201.218.189.212|4153": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 747.5,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "litport-live",
+      "monosans-all",
+      "proxio-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|202.142.170.115|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3228.0,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4",
+      "hproxy-socks4",
+      "maximilianfeix-all",
+      "monosans-all",
+      "proxio-socks4",
+      "proxmint-all",
+      "proxyscrape-all"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
   "socks4|202.146.230.102|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 3215.6,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 2413.9,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-socks4",
       "hproxy-socks4",
+      "litport-live",
       "monosans-all",
       "proxifly-all",
       "proxio-socks4",
       "proxmint-all",
-      "proxy-free-socks4"
+      "proxy-free-socks4",
+      "stormsia-working"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "socks4|202.46.78.82|4145": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3275.8,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "monosans-all",
+      "proxio-socks4"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -1756,6 +2990,39 @@
       "proxio-socks4",
       "proxmint-all",
       "proxy-free-socks4"
+    ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks4|202.79.35.12|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1172.5,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-socks4",
+      "litport-live",
+      "proxmint-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|202.79.35.143|4153": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3183.8,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|203.174.26.129|4153": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1421.3,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "litport-live",
+      "proxio-socks4"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -1772,7 +3039,7 @@
       "proxmint-all",
       "proxyscrape-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|203.189.159.241|1080": {
@@ -1785,15 +3052,39 @@
       "proxio-socks4",
       "proxmint-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|205.209.66.105|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 913.9,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 841.6,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-socks4",
+      "litport-live",
       "monosans-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "socks4|210.22.100.242|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2605.7,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-socks4",
+      "proxio-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|212.34.230.102|4153": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3826.1,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4",
+      "proxio-socks4"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -1809,19 +3100,20 @@
       "proxy-free-socks4",
       "stormsia-working"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|213.165.185.211|4153": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 4034.6,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1820.7,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-socks4",
       "proxio-socks4",
       "proxy-free-socks4"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks4|213.176.74.119|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -1830,7 +3122,7 @@
     "sources": [
       "proxio-socks4"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|213.21.53.119|4153": {
@@ -1841,7 +3133,7 @@
       "hproxy-socks4",
       "monosans-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|213.248.39.166|4153": {
@@ -1851,7 +3143,7 @@
     "sources": [
       "proxio-socks4"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|213.6.68.210|4145": {
@@ -1863,14 +3155,50 @@
       "proxio-socks4",
       "proxmint-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|213.7.196.26|4153": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 903.8,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 717.4,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "litport-live",
+      "proxio-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "socks4|218.90.167.202|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 4031.2,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-socks4",
+      "maximilianfeix-all",
+      "proxio-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|218.90.167.205|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3936.1,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxifly-all",
+      "proxio-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|27.147.161.10|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1309.3,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-socks4",
+      "litport-live",
       "proxio-socks4"
     ],
     "success_streak": 1,
@@ -1878,12 +3206,23 @@
   },
   "socks4|35.183.195.64|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 329.7,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1006.5,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-socks4",
       "hproxy-socks4",
       "maximilianfeix-all",
       "proxywing-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "socks4|36.37.203.215|4153": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1350.7,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxio-socks4"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -1895,19 +3234,31 @@
     "sources": [
       "hproxy-socks4"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks4|36.64.238.84|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1395.6,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxio-socks4"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
   "socks4|37.26.86.206|4145": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 876.5,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 695.4,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-socks4",
+      "litport-live",
       "proxio-socks4",
       "proxmint-all"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks4|45.117.228.97|4145": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -1917,15 +3268,76 @@
       "monosans-all",
       "proxio-socks4"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks4|45.118.74.113|4153": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2116.7,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "monosans-all",
+      "proxio-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|45.126.169.217|4145": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2016.4,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxio-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|45.163.207.18|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 618.4,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4",
+      "monosans-all",
+      "proxio-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|45.61.129.165|9050": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1691.3,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4",
+      "hproxy-socks4",
+      "litport-live",
+      "maximilianfeix-all",
+      "proxifly-all",
+      "proxio-socks4",
+      "proxmint-all",
+      "proxywing-all"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
   "socks4|5.160.103.246|8080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1481.3,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 2290.1,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-socks4",
       "proxio-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "socks4|5.23.104.251|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2817.7,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -1939,6 +3351,17 @@
       "maximilianfeix-all",
       "proxio-socks4"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks4|58.27.200.225|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3208.3,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxio-socks4",
+      "proxyscrape-all"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
@@ -1950,7 +3373,7 @@
       "monosans-all",
       "proxio-socks4"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|69.36.63.128|1080": {
@@ -1961,15 +3384,37 @@
       "proxio-socks4",
       "proxmint-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks4|82.137.245.41|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1181.4,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 866.1,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "litport-live",
       "monosans-all",
+      "proxio-socks4",
+      "proxmint-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "socks4|87.228.228.101|4145": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2755.2,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxio-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|88.213.214.254|4145": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 666.4,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
       "proxio-socks4"
     ],
     "success_streak": 1,
@@ -1977,20 +3422,45 @@
   },
   "socks4|90.178.216.215|4153": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 3011.2,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 798.7,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-socks4",
       "proxmint-all"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "socks4|91.92.78.207|4145": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3739.3,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-socks4",
+      "monosans-all",
+      "proxio-socks4"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks4|95.163.20.1|4153": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3429.1,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks4",
+      "proxio-socks4"
     ],
     "success_streak": 1,
     "total_passes": 1
   },
   "socks5|101.36.104.239|10808": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 581.4,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1619.4,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "hproxy-socks5",
+      "litport-live",
       "proxio-socks5",
       "proxmint-all",
       "proxy-free-socks5",
@@ -1998,7 +3468,7 @@
       "thordata-socks5"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks5|103.18.78.156|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -2008,6 +3478,16 @@
       "monosans-all",
       "proxio-socks5",
       "thordata-socks5"
+    ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks5|103.182.22.198|9000": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3914.9,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxy-free-socks5"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -2021,21 +3501,23 @@
       "proxio-socks5",
       "proxyscrape-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks5|110.235.240.223|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1337.7,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 3652.7,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "litport-live",
       "monosans-all",
       "proxio-socks5",
       "proxmint-all",
-      "proxy-free-socks5"
+      "proxy-free-socks5",
+      "proxyscrape-all"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks5|110.76.144.112|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -2045,14 +3527,15 @@
       "maximilianfeix-all",
       "proxifly-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks5|121.46.226.221|10808": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1864.0,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1394.5,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-socks5",
       "hproxy-socks5",
       "maximilianfeix-all",
       "proxio-socks5",
@@ -2062,21 +3545,23 @@
       "thordata-socks5"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks5|139.162.78.109|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 559.4,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 792.6,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-socks5",
       "hproxy-socks5",
       "proxio-socks5",
       "proxy-free-socks5",
       "proxynest-socks5",
+      "proxyscrape-all",
       "thordata-socks5"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks5|139.59.1.14|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -2087,27 +3572,29 @@
       "proxy-free-socks5",
       "thordata-socks5"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks5|159.203.61.169|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 390.6,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 148.0,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-socks5",
       "hproxy-socks5",
       "proxio-socks5",
       "proxy-free-socks5",
       "thordata-socks5"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks5|161.35.70.249|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 697.8,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 481.1,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-socks5",
       "hproxy-socks5",
       "proxifly-all",
       "proxy-free-socks5",
@@ -2115,7 +3602,7 @@
       "thordata-socks5"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks5|178.162.219.78|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -2124,7 +3611,7 @@
     "sources": [
       "proxio-socks5"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks5|178.92.72.205|1080": {
@@ -2138,19 +3625,19 @@
       "proxy-free-socks5",
       "proxyscrape-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks5|182.184.30.96|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 2249.6,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 2651.0,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "proxio-socks5",
       "proxy-free-socks5"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks5|183.90.187.248|9050": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -2159,6 +3646,17 @@
     "sources": [
       "proxio-socks5",
       "proxy-free-socks5"
+    ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks5|188.17.116.119|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 4185.9,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxio-socks5",
+      "proxyscrape-all"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -2171,21 +3669,46 @@
       "monosans-all",
       "proxio-socks5"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks5|188.226.27.24|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 3167.5,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 2290.9,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-socks5",
       "hproxy-socks5",
+      "litport-live",
       "maximilianfeix-all",
       "monosans-all",
       "proxio-socks5",
       "proxmint-all",
       "proxyscrape-all",
       "proxyscraper-api-socks5"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "socks5|194.9.233.171|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2007.5,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxio-socks5"
+    ],
+    "success_streak": 1,
+    "total_passes": 1
+  },
+  "socks5|195.135.255.98|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 555.3,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks5",
+      "maximilianfeix-all",
+      "proxio-socks5",
+      "proxy-free-socks5"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -2199,30 +3722,43 @@
       "proxy-free-socks5",
       "proxyscrape-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks5|202.4.101.249|9090": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 3410.1,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 3827.6,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "litport-live",
       "maximilianfeix-all",
       "monosans-all",
       "proxio-socks5"
+    ],
+    "success_streak": 1,
+    "total_passes": 2
+  },
+  "socks5|203.189.155.68|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2644.6,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxifly-all",
+      "proxio-socks5",
+      "proxyscrape-all"
     ],
     "success_streak": 1,
     "total_passes": 1
   },
   "socks5|206.246.26.1|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1452.8,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 497.1,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "proxio-socks5"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks5|208.92.216.54|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -2232,13 +3768,23 @@
       "proxio-socks5",
       "proxyscrape-all"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks5|24.121.176.155|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
     "last_latency_ms": 1489.1,
     "last_seen": "2026-11-11T23:25:07Z",
+    "sources": [
+      "proxio-socks5"
+    ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks5|37.49.224.167|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 1694.4,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "proxio-socks5"
     ],
@@ -2253,7 +3799,7 @@
       "hproxy-socks5",
       "proxio-socks5"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks5|45.6.13.4|1080": {
@@ -2263,14 +3809,15 @@
     "sources": [
       "proxio-socks5"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks5|45.61.129.165|9050": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1583.6,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 2421.8,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "litport-live",
       "proxio-socks5",
       "proxmint-all",
       "proxy-free-socks5",
@@ -2278,7 +3825,7 @@
       "stormsia-working"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks5|45.74.31.40|8100": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -2287,7 +3834,7 @@
     "sources": [
       "hproxy-socks5"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks5|45.74.31.40|9999": {
@@ -2297,14 +3844,25 @@
     "sources": [
       "hproxy-socks5"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks5|45.74.31.47|8282": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 2847.9,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxyscrape-all"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
   "socks5|5.255.113.177|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 1698.5,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 433.5,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "litport-live",
       "maximilianfeix-all",
       "proxifly-all",
       "proxio-socks5",
@@ -2313,7 +3871,7 @@
       "proxyscrape-all"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks5|54.39.111.139|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -2323,7 +3881,7 @@
       "proxio-socks5",
       "proxy-free-socks5"
     ],
-    "success_streak": 1,
+    "success_streak": 0,
     "total_passes": 1
   },
   "socks5|67.205.161.254|9050": {
@@ -2332,6 +3890,18 @@
     "last_seen": "2026-11-11T23:25:07Z",
     "sources": [
       "proxio-socks5"
+    ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks5|71.78.199.161|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3486.6,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "proxio-socks5",
+      "proxy-free-socks5",
+      "proxyscrape-all"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -2345,31 +3915,44 @@
       "proxmint-all",
       "proxyscraper-api-socks5"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks5|79.164.141.198|10808": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3033.2,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks5",
+      "monosans-all"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
   "socks5|8.219.122.8|9999": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 2589.9,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 4155.9,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "hproxy-api-socks5",
+      "litport-live",
       "maximilianfeix-all",
       "proxio-socks5",
       "proxyscrape-all"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks5|8.40.19.133|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 2513.7,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 1285.6,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
       "proxio-socks5",
       "proxyscrape-all"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   },
   "socks5|83.234.137.154|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
@@ -2379,6 +3962,17 @@
       "monosans-all",
       "proxio-socks5",
       "proxy-free-socks5"
+    ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks5|84.253.122.42|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 923.4,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "monosans-all",
+      "proxio-socks5"
     ],
     "success_streak": 1,
     "total_passes": 1
@@ -2390,18 +3984,31 @@
     "sources": [
       "proxio-socks5"
     ],
+    "success_streak": 0,
+    "total_passes": 1
+  },
+  "socks5|87.117.2.201|1080": {
+    "first_seen": "2026-11-11T23:33:54Z",
+    "last_latency_ms": 3265.6,
+    "last_seen": "2026-11-11T23:33:54Z",
+    "sources": [
+      "hproxy-api-socks5",
+      "litport-live",
+      "proxio-socks5"
+    ],
     "success_streak": 1,
     "total_passes": 1
   },
   "socks5|95.216.8.124|1080": {
     "first_seen": "2026-11-11T23:25:07Z",
-    "last_latency_ms": 4343.8,
-    "last_seen": "2026-11-11T23:25:07Z",
+    "last_latency_ms": 4544.1,
+    "last_seen": "2026-11-11T23:33:54Z",
     "sources": [
+      "litport-live",
       "proxio-socks5",
       "proxyscrape-all"
     ],
     "success_streak": 1,
-    "total_passes": 1
+    "total_passes": 2
   }
 }
