@@ -220,3 +220,12 @@ independent = false
 name = "ProxyWing keyless live export (HTTPS label normalized to HTTP CONNECT)"
 url = "https://proxywing.com/api/free-proxy-list?format=txt&proxy_format=protocolipport"
 scheme_overrides = { https = "http" }
+
+
+# Official HProxy keyless API. Same publisher group as the HProxy GitHub mirrors,
+# so it adds fresh candidates without inflating publisher diversity.
+[[sources]]
+id = "hproxy-api-all"
+group = "hproxy"
+name = "HProxy keyless all-working-proxies API"
+url = "https://hproxy.com/api/proxy-list?format=txt"
