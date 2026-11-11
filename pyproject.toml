@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "world-proxy-atlas"
+version = "1.1.0"
+description = "A quality-first, scheduled public proxy discovery and validation dataset."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = ["aiohttp>=3.10,<4", "aiohttp-socks>=0.9,<1"]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<9", "ruff>=0.6,<1"]
+
+[project.scripts]
+atlas = "atlas.pipeline:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
