@@ -74,6 +74,30 @@ jobs:
           ATLAS_CONCURRENCY: "100"
         run: python -m atlas.pipeline
 
+      - name: Production snapshot checks
+        run: |
+          python - <<'PY'
+          import json
+          from datetime import datetime, timezone
+
+          with open("data/proxies.json", encoding="utf-8") as stream:
+              payload = json.load(stream)
+          with open("data/stats.json", encoding="utf-8") as stream:
+              stats = json.load(stream)
+
+          proxies = payload.get("proxies", [])
+          assert payload.get("count") == len(proxies), "Proxy count does not match payload"
+          assert stats.get("total_verified") == len(proxies), "Stats count does not match payload"
+          assert stats.get("generated_at") == payload.get("generated_at"), "Snapshot timestamps differ"
+          for proxy in proxies:
+              assert proxy.get("status") == "verified", "Non-verified proxy in public output"
+              assert proxy.get("success_streak", 0) >= 2, "Proxy lacks repeat validation"
+              assert proxy.get("latency_ms", 999999) <= 1500, "Slow proxy in public output"
+              assert proxy.get("quality_score", 0) >= 55, "Low-quality proxy in public output"
+              assert proxy.get("last_checked_at") == stats["generated_at"], "Stale proxy in public output"
+          print(f"Production snapshot checks passed: {len(proxies)} qualified proxies")
+          PY
+
       - name: Commit generated data
         run: |
           git config user.name "github-actions[bot]"
