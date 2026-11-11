@@ -232,13 +232,6 @@ url = "https://hproxy.com/api/proxy-list?format=txt&protocol=http"
 default_protocol = "http"
 
 [[sources]]
-id = "hproxy-api-https"
-group = "hproxy"
-name = "HProxy keyless API HTTPS-capable HTTP CONNECT"
-url = "https://hproxy.com/api/proxy-list?format=txt&protocol=https"
-default_protocol = "http"
-
-[[sources]]
 id = "hproxy-api-socks4"
 group = "hproxy"
 name = "HProxy keyless API SOCKS4"
