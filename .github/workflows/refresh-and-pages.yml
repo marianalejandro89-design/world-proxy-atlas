@@ -60,7 +60,8 @@ jobs:
           git add proxies data site/data site/files
           if ! git diff --cached --quiet; then
             git commit -m "chore(data): refresh verified proxy snapshot"
-            git push
+            git pull --rebase origin main
+            git push origin HEAD:main
           fi
 
       - name: Configure GitHub Pages
