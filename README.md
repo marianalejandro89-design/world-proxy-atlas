@@ -14,7 +14,9 @@ World Proxy Atlas collects candidates from public, machine-readable feeds, indep
 
 ## Website
 
-Once the first workflow run deploys Pages: https://marianalejandro89-design.github.io/world-proxy-atlas/
+One-time repository setting required: open **Settings → Pages → Build and deployment**, set **Source** to **GitHub Actions**, and save. The default `GITHUB_TOKEN` cannot enable Pages for a repository that has never had Pages configured. After this one-time switch, hourly publishing and deployment are automatic.
+
+Website URL after the first successful Pages deployment: https://marianalejandro89-design.github.io/world-proxy-atlas/
 
 ## Downloads
 
