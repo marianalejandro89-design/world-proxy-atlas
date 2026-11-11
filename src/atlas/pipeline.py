@@ -508,9 +508,8 @@ def main() -> None:
 
     source_results = asyncio.run(collect_sources(sources))
     healthy = sum(1 for item in source_results if item["status"] == "ok")
-    if healthy == 0:
-        raise RuntimeError("Every feed failed; refusing to overwrite the last published snapshot")
-
+    # Fail closed: if feeds are unavailable, publish an empty current snapshot
+    # rather than continue advertising endpoints from an old validation cycle.
     candidates = select_candidates(
         merge_candidates(source_results), previous_state, limit
     )
