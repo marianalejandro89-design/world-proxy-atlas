@@ -2,7 +2,7 @@
 
 Last reviewed: 2026-11-11
 
-Active catalogue: 30 public feed endpoints across 14 publisher groups. Ten groups are independent publishers; four aggregator groups are intentionally marked independent=false because their data is drawn from public upstream proxy pools and can overlap other configured feeds. Multiple protocol shards from one publisher count once.
+Active catalogue: 31 public feed endpoints across 14 publisher groups. Ten groups are independent publishers; four aggregator groups are intentionally marked independent=false because their data is drawn from public upstream proxy pools and can overlap other configured feeds. Multiple protocol shards from one publisher count once.
 
 ## Active publishers
 
@@ -11,7 +11,7 @@ Active catalogue: 30 public feed endpoints across 14 publisher groups. Ten group
 | monosans/proxy-list | 1 | Mixed protocol feed |
 | litportnet/free-proxy-list | 1 | Live branch |
 | proxy-free/free-proxy-list | 3 | HTTP, SOCKS4, SOCKS5 |
-| hproxy-com/free-proxy-list | 4 | HTTP, HTTPS proxy transport, SOCKS4, SOCKS5 |
+| hproxy-com/free-proxy-list + keyless API | 5 | HTTP, HTTPS proxy transport, SOCKS4, SOCKS5 and one combined live TXT API endpoint |
 | maximilianfeix/free-proxy-list | 1 | Mixed protocol feed |
 | ProxyScrape/free-proxy-list | 1 | Its HTTPS label is normalized to HTTP CONNECT from its documented SSL semantics |
 | proxifly/free-proxy-list | 1 | Mixed protocol feed |
@@ -39,6 +39,9 @@ Candidate feeds were not activated merely because they appeared in search result
 - ProxyNest and ProxyLister — public download pages were found, but stable documented feed URLs and schemas were not confirmed; this project avoids scraping HTML UIs.
 
 ## Additional non-GitHub sources
+
+HProxy documents a keyless `/api/proxy-list` endpoint supporting TXT, JSON and CSV output, with a fair-use allowance of about 120 requests per minute. The repository already consumes HProxy's GitHub mirrors; the API is assigned to the same `hproxy` publisher group so it does not inflate source diversity.
+
 
 ProxyNest documents `/api/export?format=txt&protocol=...` for HTTP, SOCKS4 and SOCKS5, with a 60-requests/minute fair-use cap and caching guidance. ProxyWing documents `/api/free-proxy-list?format=txt&proxy_format=protocolipport`, also keyless and limited to 60 requests/minute; its HTTPS category is HTTP CONNECT, not TLS-to-proxy. Stormsia documents `working_proxies.txt`, protocol-specific text lists and a 15-minute validation daemon. These three publishers are useful discovery feeds but are excluded from the independent-source count to avoid overstating diversity.
 
