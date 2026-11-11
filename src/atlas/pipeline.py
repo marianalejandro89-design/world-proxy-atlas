@@ -442,7 +442,12 @@ def publish(
     for folder in (ROOT / "proxies", ROOT / "site" / "files"):
         folder.mkdir(parents=True, exist_ok=True)
 
-        def write_list(name: str, items: list[dict[str, Any]], schemes: bool = False, output_folder: Path = folder) -> None:
+        def write_list(
+            name: str,
+            items: list[dict[str, Any]],
+            schemes: bool = False,
+            output_folder: Path = folder,
+        ) -> None:
             lines = [
                 item["proxy"] if schemes else item["address"]
                 for item in items
