@@ -2,7 +2,7 @@
 
 Last reviewed: 2026-11-11
 
-Active catalogue: 31 public feed endpoints across 14 publisher groups. Ten groups are independent publishers; four aggregator groups are intentionally marked independent=false because their data is drawn from public upstream proxy pools and can overlap other configured feeds. Multiple protocol shards from one publisher count once.
+Active catalogue: 34 public feed endpoints across 14 publisher groups. Ten groups are independent publishers; four aggregator groups are intentionally marked independent=false because their data is drawn from public upstream proxy pools and can overlap other configured feeds. Multiple protocol shards from one publisher count once.
 
 ## Active publishers
 
@@ -11,7 +11,7 @@ Active catalogue: 31 public feed endpoints across 14 publisher groups. Ten group
 | monosans/proxy-list | 1 | Mixed protocol feed |
 | litportnet/free-proxy-list | 1 | Live branch |
 | proxy-free/free-proxy-list | 3 | HTTP, SOCKS4, SOCKS5 |
-| hproxy-com/free-proxy-list + keyless API | 5 | HTTP, HTTPS proxy transport, SOCKS4, SOCKS5 and one combined live TXT API endpoint |
+| hproxy-com/free-proxy-list + keyless API | 8 | HTTP, HTTPS proxy transport, SOCKS4, SOCKS5 and four protocol-filtered TXT API endpoints |
 | maximilianfeix/free-proxy-list | 1 | Mixed protocol feed |
 | ProxyScrape/free-proxy-list | 1 | Its HTTPS label is normalized to HTTP CONNECT from its documented SSL semantics |
 | proxifly/free-proxy-list | 1 | Mixed protocol feed |
