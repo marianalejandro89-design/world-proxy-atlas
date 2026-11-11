@@ -2,7 +2,7 @@
 
 Last reviewed: 2026-11-11
 
-Active catalogue: 25 public feed endpoints across 11 publisher groups. Ten groups are independent publishers; the proxyscraper-api group is intentionally marked independent=false because its documentation identifies data overlap with proxio.io and proxmint. Multiple protocol shards from one publisher count once.
+Active catalogue: 30 public feed endpoints across 14 publisher groups. Ten groups are independent publishers; four aggregator groups are intentionally marked independent=false because their data is drawn from public upstream proxy pools and can overlap other configured feeds. Multiple protocol shards from one publisher count once.
 
 ## Active publishers
 
@@ -19,6 +19,9 @@ Active catalogue: 25 public feed endpoints across 11 publisher groups. Ten group
 | proxio-io/proxy-list | 4 | HTTP, CONNECT-capable HTTP, SOCKS4, SOCKS5 |
 | Thordata/awesome-free-proxy-list | 4 | HTTP, CONNECT-capable HTTP, SOCKS4, SOCKS5 |
 | Proxy Scraper keyless API | 4 | Non-GitHub API with known overlap, excluded from independent count |
+| Stormsia proxy-list | 1 | 15-minute validator, mixed protocol feed; treated as aggregator |
+| ProxyNest | 3 | Keyless text exports for HTTP, SOCKS4 and SOCKS5; fair-use limited |
+| ProxyWing | 1 | Keyless live export; HTTPS category explicitly means HTTP CONNECT |
 
 ## Discovery languages
 
@@ -34,6 +37,10 @@ Candidate feeds were not activated merely because they appeared in search result
 - gproxynet/free-proxy-list — checked snapshot reported zero entries.
 - TheSpeedX/SOCKS-List — raw-file metadata was not consistently retrievable via the review integration.
 - ProxyNest and ProxyLister — public download pages were found, but stable documented feed URLs and schemas were not confirmed; this project avoids scraping HTML UIs.
+
+## Additional non-GitHub sources
+
+ProxyNest documents `/api/export?format=txt&protocol=...` for HTTP, SOCKS4 and SOCKS5, with a 60-requests/minute fair-use cap and caching guidance. ProxyWing documents `/api/free-proxy-list?format=txt&proxy_format=protocolipport`, also keyless and limited to 60 requests/minute; its HTTPS category is HTTP CONNECT, not TLS-to-proxy. Stormsia documents `working_proxies.txt`, protocol-specific text lists and a 15-minute validation daemon. These three publishers are useful discovery feeds but are excluded from the independent-source count to avoid overstating diversity.
 
 ## API and attribution
 
