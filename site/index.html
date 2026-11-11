@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="World Proxy Atlas — independently validated public HTTP, HTTPS, SOCKS4 and SOCKS5 proxy data.">
+<meta name="theme-color" content="#09111d"><title>World Proxy Atlas · Verified public proxy data</title>
+<style>
+:root{color-scheme:dark;--bg:#09111d;--panel:#101d2b;--line:#26394b;--text:#eaf2fa;--muted:#93a8bb;--cyan:#61d5d2;--lime:#b8f08c;--orange:#ffca7a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 70% -10%,#17394a 0,transparent 48%),var(--bg);color:var(--text);font:16px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,sans-serif}
+a{color:var(--cyan);text-decoration:none}a:hover{text-decoration:underline}.wrap{max-width:1160px;margin:auto;padding:26px 22px 70px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--muted);font-size:13px}.brand{font-weight:800;letter-spacing:.1em;color:var(--text)}.brand i{font-style:normal;color:var(--cyan)}
+.hero{padding:70px 0 38px;max-width:850px}.eyebrow{color:var(--cyan);font-size:12px;font-weight:800;letter-spacing:.2em}.hero h1{font-size:clamp(40px,7vw,74px);line-height:1.02;letter-spacing:-.055em;margin:18px 0}.hero p{font-size:18px;color:var(--muted);max-width:690px}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.btn{display:inline-block;padding:12px 17px;border:1px solid var(--line);border-radius:10px;font-weight:700}.primary{background:var(--cyan);border-color:var(--cyan);color:#06151a}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 54px}.metric,.panel{background:linear-gradient(145deg,#122337,#0d1926);border:1px solid var(--line);border-radius:16px;padding:20px}.metric small{display:block;color:var(--muted);font-size:11px;letter-spacing:.14em;font-weight:800}.metric b{display:block;font-size:34px;margin:8px 0 2px}.metric span{font-size:12px;color:var(--muted)}
+h2{font-size:30px;letter-spacing:-.03em;margin:0 0 8px}.section{margin:46px 0}.lead{color:var(--muted);margin:0 0 20px}.downloads{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.download{display:block;background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:17px;color:var(--text)}.download strong{display:block;font-size:17px}.download small{color:var(--muted)}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.toolbar input,.toolbar select{background:#0c1926;border:1px solid var(--line);color:var(--text);border-radius:9px;padding:11px 13px;font:inherit}.toolbar input{flex:1;min-width:210px}
+.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:13px}table{width:100%;border-collapse:collapse;min-width:670px}th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line)}th{font-size:11px;color:var(--muted);letter-spacing:.12em}td{font-size:14px}tbody tr:last-child td{border-bottom:0}.tag{color:var(--lime);font-weight:800}.copy{background:#142b39;color:var(--cyan);border:1px solid #315262;border-radius:7px;padding:5px 9px;cursor:pointer}
+.note{margin-top:22px;padding:16px 18px;border-left:3px solid var(--orange);background:#1a2029;color:var(--muted);font-size:14px}.footer{border-top:1px solid var(--line);margin-top:65px;padding-top:20px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+@media(max-width:760px){.metrics{grid-template-columns:repeat(2,1fr)}.downloads{grid-template-columns:repeat(2,1fr)}.hero{padding-top:48px}}@media(max-width:480px){.downloads{grid-template-columns:1fr}.metric b{font-size:28px}.wrap{padding-inline:15px}}
+</style></head>
+<body><div class="wrap">
+<header class="top"><div class="brand"><i>◎</i> WORLD PROXY ATLAS</div><nav><a href="https://github.com/marianalejandro89-design/world-proxy-atlas">GitHub repository ↗</a></nav></header>
+<section class="hero"><div class="eyebrow">OPEN NETWORK DATA · VERIFIED EVERY HOUR</div><h1>Find signal in the global proxy noise.</h1><p>Public proxy feeds are only the beginning. Every published endpoint must pass our own bounded validation. Download by protocol, inspect quality and follow the latest refresh.</p><div class="actions"><a class="btn primary" href="#downloads">Explore verified lists ↓</a><a class="btn" href="https://github.com/marianalejandro89-design/world-proxy-atlas/actions">Automation status ↗</a></div></section>
+<section class="metrics">
+<div class="metric"><small>LIVE VERIFIED</small><b id="total">—</b><span>Passed current validation</span></div>
+<div class="metric"><small>STRONG TIER</small><b id="strong">—</b><span>Repeat-tested + fast</span></div>
+<div class="metric"><small>MEDIAN LATENCY</small><b id="latency">—</b><span>End-to-end HTTPS request</span></div>
+<div class="metric"><small>INDEPENDENT SOURCES</small><b id="sources">—</b><span>Healthy publishers / configured</span></div>
+</section>
+<section id="downloads" class="section"><h2>Download a clean list.</h2><p class="lead">Plain text, one endpoint per line. The combined list includes protocol schemes.</p><div class="downloads">
+<a class="download" href="files/all.txt"><strong>All protocols</strong><small id="allN">TXT · scheme included</small></a>
+<a class="download" href="files/http.txt"><strong>HTTP</strong><small id="httpN">Protocol list</small></a>
+<a class="download" href="files/https.txt"><strong>HTTPS proxy transport</strong><small id="httpsN">TLS-to-proxy verified</small></a>
+<a class="download" href="files/socks4.txt"><strong>SOCKS4</strong><small id="socks4N">Protocol list</small></a>
+<a class="download" href="files/socks5.txt"><strong>SOCKS5</strong><small id="socks5N">Protocol list</small></a>
+<a class="download" href="files/http-connect.txt"><strong>HTTP CONNECT</strong><small>HTTPS destination succeeded</small></a>
+<a class="download" href="files/strong.txt"><strong>Strong · all</strong><small id="strongN">Repeat-tested endpoints</small></a>
+<a class="download" href="files/proxies.json"><strong>JSON metadata</strong><small>Full records and metrics</small></a>
+<a class="download" href="files/proxies.csv"><strong>CSV export</strong><small>Spreadsheet-ready</small></a>
+</div></section>
+<section class="section"><h2>Live verified directory.</h2><p class="lead">Search by address or protocol. Proxies can go offline between checks.</p><div class="toolbar"><input id="search" type="search" placeholder="Search IP address…"><select id="protocol"><option value="all">All protocols</option><option value="http">HTTP</option><option value="https">HTTPS</option><option value="socks4">SOCKS4</option><option value="socks5">SOCKS5</option></select></div><div class="tablewrap"><table><thead><tr><th>ENDPOINT</th><th>PROTOCOL</th><th>LATENCY</th><th>SCORE</th><th>SUCCESS STREAK</th><th></th></tr></thead><tbody id="rows"><tr><td colspan="6">The first successful refresh has not published data yet.</td></tr></tbody></table></div></section>
+<div class="note"><b>Safety note.</b> Public proxy operators may log or alter traffic. Never send passwords, cookies, API keys, payment details or personal data through an open proxy. A successful check is not proof of anonymity or trustworthiness.</div>
+<footer class="footer"><span>WORLD PROXY ATLAS · Open data, measured not promised.</span><span id="updated">Snapshot pending</span></footer>
+</div>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const fmt = (v) => new Intl.NumberFormat().format(Number(v || 0));
+  let proxies = [];
+  const render = () => {
+    const q = $("search").value.toLowerCase();
+    const p = $("protocol").value.toLowerCase();
+    const rows = proxies.filter(x => (p === "all" || x.protocol === p) && (!q || x.address.toLowerCase().includes(q)));
+    $("rows").replaceChildren();
+    if (!rows.length) {
+      const tr = document.createElement("tr");
+      const td = document.createElement("td");
+      td.colSpan = 6;
+      td.textContent = "No verified proxy matches this filter.";
+      tr.append(td); $("rows").append(tr); return;
+    }
+    rows.slice(0, 150).forEach(x => {
+      const tr = document.createElement("tr");
+      [x.address, x.protocol.toUpperCase(), Math.round(x.latency_ms) + " ms", x.quality_score + "/100", x.success_streak + " runs"].forEach((v, i) => {
+        const td = document.createElement("td"); td.textContent = v;
+        if (i === 1) td.className = "tag";
+        tr.append(td);
+      });
+      const td = document.createElement("td");
+      const button = document.createElement("button");
+      button.className = "copy"; button.textContent = "Copy";
+      button.onclick = async () => {
+        try { await navigator.clipboard.writeText(x.proxy); button.textContent = "Copied"; }
+        catch { button.textContent = "Unavailable"; }
+      };
+      td.append(button); tr.append(td); $("rows").append(tr);
+    });
+  };
+  $("search").addEventListener("input", render);
+  $("protocol").addEventListener("change", render);
+  Promise.all([
+    fetch("data/stats.json", {cache:"no-store"}),
+    fetch("data/proxies.json", {cache:"no-store"})
+  ]).then(async ([statsResponse, proxyResponse]) => {
+    if (!statsResponse.ok || !proxyResponse.ok) throw new Error("The first successful refresh has not published a snapshot yet.");
+    const stats = await statsResponse.json();
+    const payload = await proxyResponse.json();
+    proxies = Array.isArray(payload.proxies) ? payload.proxies : [];
+    $("total").textContent = fmt(stats.total_verified);
+    $("strong").textContent = fmt(stats.strong_count);
+    $("latency").textContent = stats.median_latency_ms == null ? "—" : Math.round(stats.median_latency_ms) + " ms";
+    $("sources").textContent = fmt(stats.source_count) + " / " + fmt(stats.sources_configured);
+    $("allN").textContent = fmt(stats.total_verified) + " verified entries";
+    ["http", "https", "socks4", "socks5"].forEach(p => $(p + "N").textContent = fmt(stats.by_protocol?.[p]) + " verified entries");
+    $("strongN").textContent = fmt(stats.strong_count) + " repeat-tested entries";
+    const date = new Date(stats.generated_at);
+    $("updated").textContent = "Latest successful run: " + (isNaN(date) ? stats.generated_at : date.toLocaleString());
+    render();
+  }).catch(error => { $("updated").textContent = error.message; });
+})();
+</script></body></html>
