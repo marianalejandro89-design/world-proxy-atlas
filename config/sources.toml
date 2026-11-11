@@ -176,3 +176,47 @@ independent = false
 name = "Proxy Scraper keyless API stable SOCKS5"
 url = "https://api.proxyscraper.com/v1/socks5/stable.txt"
 default_protocol = "socks5"
+
+
+# Additional non-GitHub aggregators discovered during multilingual source review.
+# These feeds are useful discovery inputs, but overlap with upstream public lists;
+# they are deliberately excluded from independent-source diversity scoring.
+
+[[sources]]
+id = "stormsia-working"
+group = "stormsia"
+independent = false
+name = "Stormsia open proxy list (15-minute validator)"
+url = "https://raw.githubusercontent.com/stormsia/proxy-list/main/working_proxies.txt"
+
+[[sources]]
+id = "proxynest-http"
+group = "proxynest"
+independent = false
+name = "ProxyNest keyless export HTTP"
+url = "https://proxynest.live/api/export?format=txt&protocol=http"
+default_protocol = "http"
+
+[[sources]]
+id = "proxynest-socks4"
+group = "proxynest"
+independent = false
+name = "ProxyNest keyless export SOCKS4"
+url = "https://proxynest.live/api/export?format=txt&protocol=socks4"
+default_protocol = "socks4"
+
+[[sources]]
+id = "proxynest-socks5"
+group = "proxynest"
+independent = false
+name = "ProxyNest keyless export SOCKS5"
+url = "https://proxynest.live/api/export?format=txt&protocol=socks5"
+default_protocol = "socks5"
+
+[[sources]]
+id = "proxywing-all"
+group = "proxywing"
+independent = false
+name = "ProxyWing keyless live export (HTTPS label normalized to HTTP CONNECT)"
+url = "https://proxywing.com/api/free-proxy-list?format=txt&proxy_format=protocolipport"
+scheme_overrides = { https = "http" }
