@@ -15,7 +15,7 @@ on:
       - "pyproject.toml"
 
 concurrency:
-  group: world-proxy-atlas-refresh
+  group: world-proxy-atlas-refresh-v2
   cancel-in-progress: false
 
 permissions:
@@ -49,8 +49,8 @@ jobs:
 
       - name: Collect and validate
         env:
-          ATLAS_MAX_CANDIDATES: "8000"
-          ATLAS_CONCURRENCY: "50"
+          ATLAS_MAX_CANDIDATES: "3000"
+          ATLAS_CONCURRENCY: "100"
         run: python -m atlas.pipeline
 
       - name: Commit generated data
