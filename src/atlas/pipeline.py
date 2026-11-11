@@ -9,7 +9,7 @@ import os
 import time
 import tomllib
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlsplit
@@ -53,7 +53,7 @@ class Candidate:
 
 
 def now_iso() -> str:
-    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    return datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
 def read_json(path: Path, fallback: Any) -> Any:
@@ -153,7 +153,7 @@ async def fetch_source(
                         **source, "status": "ok", "lines": lines,
                         "line_count": len(lines), "error": None,
                     }
-            except (aiohttp.ClientError, asyncio.TimeoutError, UnicodeError, ValueError) as exc:
+            except (aiohttp.ClientError, TimeoutError, UnicodeError, ValueError) as exc:
                 error = f"{type(exc).__name__}: {str(exc)[:160]}"
                 if attempt < 2:
                     await asyncio.sleep(0.5 * (2 ** attempt))
@@ -202,9 +202,9 @@ def merge_candidates(results: list[dict[str, Any]]) -> list[Candidate]:
 def select_candidates(
     candidates: list[Candidate], state: dict[str, Any], limit: int
 ) -> list[Candidate]:
-    hour = datetime.now(timezone.utc).strftime("%Y%m%d%H")
+    hour = datetime.now(UTC).strftime("%Y%m%d%H")
     repeatable = []
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     for item in candidates:
         previous = state.get(item.key, {})
         if not isinstance(previous, dict):
@@ -442,12 +442,12 @@ def publish(
     for folder in (ROOT / "proxies", ROOT / "site" / "files"):
         folder.mkdir(parents=True, exist_ok=True)
 
-        def write_list(name: str, items: list[dict[str, Any]], schemes: bool = False) -> None:
+        def write_list(name: str, items: list[dict[str, Any]], schemes: bool = False, output_folder: Path = folder) -> None:
             lines = [
                 item["proxy"] if schemes else item["address"]
                 for item in items
             ]
-            write_text(folder / name, "\n".join(lines) + ("\n" if lines else ""))
+            write_text(output_folder / name, "\n".join(lines) + ("\n" if lines else ""))
 
         write_list("all.txt", records, True)
         for protocol, items in by_protocol.items():
