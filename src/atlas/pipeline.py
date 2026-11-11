@@ -297,10 +297,11 @@ async def validate_all(candidates: list[Candidate], concurrency: int) -> list[di
 
 
 def score(latency: float, streak: int, diversity: int) -> int:
-    speed = max(0.0, 50.0 - latency / 100.0)
-    stability = min(max(streak, 0), 5) * 7.0
-    source_points = min(max(diversity, 0), 3) * 5.0
-    return max(0, min(100, round(speed + stability + source_points + 5)))
+    """Rank quality using speed, repeat reliability and independent attribution."""
+    speed = max(0.0, 60.0 - latency / 50.0)
+    stability = min(max(streak, 0), 5) * 8.0
+    source_points = min(max(diversity, 0), 3) * 4.0
+    return max(0, min(100, round(speed + stability + source_points + 10)))
 
 
 def update_records(
@@ -333,17 +334,20 @@ def update_records(
             streak = 1
         diversity = len(candidate.source_groups)
         quality = score(item["latency_ms"], streak, diversity)
-        strong = quality >= 78 and streak >= 2 and item["latency_ms"] <= 1500
-        records.append({
-            "ip": candidate.ip, "port": candidate.port, "address": candidate.address,
-            "protocol": candidate.protocol, "proxy": candidate.proxy,
-            "latency_ms": item["latency_ms"], "status": "verified",
-            "status_code": item["status_code"], "supports_https": True,
-            "quality_score": quality,
-            "quality_tier": "strong" if strong else "verified",
-            "success_streak": streak, "source_count": diversity,
-            "sources": list(candidate.sources), "last_checked_at": checked_at,
-        })
+        strong = quality >= 75 and streak >= 3 and item["latency_ms"] <= 900
+        # Public output is fail-closed: first-time, slow and low-scoring endpoints
+        # remain private to the short-lived state until they qualify.
+        if streak >= 2 and item["latency_ms"] <= 1500 and quality >= 55:
+            records.append({
+                "ip": candidate.ip, "port": candidate.port, "address": candidate.address,
+                "protocol": candidate.protocol, "proxy": candidate.proxy,
+                "latency_ms": item["latency_ms"], "status": "verified",
+                "status_code": item["status_code"], "supports_https": True,
+                "quality_score": quality,
+                "quality_tier": "strong" if strong else "verified",
+                "success_streak": streak, "source_count": diversity,
+                "sources": list(candidate.sources), "last_checked_at": checked_at,
+            })
         state[candidate.key] = {
             "first_seen": prior.get("first_seen", checked_at),
             "last_seen": checked_at,
@@ -356,7 +360,7 @@ def update_records(
     records.sort(
         key=lambda row: (-row["quality_score"], row["latency_ms"], row["address"])
     )
-    cutoff = checked_dt - timedelta(days=14)
+    cutoff = checked_dt - timedelta(hours=48)
     for key, value in previous.items():
         if key in state or not isinstance(value, dict):
             continue
@@ -418,8 +422,12 @@ def publish(
         "feed_count": len(healthy),
         "feeds_configured": len(source_results),
         "quality_definition": (
-            "An HTTPS request returned HTTP 200 and the expected Example Domain marker."
+            "Published entries passed two consecutive hourly checks, scored at least 55/100, "
+            "completed the HTTPS canary request within 1500 ms, and were checked in this run."
         ),
+        "minimum_quality_score": 55,
+        "maximum_latency_ms": 1500,
+        "minimum_success_streak": 2,
     }
     payload = {"generated_at": checked_at, "count": len(records), "proxies": records}
     source_payload = [
@@ -508,9 +516,8 @@ def main() -> None:
     )
     print(f"Feeds healthy: {healthy}/{len(sources)}; selected candidates: {len(candidates)}")
     passed = asyncio.run(validate_all(candidates, concurrency))
-    if not passed and read_json(ROOT / "data" / "stats.json", {}).get("total_verified", 0):
-        raise RuntimeError("No candidates passed; refusing to replace the last good snapshot")
-
+    # A healthy collection run with zero passing proxies must publish an empty
+    # snapshot rather than leave previously working-but-now-dead entries online.
     checked_at = now_iso()
     records, state = update_records(passed, previous_state, checked_at)
     publish(records, source_results, state, checked_at)
