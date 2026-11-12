@@ -407,7 +407,8 @@ def update_records(
         if key in state or not isinstance(value, dict):
             continue
         try:
-            old_time = datetime.fromisoformat(value["last_seen"].replace("Z", "+00:00"))
+            timestamp = value.get("last_seen") or value.get("last_attempt_at")
+            old_time = datetime.fromisoformat(timestamp.replace("Z", "+00:00"))
         except (KeyError, TypeError, ValueError):
             continue
         if old_time >= cutoff:
