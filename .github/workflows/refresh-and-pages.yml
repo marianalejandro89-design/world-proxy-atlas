@@ -1,4 +1,5 @@
 name: Refresh proxy data and deploy dashboard
+# Operator-triggered and scheduled refreshes use the same production validation pipeline.
 
 on:
   schedule:
