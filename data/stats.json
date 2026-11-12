@@ -1,26 +1,51 @@
 {
   "by_protocol": {
-    "http": 15,
-    "https": 0,
-    "socks4": 4,
-    "socks5": 2
-  },
-  "feed_count": 33,
-  "feeds_configured": 33,
-  "generated_at": "2026-11-12T14:41:09Z",
-  "maximum_latency_ms": 1200,
-  "median_latency_ms": 679.8,
-  "minimum_quality_score": 60,
-  "minimum_success_streak": 2,
-  "quality_definition": "Published entries passed two checks at least 45 minutes apart, scored at least 60/100, completed the HTTPS canary request within 1200 ms, and were checked in this run.",
-  "source_count": 10,
-  "sources_configured": 10,
-  "strong_by_protocol": {
-    "http": 10,
+    "http": 0,
     "https": 0,
     "socks4": 0,
-    "socks5": 1
+    "socks5": 0
   },
-  "strong_count": 11,
-  "total_verified": 21
+  "discovered_candidates": 7158,
+  "feed_count": 33,
+  "feeds_configured": 33,
+  "feeds_fetch_failed": 0,
+  "feeds_with_candidates": 33,
+  "feeds_without_candidates": 0,
+  "generated_at": "2026-11-12T14:56:37Z",
+  "maximum_latency_ms": 1200,
+  "median_latency_ms": null,
+  "minimum_quality_score": 60,
+  "minimum_success_streak": 2,
+  "publication_yield_pct": 0.0,
+  "quality_definition": "Published entries passed two checks at least 45 minutes apart, scored at least 60/100, completed the HTTPS canary request within 1200 ms, and were checked in this run.",
+  "selected_candidates": 1500,
+  "source_candidate_lines": 23071,
+  "source_count": 10,
+  "source_duplicate_lines": 1,
+  "source_parsed_candidate_lines": 11717,
+  "source_rejected_lines": 11354,
+  "source_unique_candidates": 11716,
+  "sources_configured": 10,
+  "strong_by_protocol": {
+    "http": 0,
+    "https": 0,
+    "socks4": 0,
+    "socks5": 0
+  },
+  "strong_count": 0,
+  "total_verified": 0,
+  "validation_attempted": 1500,
+  "validation_failed": 1399,
+  "validation_failure_reasons": {
+    "ClientConnectorCertificateError": 142,
+    "ClientConnectorSSLError": 15,
+    "ClientOSError": 64,
+    "ClientProxyConnectionError": 5,
+    "IncompleteReadError": 16,
+    "ProxyConnectionError": 34,
+    "ProxyError": 167,
+    "timeout": 956
+  },
+  "validation_pass_rate_pct": 6.7,
+  "validation_passed": 101
 }
