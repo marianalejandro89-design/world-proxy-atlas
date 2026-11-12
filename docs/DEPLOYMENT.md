@@ -23,7 +23,7 @@ Each run:
 2. Parses and deduplicates literal public-IP candidates.
 3. Tests each selected candidate with a bounded HTTPS canary request.
 4. Updates short-lived repeat-success state.
-5. Publishes only endpoints with at least two consecutive successful checks, latency at or below 1,200 ms, and a quality score of at least 60/100.
+5. Publishes only endpoints with at least two consecutive fast successful checks, latency at or below 1,200 ms, and a quality score of at least 60/100.
 6. Marks Strong endpoints only at score 75 or higher, at least three consecutive successes, and latency at or below 900 ms.
 7. Runs production snapshot assertions before committing generated data and deploying Pages.
 
