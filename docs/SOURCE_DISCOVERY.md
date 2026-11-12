@@ -32,7 +32,7 @@ Candidate feeds were not activated merely because they appeared in search result
 ## Excluded pending more evidence
 
 - HankNovic/ProxyClean — Chinese SOCKS5-only source; ongoing refresh cadence was not confirmed.
-- iplocate/free-proxy-list — last checked README timestamp was 2025-07-09; stale for an hourly catalogue.
+- iplocate/free-proxy-list — last checked README timestamp was 2025-07-09; stale for a frequently refreshed catalogue.
 - fyvri/fresh-proxy-list — claims hourly updates, but archive feeds could not be verified within safe size/format limits at review time.
 - gproxynet/free-proxy-list — checked snapshot reported zero entries.
 - TheSpeedX/SOCKS-List — raw-file metadata was not consistently retrievable via the review integration.
@@ -47,6 +47,6 @@ ProxyNest documents `/api/export?format=txt&protocol=...` for HTTP, SOCKS4 and S
 
 ## API and attribution
 
-The keyless API at https://api.proxyscraper.com/v1/ documents HTTP and SOCKS5 feeds plus stable sublists, a 60 requests/minute limit and CC BY 4.0 data terms. Its docs identify overlap with proxio.io and proxmint, so its four feeds are requested hourly but excluded from source-diversity scoring. This API is distinct from api.proxyscrape.com.
+The keyless API at https://api.proxyscraper.com/v1/ documents HTTP and SOCKS5 feeds plus stable sublists, a 60 requests/minute limit and CC BY 4.0 data terms. Its docs identify overlap with proxio.io and proxmint, so its four feeds are requested every five minutes but excluded from source-diversity scoring. This API is distinct from api.proxyscrape.com.
 
 Before adding a source, re-check its current URL, terms, protocol definition, update cadence, response size and upstream overlap.
