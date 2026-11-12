@@ -121,22 +121,29 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);f
     if (!statsResponse.ok || !proxyResponse.ok) throw new Error("Snapshot is not available yet.");
     const stats = await statsResponse.json();
     const payload = await proxyResponse.json();
-    proxies = Array.isArray(payload.proxies) ? payload.proxies : [];
-    $("total").textContent = number(stats.total_verified);
-    $("strong").textContent = number(stats.strong_count);
-    $("latency").textContent = stats.median_latency_ms == null ? "—" : Math.round(stats.median_latency_ms) + " ms";
-    $("feeds").textContent = number(stats.feed_count) + " / " + number(stats.feeds_configured);
-    $("all-count").textContent = number(stats.total_verified) + " qualified entries";
-    ["http","https","socks4","socks5"].forEach(key => {
-      $(key + "-count").textContent = number(stats.by_protocol?.[key]) + " qualified entries";
-    });
-    $("strong-count").textContent = number(stats.strong_count) + " repeat-tested entries";
     const date = new Date(stats.generated_at);
-    $("updated").textContent = "Last successful refresh: " + (Number.isNaN(date.getTime()) ? stats.generated_at : date.toLocaleString());
     const ageMinutes = (Date.now() - date.getTime()) / 60000;
-    $("snapshot-status").textContent = Number.isFinite(ageMinutes) && ageMinutes <= 90
+    const fresh = Number.isFinite(ageMinutes) && ageMinutes <= 90;
+    proxies = fresh && Array.isArray(payload.proxies) ? payload.proxies : [];
+    $("total").textContent = fresh ? number(stats.total_verified) : "—";
+    $("strong").textContent = fresh ? number(stats.strong_count) : "—";
+    $("latency").textContent = fresh && stats.median_latency_ms != null ? Math.round(stats.median_latency_ms) + " ms" : "—";
+    $("feeds").textContent = fresh ? number(stats.feed_count) + " / " + number(stats.feeds_configured) : "—";
+    $("all-count").textContent = fresh ? number(stats.total_verified) + " qualified entries" : "Unavailable — snapshot stale";
+    ["http","https","socks4","socks5"].forEach(key => {
+      $(key + "-count").textContent = fresh ? number(stats.by_protocol?.[key]) + " qualified entries" : "Snapshot stale";
+    });
+    $("strong-count").textContent = fresh ? number(stats.strong_count) + " repeat-tested entries" : "Snapshot stale";
+    $("updated").textContent = "Last successful refresh: " + (Number.isNaN(date.getTime()) ? stats.generated_at : date.toLocaleString());
+    $("snapshot-status").textContent = fresh
       ? "Snapshot checked " + Math.max(0, Math.round(ageMinutes)) + " minutes ago"
-      : "Snapshot may be stale — last refresh " + (Number.isNaN(date.getTime()) ? "unknown" : date.toLocaleString());
+      : "Snapshot stale — entries and downloads hidden until a fresh check";
+    if (!fresh) {
+      document.querySelectorAll(".download").forEach(link => {
+        link.removeAttribute("href");
+        link.setAttribute("aria-disabled", "true");
+      });
+    }
     render();
   }).catch(error => {
     $("snapshot-status").textContent = error.message;
