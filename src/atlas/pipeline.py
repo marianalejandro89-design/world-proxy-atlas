@@ -107,12 +107,53 @@ def write_json(path: Path, value: Any) -> None:
 
 
 def load_sources() -> list[dict[str, Any]]:
+    """Load and validate the production HTTPS feed catalogue before network access."""
     with SOURCE_CONFIG.open("rb") as stream:
         payload = tomllib.load(stream)
     sources = payload.get("sources", [])
     if not sources:
         raise RuntimeError("No source feeds configured")
-    ids = [item["id"] for item in sources]
+
+    ids: list[str] = []
+    reserved_hosts = {"example.com", "example.org", "example.net", "localhost"}
+    for source in sources:
+        source_id = source.get("id")
+        if not isinstance(source_id, str) or not source_id.strip():
+            raise RuntimeError("Every source must have a non-empty string ID")
+        ids.append(source_id)
+
+        url = source.get("url")
+        if not isinstance(url, str):
+            raise RuntimeError(f"Source {source_id!r} has no valid URL")
+        parsed = urlsplit(url)
+        host = (parsed.hostname or "").lower().rstrip(".")
+        if (
+            parsed.scheme.lower() != "https"
+            or not host
+            or parsed.username
+            or parsed.password
+            or host in reserved_hosts
+            or host.endswith((".example", ".invalid", ".test"))
+            or host.endswith(".localhost")
+        ):
+            raise RuntimeError(
+                f"Source {source_id!r} must use a real public HTTPS feed URL"
+            )
+
+        default_protocol = source.get("default_protocol")
+        if default_protocol is not None and default_protocol not in PROTOCOLS:
+            raise RuntimeError(
+                f"Source {source_id!r} has unsupported default protocol "
+                f"{default_protocol!r}"
+            )
+        overrides = source.get("scheme_overrides", {})
+        if not isinstance(overrides, dict) or any(
+            protocol not in PROTOCOLS for protocol in overrides.values()
+        ):
+            raise RuntimeError(f"Source {source_id!r} has invalid scheme overrides")
+        if not isinstance(source.get("independent", True), bool):
+            raise RuntimeError(f"Source {source_id!r} has invalid independence flag")
+
     if len(ids) != len(set(ids)):
         raise RuntimeError("Source IDs must be unique")
     return sources
@@ -164,6 +205,18 @@ def parse_candidate(line: str, source: dict[str, Any]) -> Candidate | None:
     return Candidate(str(address), port, protocol, (source["id"],), groups)
 
 
+async def read_bounded_body(content: Any, limit: int = MAX_SOURCE_BYTES) -> bytes:
+    """Read the complete response in chunks without ever exceeding the byte cap."""
+    chunks: list[bytes] = []
+    size = 0
+    async for chunk in content.iter_chunked(64 * 1024):
+        size += len(chunk)
+        if size > limit:
+            raise ValueError("source exceeds byte limit")
+        chunks.append(chunk)
+    return b"".join(chunks)
+
+
 async def fetch_source(
     session: aiohttp.ClientSession,
     source: dict[str, Any],
@@ -175,9 +228,9 @@ async def fetch_source(
             try:
                 async with session.get(source["url"], allow_redirects=True) as response:
                     response.raise_for_status()
-                    raw = await response.content.read(MAX_SOURCE_BYTES + 1)
-                    if len(raw) > MAX_SOURCE_BYTES:
-                        raise ValueError("source exceeds byte limit")
+                    if response.url.scheme.lower() != "https":
+                        raise ValueError("source redirected away from HTTPS")
+                    raw = await read_bounded_body(response.content)
                     lines = raw.decode("utf-8-sig").splitlines()
                     if len(lines) > MAX_SOURCE_LINES:
                         raise ValueError("source exceeds line limit")
