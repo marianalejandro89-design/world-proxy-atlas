@@ -5,13 +5,13 @@
     "socks4": 0,
     "socks5": 0
   },
-  "discovered_candidates": 9677,
+  "discovered_candidates": 9108,
   "feed_count": 33,
   "feeds_configured": 33,
   "feeds_fetch_failed": 0,
   "feeds_with_candidates": 33,
   "feeds_without_candidates": 0,
-  "generated_at": "2026-11-12T15:17:33Z",
+  "generated_at": "2026-11-12T15:19:11Z",
   "maximum_latency_ms": 1200,
   "median_latency_ms": null,
   "minimum_quality_score": 60,
@@ -19,19 +19,19 @@
   "newly_verified": 0,
   "public_record_max_age_minutes": 90,
   "publication_hold_reasons": {
-    "latency_over_limit": 50,
-    "repeat_validation_pending": 8
+    "latency_over_limit": 35,
+    "repeat_validation_pending": 9
   },
   "publication_yield_pct": 0.0,
   "quality_definition": "Published entries passed two checks at least 45 minutes apart, scored at least 60/100, completed the HTTPS canary request within 1200 ms, and were last checked within 90 minutes. Entries not sampled in this run are retained only inside that recheck window; sampled failures are removed.",
   "retained_verified": 0,
   "selected_candidates": 1500,
-  "source_candidate_lines": 28503,
+  "source_candidate_lines": 21283,
   "source_count": 10,
   "source_duplicate_lines": 1,
-  "source_parsed_candidate_lines": 16651,
-  "source_rejected_lines": 11852,
-  "source_unique_candidates": 16650,
+  "source_parsed_candidate_lines": 13913,
+  "source_rejected_lines": 7370,
+  "source_unique_candidates": 13912,
   "sources_configured": 10,
   "strong_by_protocol": {
     "http": 0,
@@ -42,17 +42,17 @@
   "strong_count": 0,
   "total_verified": 0,
   "validation_attempted": 1500,
-  "validation_failed": 1442,
+  "validation_failed": 1456,
   "validation_failure_reasons": {
-    "ClientConnectorCertificateError": 38,
-    "ClientConnectorSSLError": 6,
-    "ClientOSError": 20,
-    "ClientProxyConnectionError": 13,
-    "IncompleteReadError": 6,
-    "ProxyConnectionError": 19,
-    "ProxyError": 40,
-    "timeout": 1300
+    "ClientConnectorCertificateError": 16,
+    "ClientConnectorSSLError": 12,
+    "ClientOSError": 7,
+    "ClientProxyConnectionError": 26,
+    "IncompleteReadError": 3,
+    "ProxyConnectionError": 13,
+    "ProxyError": 16,
+    "timeout": 1363
   },
-  "validation_pass_rate_pct": 3.9,
-  "validation_passed": 58
+  "validation_pass_rate_pct": 2.9,
+  "validation_passed": 44
 }
