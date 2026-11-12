@@ -1,4 +1,8 @@
-from atlas.pipeline import Candidate, load_sources, parse_candidate, score, update_records
+from datetime import UTC, datetime, timedelta
+
+from atlas.pipeline import (
+    Candidate, load_sources, parse_candidate, score, select_candidates, update_records,
+)
 
 
 def test_parse_and_normalize_socks5_hostname():
@@ -147,3 +151,27 @@ def test_legacy_success_streaks_are_not_trusted_under_new_policy():
 
     second, _ = update_records(passed, state, "2026-11-11T12:00:00Z")
     assert len(second) == 1
+
+
+
+def test_recently_checked_candidates_are_held_out_until_observation_window():
+    now = datetime(2026, 11, 12, 12, 0, tzinfo=UTC)
+    recent = Candidate("8.8.8.8", 8080, "http")
+    due = Candidate("1.1.1.1", 8080, "http")
+    new = Candidate("9.9.9.9", 8080, "http")
+    state = {
+        recent.key: {
+            "last_seen": (now - timedelta(minutes=10)).isoformat().replace("+00:00", "Z"),
+            "success_streak": 1,
+        },
+        due.key: {
+            "last_seen": (now - timedelta(minutes=60)).isoformat().replace("+00:00", "Z"),
+            "success_streak": 1,
+        },
+    }
+
+    selected = select_candidates([recent, due, new], state, 10, now=now)
+
+    assert recent not in selected
+    assert due in selected
+    assert new in selected
