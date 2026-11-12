@@ -492,9 +492,9 @@ def update_records(
         except (KeyError, TypeError, ValueError):
             continue
         if old_time >= cutoff:
-            stale = dict(value)
-            stale["success_streak"] = 0
-            state[key] = stale
+            # Not selected is not the same as failed. Preserve its repeat-success
+            # streak; only an explicitly attempted failure resets the streak above.
+            state[key] = dict(value)
     return records, state
 
 
