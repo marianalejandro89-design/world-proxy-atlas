@@ -126,3 +126,24 @@ def test_slow_success_does_not_count_toward_fast_quality_streak():
     second_fast, _ = update_records(fast, state, "2026-11-11T12:00:00Z")
     assert len(second_fast) == 1
     assert second_fast[0]["success_streak"] == 2
+
+
+
+def test_legacy_success_streaks_are_not_trusted_under_new_policy():
+    candidate = Candidate("8.8.8.8", 8080, "http", ("feed-a",), ("publisher-a",))
+    previous = {
+        candidate.key: {
+            "last_seen": "2026-11-11T10:00:00Z",
+            "success_streak": 20,
+            "total_passes": 20,
+        }
+    }
+    passed = [{"candidate": candidate, "latency_ms": 400.0, "status_code": 200}]
+
+    first, state = update_records(passed, previous, "2026-11-11T11:00:00Z")
+    assert first == []
+    assert state[candidate.key]["success_streak"] == 1
+    assert state[candidate.key]["quality_policy"] == 2
+
+    second, _ = update_records(passed, state, "2026-11-11T12:00:00Z")
+    assert len(second) == 1
