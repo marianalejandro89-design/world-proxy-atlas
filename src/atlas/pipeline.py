@@ -439,8 +439,9 @@ def publish(
         "feed_count": len(healthy),
         "feeds_configured": len(source_results),
         "quality_definition": (
-            "Published entries passed two checks at least 45 minutes apart, scored at least 60/100, "
-            "completed the HTTPS canary request within 1200 ms, and were checked in this run."
+            "Published entries passed two checks at least 45 minutes apart, "
+            "scored at least 60/100, completed the HTTPS canary request within 1200 ms, "
+            "and were checked in this run."
         ),
         "minimum_quality_score": 60,
         "maximum_latency_ms": 1200,
