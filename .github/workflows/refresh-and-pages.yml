@@ -184,3 +184,14 @@ jobs:
       - name: Deploy Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      # GitHub's artifact metadata can briefly lag behind a successful upload.
+      # Retry once after a short delay instead of leaving the dashboard stale.
+      - name: Retry Pages deployment
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 20
+
+      - name: Deploy Pages (retry)
+        if: steps.deployment.outcome == 'failure'
+        uses: actions/deploy-pages@v4
