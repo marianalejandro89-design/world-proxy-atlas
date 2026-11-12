@@ -174,9 +174,9 @@ flowchart TD
 
 ## ⏱️ Automation and reliability
 
-GitHub Actions is configured to schedule a refresh every five minutes at UTC minutes 2, 7, 12, …, 57. Runs are serialized so an active refresh is not cancelled by a later scheduled event.
+GitHub Actions schedules a full refresh hourly at UTC minute 2. Each run selects the full deduplicated candidate pool from all healthy feeds, with validation batched behind a concurrency ceiling of 160. Runs are serialized so an active refresh is not cancelled by a later scheduled event.
 
-GitHub-hosted schedules are **best-effort**, not a guaranteed five-minute service-level agreement. GitHub can delay or drop scheduled events during periods of high load. The dashboard displays the generated snapshot timestamp and hides stale entries and downloads when the snapshot is older than 90 minutes.
+GitHub-hosted schedules are **best-effort**, not a guaranteed hourly service-level agreement. GitHub can delay or drop scheduled events during periods of high load. The dashboard displays the generated snapshot timestamp and hides stale entries and downloads when the snapshot is older than 90 minutes.
 
 - [Refresh workflow and deployment history](https://github.com/marianalejandro89-design/world-proxy-atlas/actions/workflows/refresh-and-pages.yml)
 - [Continuous integration](https://github.com/marianalejandro89-design/world-proxy-atlas/actions/workflows/ci.yml)

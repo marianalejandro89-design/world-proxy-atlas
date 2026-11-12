@@ -3,7 +3,7 @@ name: Refresh proxy data and deploy dashboard
 
 on:
   schedule:
-    - cron: "2-57/5 * * * *"
+    - cron: "2 * * * *"
   workflow_dispatch:
   push:
     branches: [main]

@@ -15,7 +15,7 @@ https://marianalejandro89-design.github.io/world-proxy-atlas/
 
 ## Scheduled refresh
 
-The refresh workflow is configured for five-minute intervals at UTC minutes 2, 7, 12, …, 57, offset from the start of each hour to reduce contention. It can also be started manually on `main`. GitHub-hosted schedules are best-effort; delayed or missed runs are possible during high load. Runs are serialized rather than cancelling an active refresh, and candidates checked within the last 45 minutes are held out of selection so frequent schedules do not reset the repeat-observation interval.
+The refresh workflow is configured for an hourly run at UTC minute 2. It can also be started manually on `main`. Each run selects the entire deduplicated candidate pool returned by all healthy feeds rather than applying a small sample cap. Validation is processed in batches with a maximum of 160 concurrent checks, and the job timeout is 60 minutes. GitHub-hosted schedules are best-effort; delayed or missed runs are possible during high load. Runs are serialized rather than cancelling an active refresh, and candidates checked within the last 45 minutes are held out of selection so repeat observations remain meaningfully separated.
 
 Each run:
 
