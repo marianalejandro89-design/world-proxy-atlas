@@ -326,8 +326,11 @@ def update_records(
         except (TypeError, ValueError):
             elapsed = timedelta(days=999)
         old_streak = int(prior.get("success_streak", 0))
-        if timedelta(minutes=45) <= elapsed <= timedelta(hours=2, minutes=15):
-            streak = old_streak + 1
+        if item["latency_ms"] > 1200:
+            # Slow successes do not count toward the consecutive high-quality streak.
+            streak = 0
+        elif timedelta(minutes=45) <= elapsed <= timedelta(hours=2, minutes=15):
+            streak = old_streak + 1 if old_streak else 1
         elif elapsed < timedelta(minutes=45) and old_streak:
             streak = old_streak
         else:
