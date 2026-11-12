@@ -20,8 +20,8 @@ An endpoint is included in public TXT, JSON and CSV output only when all of thes
 1. It is a literal public IP address and uses an allowlisted port. Hostnames, credentials and private/reserved addresses are rejected.
 2. A bounded HTTPS request succeeds and returns the expected response marker.
 3. It passes at least two consecutive scheduled validation cycles.
-4. Its measured request latency is no more than 1,500 ms.
-5. Its quality score is at least 55/100.
+4. Its measured request latency is no more than 1,200 ms.
+5. Its quality score is at least 60/100.
 
 The **Strong** tier is stricter: score at least 75, three or more consecutive successful checks, and latency no more than 900 ms.
 
