@@ -17,11 +17,11 @@ main{padding:46px 0 70px}.intro{max-width:720px;margin-bottom:28px}.eyebrow{colo
 .metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:26px 0 38px}.metric,.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px}.metric{padding:17px 18px}.metric span{display:block;color:var(--muted);font-size:12px}.metric strong{display:block;font-size:29px;letter-spacing:-.04em;margin-top:3px}
 .section{margin:34px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:14px}.section h2{font-size:21px;letter-spacing:-.025em;margin:0}.section p{color:var(--muted);margin:3px 0 0;font-size:14px}
 .downloads{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.download{display:block;padding:13px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink)}.download:hover{border-color:#9bbcaf;text-decoration:none}.download b{display:block;font-size:14px}.download small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
-.toolbar{display:flex;gap:10px;margin:15px 0}.toolbar input,.toolbar select{min-height:40px;padding:8px 11px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit}.toolbar input{flex:1;min-width:180px}
+.toolbar{display:grid;grid-template-columns:minmax(190px,2fr) repeat(3,minmax(125px,1fr));gap:10px;margin:15px 0}.filter-field{display:flex;flex-direction:column;gap:5px;min-width:0}.filter-field span,.export-field span{font-size:11px;color:var(--muted);font-weight:750;letter-spacing:.03em}.toolbar input,.toolbar select,.export-field select{width:100%;min-height:40px;padding:8px 11px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit}.directory-summary{font-size:12px;color:var(--muted);margin:-4px 0 10px}.export-panel{padding:16px;border:1px solid var(--line);border-radius:11px;background:var(--surface);margin:0 0 13px}.export-intro{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:13px}.export-intro b{font-size:15px}.export-intro p{margin:3px 0 0;color:var(--muted);font-size:13px}.export-intro span{color:var(--muted);font-size:12px;text-align:right}.export-controls{display:flex;align-items:end;gap:10px;flex-wrap:wrap}.export-field{display:flex;flex-direction:column;gap:5px;min-width:220px;flex:1}.action-button{min-height:40px;padding:8px 13px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font:inherit;font-size:13px;font-weight:700;cursor:pointer}.action-button.primary{background:var(--accent);border-color:var(--accent);color:#fff}.action-button:disabled{opacity:.45;cursor:not-allowed}.download[aria-disabled=true]{opacity:.45;pointer-events:none}
 .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:11px;background:var(--surface)}table{width:100%;border-collapse:collapse;min-width:690px}th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line)}th{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:#fafbfc}td{font-size:13px}tbody tr:last-child td{border-bottom:0}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.tier{display:inline-block;border-radius:5px;padding:3px 7px;background:var(--accent-soft);color:var(--accent);font-size:11px;font-weight:750}.copy{border:1px solid var(--line);background:#fff;border-radius:6px;padding:5px 9px;color:var(--accent);cursor:pointer;font:inherit;font-size:12px}
 .notice{padding:14px 16px;background:#fff9ef;border:1px solid #f0dfc4;border-radius:10px;color:#6c522e;font-size:13px}.notice strong{color:#543c1c}
 footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);font-size:13px}.footer-inner{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-@media(max-width:720px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.downloads{grid-template-columns:repeat(2,minmax(0,1fr))}.nav-links{gap:12px}.shell{padding:0 17px}main{padding-top:34px}}
+@media(max-width:980px){.toolbar{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:720px){.toolbar{grid-template-columns:repeat(2,minmax(0,1fr))}.export-intro{display:block}.export-intro span{display:block;text-align:left;margin-top:7px}.export-field{min-width:100%}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.downloads{grid-template-columns:repeat(2,minmax(0,1fr))}.nav-links{gap:12px}.shell{padding:0 17px}main{padding-top:34px}}
 @media(max-width:430px){.nav-links a:first-child{display:none}.metrics{gap:8px}.metric{padding:14px}.metric strong{font-size:25px}.downloads{gap:8px}}
 </style>
 </head>
@@ -41,7 +41,24 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);f
 <div class="metric"><span>Healthy feeds</span><strong id="feeds">—</strong></div>
 </section>
 <section class="section" id="downloads">
-<div class="section-head"><div><h2>Downloads</h2><p>Current qualified snapshot in common formats.</p></div></div>
+<div class="section-head"><div><h2>Downloads</h2><p>Download the current snapshot or build a custom export from the live directory.</p></div></div>
+<div class="export-panel" aria-label="Advanced export builder">
+  <div class="export-intro">
+    <div><b>Advanced export builder</b><p>Filter the directory, choose a format, then export the matching endpoints and validation metadata.</p></div>
+    <span id="export-summary">Waiting for the latest snapshot…</span>
+  </div>
+  <div class="export-controls">
+    <label class="export-field"><span>Export format</span><select id="export-format">
+      <option value="zip">ZIP bundle · TXT + CSV + JSON + manifest</option>
+      <option value="json">JSON · full validation metadata</option>
+      <option value="csv">CSV · spreadsheet ready</option>
+      <option value="txt">TXT · proxy URLs</option>
+      <option value="ndjson">NDJSON · one record per line</option>
+    </select></label>
+    <button class="action-button primary" id="download-export" type="button" disabled>Download filtered export</button>
+    <button class="action-button" id="copy-export" type="button" disabled>Copy proxy URLs</button>
+  </div>
+</div>
 <div class="downloads">
 <a class="download" href="files/all.txt"><b>All protocols</b><small id="all-count">TXT · protocol included</small></a>
 <a class="download" href="files/http.txt"><b>HTTP</b><small id="http-count">Plain text</small></a>
@@ -56,10 +73,18 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);f
 </section>
 <section class="section" id="directory">
 <div class="section-head"><div><h2>Qualified directory</h2><p>Only proxies passing the current publication policy appear here.</p></div></div>
-<div class="toolbar"><input id="search" type="search" placeholder="Search an IP address…" aria-label="Search IP address"><select id="protocol" aria-label="Filter by protocol"><option value="all">All protocols</option><option value="http">HTTP</option><option value="https">HTTPS proxy</option><option value="socks4">SOCKS4</option><option value="socks5">SOCKS5</option></select></div>
+<div class="toolbar">
+<label class="filter-field"><span>Search endpoint</span><input id="search" type="search" placeholder="IP address or proxy URL…" aria-label="Search endpoint"></label>
+<label class="filter-field"><span>Protocol</span><select id="protocol" aria-label="Filter by protocol"><option value="all">All protocols</option><option value="http">HTTP</option><option value="https">HTTPS proxy</option><option value="socks4">SOCKS4</option><option value="socks5">SOCKS5</option></select></label>
+<label class="filter-field"><span>Quality tier</span><select id="quality-tier" aria-label="Filter by quality tier"><option value="all">All tiers</option><option value="strong">Strong only</option><option value="verified">Verified</option></select></label>
+<label class="filter-field"><span>Max latency · ms</span><input id="max-latency" type="number" min="1" max="1200" step="50" value="1200" aria-label="Maximum latency in milliseconds"></label>
+<label class="filter-field"><span>Minimum quality · /100</span><input id="min-score" type="number" min="0" max="100" step="5" value="60" aria-label="Minimum quality score"></label>
+<label class="filter-field"><span>Minimum successful checks</span><input id="min-streak" type="number" min="2" max="10" step="1" value="2" aria-label="Minimum successful validation checks"></label>
+<label class="filter-field"><span>Sort results</span><select id="sort-by" aria-label="Sort results"><option value="quality">Best quality first</option><option value="fastest">Fastest first</option><option value="address">Endpoint A–Z</option></select></label>
+</div>
+<div class="directory-summary" id="directory-summary">Filters apply to both the directory and custom downloads.</div>
 <div class="table-wrap"><table><thead><tr><th>Endpoint</th><th>Protocol</th><th>Response</th><th>Quality</th><th>Successful checks</th><th></th></tr></thead><tbody id="rows"><tr><td colspan="6">Loading qualified entries…</td></tr></tbody></table></div>
 </section>
-<div class="notice"><strong>Use with care.</strong> Public proxies are operated by unknown third parties. A successful test is only a point-in-time connectivity measurement; it does not establish anonymity, privacy or operator trust. Never send passwords, cookies, API keys, payment details or personal information through a public proxy.</div>
 </main>
 <footer><div class="shell footer-inner"><span>World Proxy Atlas · Open data, independently checked.</span><span id="updated">Snapshot timestamp unavailable</span></div></footer>
 <script>
@@ -67,94 +92,281 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);f
   const $ = id => document.getElementById(id);
   const number = value => new Intl.NumberFormat().format(Number(value || 0));
   let proxies = [];
+  let snapshotGeneratedAt = null;
+  let snapshotFresh = false;
+
+  const numericFilter = (id, fallback, min, max) => {
+    const raw = $(id).value.trim();
+    if (!raw) return fallback;
+    const value = Number(raw);
+    return Number.isFinite(value) ? Math.max(min, Math.min(max, value)) : fallback;
+  };
+
+  const getFilters = () => ({
+    query: $("search").value.trim().toLowerCase(),
+    protocol: $("protocol").value,
+    tier: $("quality-tier").value,
+    maxLatency: numericFilter("max-latency",1200,1,1200),
+    minScore: numericFilter("min-score",60,0,100),
+    minStreak: numericFilter("min-streak",2,2,10),
+    sortBy: $("sort-by").value
+  });
+
+  const getFiltered = () => {
+    const filters = getFilters();
+    const matches = proxies.filter(item => {
+      const address = String(item.address || "");
+      const proxy = String(item.proxy || "");
+      return (filters.protocol === "all" || item.protocol === filters.protocol) &&
+        (filters.tier === "all" || item.quality_tier === filters.tier) &&
+        Number(item.latency_ms) <= filters.maxLatency &&
+        Number(item.quality_score) >= filters.minScore &&
+        Number(item.success_streak) >= filters.minStreak &&
+        (!filters.query || address.toLowerCase().includes(filters.query) || proxy.toLowerCase().includes(filters.query));
+    });
+    if (filters.sortBy === "fastest") {
+      matches.sort((a,b) => Number(a.latency_ms)-Number(b.latency_ms) || Number(b.quality_score)-Number(a.quality_score));
+    } else if (filters.sortBy === "address") {
+      matches.sort((a,b) => String(a.address).localeCompare(String(b.address)));
+    } else {
+      matches.sort((a,b) => Number(b.quality_score)-Number(a.quality_score) || Number(a.latency_ms)-Number(b.latency_ms));
+    }
+    return {matches,filters};
+  };
+
+  const setExportStatus = message => { $("export-summary").textContent = message; };
+
   const render = () => {
-    const query = $("search").value.trim().toLowerCase();
-    const protocol = $("protocol").value;
-    const matches = proxies.filter(item =>
-      (protocol === "all" || item.protocol === protocol) &&
-      (!query || item.address.toLowerCase().includes(query))
-    );
+    const result = getFiltered();
+    const matches = result.matches;
     const body = $("rows");
     body.replaceChildren();
+    const visibleCount = Math.min(matches.length,200);
+    $("directory-summary").textContent = "Showing " + number(visibleCount) + " of " + number(matches.length) +
+      " matching qualified endpoints. Filters also control custom downloads.";
+    setExportStatus(snapshotFresh ? number(matches.length) + " entries match the current filters." :
+      "Downloads are unavailable until a fresh snapshot is loaded.");
+    $("download-export").disabled = !snapshotFresh || matches.length === 0;
+    $("copy-export").disabled = !snapshotFresh || matches.length === 0;
+
     if (!matches.length) {
       const row = document.createElement("tr");
       const cell = document.createElement("td");
       cell.colSpan = 6;
-      cell.textContent = proxies.length ? "No entries match this filter." : "No proxies currently meet the publication threshold. The next scheduled run will check again.";
-      row.append(cell); body.append(row); return;
+      cell.textContent = proxies.length
+        ? "No entries match these filters. Adjust the filters to broaden the results."
+        : "No proxies currently meet the publication threshold. The next scheduled run will check again.";
+      row.append(cell);
+      body.append(row);
+      return;
     }
-    matches.slice(0, 200).forEach(item => {
+
+    matches.slice(0,200).forEach(item => {
       const row = document.createElement("tr");
       const values = [
-        [item.address, "mono"], [item.protocol.toUpperCase(), ""],
-        [Math.round(item.latency_ms) + " ms", ""],
-        [item.quality_score + "/100", ""],
-        [item.success_streak + " consecutive", ""]
+        [item.address,"mono"],[String(item.protocol || "").toUpperCase(),""],
+        [Math.round(Number(item.latency_ms)) + " ms",""],
+        [item.quality_score + "/100",""],[item.success_streak + " consecutive",""]
       ];
-      values.forEach(([value, className], index) => {
+      values.forEach(([value,className],index) => {
         const cell = document.createElement("td");
         cell.textContent = value;
         if (className) cell.className = className;
         if (index === 3) {
           const tier = document.createElement("span");
-          tier.className = "tier"; tier.textContent = item.quality_tier;
+          tier.className = "tier";
+          tier.textContent = item.quality_tier || "verified";
           cell.replaceChildren(tier);
         }
         row.append(cell);
       });
       const action = document.createElement("td");
       const button = document.createElement("button");
-      button.className = "copy"; button.type = "button"; button.textContent = "Copy";
-      button.addEventListener("click", async () => {
+      button.className = "copy";
+      button.type = "button";
+      button.textContent = "Copy";
+      button.addEventListener("click",async () => {
         try { await navigator.clipboard.writeText(item.proxy); button.textContent = "Copied"; }
         catch { button.textContent = "Copy unavailable"; }
       });
-      action.append(button); row.append(action); body.append(row);
+      action.append(button);
+      row.append(action);
+      body.append(row);
     });
   };
-  $("search").addEventListener("input", render);
-  $("protocol").addEventListener("change", render);
-  Promise.all([
-    fetch("data/stats.json", {cache:"no-store"}),
-    fetch("data/proxies.json", {cache:"no-store"})
-  ]).then(async ([statsResponse, proxyResponse]) => {
-    if (!statsResponse.ok || !proxyResponse.ok) throw new Error("Snapshot is not available yet.");
-    const stats = await statsResponse.json();
-    const payload = await proxyResponse.json();
-    const date = new Date(stats.generated_at);
-    const ageMinutes = (Date.now() - date.getTime()) / 60000;
-    const fresh = Number.isFinite(ageMinutes) && ageMinutes <= 90;
-    proxies = fresh && Array.isArray(payload.proxies) ? payload.proxies : [];
-    $("total").textContent = fresh ? number(stats.total_verified) : "—";
-    $("strong").textContent = fresh ? number(stats.strong_count) : "—";
-    $("latency").textContent = fresh && stats.median_latency_ms != null ? Math.round(stats.median_latency_ms) + " ms" : "—";
-    $("feeds").textContent = fresh ? number(stats.feed_count) + " / " + number(stats.feeds_configured) : "—";
-    $("all-count").textContent = fresh ? number(stats.total_verified) + " qualified entries" : "Unavailable — snapshot stale";
-    ["http","https","socks4","socks5"].forEach(key => {
-      $(key + "-count").textContent = fresh ? number(stats.by_protocol?.[key]) + " qualified entries" : "Snapshot stale";
+
+  const csvCell = value => '"' + String(value == null ? "" : value).replace(/"/g,'""') + '"';
+  const toCsv = items => {
+    const fields = ["proxy","protocol","ip","port","latency_ms","quality_score","quality_tier","success_streak","source_count","last_checked_at"];
+    return [fields.join(","),...items.map(item => fields.map(field => csvCell(item[field])).join(","))].join("\r\n") + "\r\n";
+  };
+  const toText = items => items.map(item => item.proxy || (item.protocol + "://" + item.address)).join("\n") + (items.length ? "\n" : "");
+  const toJson = (items,filters) => JSON.stringify({
+    generated_at:snapshotGeneratedAt,count:items.length,filters:filters,proxies:items
+  },null,2) + "\n";
+
+  const crcTable = (() => {
+    const table = new Uint32Array(256);
+    for (let n=0;n<256;n++) {
+      let value=n;
+      for (let k=0;k<8;k++) value = value & 1 ? (0xedb88320 ^ (value >>> 1)) : (value >>> 1);
+      table[n]=value >>> 0;
+    }
+    return table;
+  })();
+  const crc32 = bytes => {
+    let crc=0xffffffff;
+    for (let i=0;i<bytes.length;i++) crc=crcTable[(crc ^ bytes[i]) & 0xff] ^ (crc >>> 8);
+    return (crc ^ 0xffffffff) >>> 0;
+  };
+
+  const makeZip = files => {
+    const encoder = new TextEncoder();
+    const localParts=[];
+    const centralParts=[];
+    let offset=0;
+    files.forEach(file => {
+      const name=encoder.encode(file.name);
+      const data=encoder.encode(file.content);
+      const checksum=crc32(data);
+      const local=new Uint8Array(30+name.length+data.length);
+      const lv=new DataView(local.buffer);
+      lv.setUint32(0,0x04034b50,true);
+      lv.setUint16(4,20,true); lv.setUint16(6,0x0800,true); lv.setUint16(8,0,true);
+      lv.setUint16(10,0,true); lv.setUint16(12,0x21,true);
+      lv.setUint32(14,checksum,true); lv.setUint32(18,data.length,true); lv.setUint32(22,data.length,true);
+      lv.setUint16(26,name.length,true); lv.setUint16(28,0,true);
+      local.set(name,30); local.set(data,30+name.length);
+      localParts.push(local);
+
+      const central=new Uint8Array(46+name.length);
+      const cv=new DataView(central.buffer);
+      cv.setUint32(0,0x02014b50,true);
+      cv.setUint16(4,20,true); cv.setUint16(6,20,true); cv.setUint16(8,0x0800,true);
+      cv.setUint16(10,0,true); cv.setUint16(12,0,true); cv.setUint16(14,0x21,true);
+      cv.setUint32(16,checksum,true); cv.setUint32(20,data.length,true); cv.setUint32(24,data.length,true);
+      cv.setUint16(28,name.length,true); cv.setUint16(30,0,true); cv.setUint16(32,0,true);
+      cv.setUint16(34,0,true); cv.setUint16(36,0,true); cv.setUint32(38,0,true); cv.setUint32(42,offset,true);
+      central.set(name,46);
+      centralParts.push(central);
+      offset += local.length;
     });
-    $("strong-count").textContent = fresh ? number(stats.strong_count) + " repeat-tested entries" : "Snapshot stale";
-    $("updated").textContent = "Last successful refresh: " + (Number.isNaN(date.getTime()) ? stats.generated_at : date.toLocaleString());
-    $("snapshot-status").textContent = fresh
-      ? "Snapshot checked " + Math.max(0, Math.round(ageMinutes)) + " minutes ago"
+    const centralSize=centralParts.reduce((sum,part)=>sum+part.length,0);
+    const end=new Uint8Array(22);
+    const ev=new DataView(end.buffer);
+    ev.setUint32(0,0x06054b50,true); ev.setUint16(4,0,true); ev.setUint16(6,0,true);
+    ev.setUint16(8,files.length,true); ev.setUint16(10,files.length,true);
+    ev.setUint32(12,centralSize,true); ev.setUint32(16,offset,true); ev.setUint16(20,0,true);
+    return new Blob([...localParts,...centralParts,end],{type:"application/zip"});
+  };
+
+  const saveBlob = (blob,filename) => {
+    const url=URL.createObjectURL(blob);
+    const link=document.createElement("a");
+    link.href=url; link.download=filename;
+    document.body.append(link); link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(url),1500);
+  };
+  const filenameStamp = () => {
+    const date=new Date(snapshotGeneratedAt || Date.now());
+    return Number.isNaN(date.getTime()) ? "latest" : date.toISOString().replace(/[:.]/g,"-");
+  };
+
+  const downloadExport = () => {
+    const result=getFiltered();
+    const items=result.matches;
+    if (!snapshotFresh || !items.length) return;
+    const filters=result.filters;
+    const json=toJson(items,filters);
+    const csv=toCsv(items);
+    const txt=toText(items);
+    const format=$("export-format").value;
+    const base="world-proxy-atlas-" + filenameStamp() + "-filtered";
+    if (format === "zip") {
+      const manifest=JSON.stringify({
+        name:"World Proxy Atlas filtered export",generated_at:snapshotGeneratedAt,count:items.length,
+        filters:filters,files:["proxies.txt","proxies.csv","proxies.json"]
+      },null,2) + "\n";
+      const readme="World Proxy Atlas filtered export\nSnapshot: " + snapshotGeneratedAt +
+        "\nEndpoints: " + items.length +
+        "\nThe archive contains filtered endpoints in TXT, CSV and JSON formats, plus manifest.json.\n";
+      saveBlob(makeZip([
+        {name:"proxies.txt",content:txt},{name:"proxies.csv",content:csv},
+        {name:"proxies.json",content:json},{name:"manifest.json",content:manifest},
+        {name:"README.txt",content:readme}
+      ]),base + ".zip");
+    } else if (format === "json") {
+      saveBlob(new Blob([json],{type:"application/json;charset=utf-8"}),base + ".json");
+    } else if (format === "csv") {
+      saveBlob(new Blob(["\ufeff",csv],{type:"text/csv;charset=utf-8"}),base + ".csv");
+    } else if (format === "ndjson") {
+      const content=items.map(item => JSON.stringify(item)).join("\n") + "\n";
+      saveBlob(new Blob([content],{type:"application/x-ndjson;charset=utf-8"}),base + ".ndjson");
+    } else {
+      saveBlob(new Blob([txt],{type:"text/plain;charset=utf-8"}),base + ".txt");
+    }
+    setExportStatus("Prepared " + number(items.length) + " entries as " + format.toUpperCase() + ".");
+  };
+
+  const copyExport = async () => {
+    const items=getFiltered().matches;
+    if (!snapshotFresh || !items.length) return;
+    try {
+      await navigator.clipboard.writeText(toText(items));
+      setExportStatus("Copied " + number(items.length) + " proxy URLs to the clipboard.");
+    } catch {
+      setExportStatus("Clipboard access is unavailable in this browser. Use Download filtered export instead.");
+    }
+  };
+
+  ["search","protocol","quality-tier","max-latency","min-score","min-streak","sort-by"].forEach(id => {
+    $(id).addEventListener(id === "search" || id.startsWith("min-") || id === "max-latency" ? "input" : "change",render);
+  });
+  $("download-export").addEventListener("click",downloadExport);
+  $("copy-export").addEventListener("click",copyExport);
+
+  Promise.all([
+    fetch("data/stats.json",{cache:"no-store"}),
+    fetch("data/proxies.json",{cache:"no-store"})
+  ]).then(async ([statsResponse,proxyResponse]) => {
+    if (!statsResponse.ok || !proxyResponse.ok) throw new Error("Snapshot is not available yet.");
+    const stats=await statsResponse.json();
+    const payload=await proxyResponse.json();
+    const date=new Date(stats.generated_at);
+    const ageMinutes=(Date.now()-date.getTime())/60000;
+    snapshotFresh=Number.isFinite(ageMinutes) && ageMinutes >= -5 && ageMinutes <= 90 &&
+      payload.generated_at === stats.generated_at;
+    snapshotGeneratedAt=stats.generated_at;
+    proxies=snapshotFresh && Array.isArray(payload.proxies) ? payload.proxies : [];
+    $("total").textContent=snapshotFresh ? number(stats.total_verified) : "—";
+    $("strong").textContent=snapshotFresh ? number(stats.strong_count) : "—";
+    $("latency").textContent=snapshotFresh && stats.median_latency_ms != null ? Math.round(stats.median_latency_ms) + " ms" : "—";
+    $("feeds").textContent=snapshotFresh ? number(stats.feed_count) + " / " + number(stats.feeds_configured) : "—";
+    $("all-count").textContent=snapshotFresh ? number(stats.total_verified) + " qualified entries" : "Unavailable — snapshot stale";
+    ["http","https","socks4","socks5"].forEach(key => {
+      $(key + "-count").textContent=snapshotFresh ? number(stats.by_protocol && stats.by_protocol[key]) + " qualified entries" : "Snapshot stale";
+    });
+    $("strong-count").textContent=snapshotFresh ? number(stats.strong_count) + " repeat-tested entries" : "Snapshot stale";
+    $("updated").textContent="Last successful refresh: " + (Number.isNaN(date.getTime()) ? stats.generated_at : date.toLocaleString());
+    $("snapshot-status").textContent=snapshotFresh
+      ? "Snapshot checked " + Math.max(0,Math.round(ageMinutes)) + " minutes ago"
       : "Snapshot stale — entries and downloads hidden until a fresh check";
-    if (!fresh) {
+    if (!snapshotFresh) {
       document.querySelectorAll(".download").forEach(link => {
         link.removeAttribute("href");
-        link.setAttribute("aria-disabled", "true");
+        link.setAttribute("aria-disabled","true");
       });
     }
     render();
   }).catch(error => {
-    $("snapshot-status").textContent = error.message;
+    snapshotFresh=false;
+    proxies=[];
+    $("snapshot-status").textContent=error.message;
     document.querySelectorAll(".download").forEach(link => {
       link.removeAttribute("href");
-      link.setAttribute("aria-disabled", "true");
+      link.setAttribute("aria-disabled","true");
     });
-    $("rows").replaceChildren();
-    const row = document.createElement("tr"), cell = document.createElement("td");
-    cell.colSpan = 6; cell.textContent = error.message;
-    row.append(cell); $("rows").append(row);
+    render();
   });
 })();
 </script>
