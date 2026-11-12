@@ -60,6 +60,7 @@ def test_feed_merge_reports_parse_rejections_duplicates_and_empty_feeds():
     feeds = [
         {
             "id": "feed-a", "group": "publisher-a", "status": "ok",
+            "default_protocol": "http",
             "lines": ["8.8.8.8:8080", "8.8.8.8:8080", "not-a-proxy"],
         },
         {
