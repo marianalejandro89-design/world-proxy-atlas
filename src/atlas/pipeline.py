@@ -325,7 +325,11 @@ def update_records(
             )
         except (TypeError, ValueError):
             elapsed = timedelta(days=999)
-        old_streak = int(prior.get("success_streak", 0))
+        # Ignore pre-policy streaks: older versions counted slow successes.
+        old_streak = (
+            int(prior.get("success_streak", 0))
+            if prior.get("quality_policy") == 2 else 0
+        )
         if item["latency_ms"] > 1200:
             # Slow successes do not count toward the consecutive high-quality streak.
             streak = 0
@@ -352,6 +356,7 @@ def update_records(
                 "sources": list(candidate.sources), "last_checked_at": checked_at,
             })
         state[candidate.key] = {
+            "quality_policy": 2,
             "first_seen": prior.get("first_seen", checked_at),
             "last_seen": checked_at,
             "success_streak": streak,
