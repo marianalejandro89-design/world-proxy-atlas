@@ -1,5 +1,234 @@
 {
-  "count": 0,
-  "generated_at": "2026-11-12T01:51:47Z",
-  "proxies": []
+  "count": 11,
+  "generated_at": "2026-11-12T02:37:50Z",
+  "proxies": [
+    {
+      "address": "209.97.150.167:8080",
+      "ip": "209.97.150.167",
+      "last_checked_at": "2026-11-12T02:37:50Z",
+      "latency_ms": 293.3,
+      "port": 8080,
+      "protocol": "http",
+      "proxy": "http://209.97.150.167:8080",
+      "quality_score": 88,
+      "quality_tier": "verified",
+      "source_count": 2,
+      "sources": [
+        "hproxy-http",
+        "proxio-http",
+        "proxywing-all",
+        "stormsia-working"
+      ],
+      "status": "verified",
+      "status_code": 200,
+      "success_streak": 2,
+      "supports_https": true
+    },
+    {
+      "address": "159.203.61.169:8080",
+      "ip": "159.203.61.169",
+      "last_checked_at": "2026-11-12T02:37:50Z",
+      "latency_ms": 340.3,
+      "port": 8080,
+      "protocol": "http",
+      "proxy": "http://159.203.61.169:8080",
+      "quality_score": 87,
+      "quality_tier": "verified",
+      "source_count": 2,
+      "sources": [
+        "hproxy-http",
+        "proxio-http",
+        "proxywing-all"
+      ],
+      "status": "verified",
+      "status_code": 200,
+      "success_streak": 2,
+      "supports_https": true
+    },
+    {
+      "address": "161.35.70.249:8080",
+      "ip": "161.35.70.249",
+      "last_checked_at": "2026-11-12T02:37:50Z",
+      "latency_ms": 617.7,
+      "port": 8080,
+      "protocol": "http",
+      "proxy": "http://161.35.70.249:8080",
+      "quality_score": 82,
+      "quality_tier": "verified",
+      "source_count": 2,
+      "sources": [
+        "hproxy-http",
+        "proxio-http"
+      ],
+      "status": "verified",
+      "status_code": 200,
+      "success_streak": 2,
+      "supports_https": true
+    },
+    {
+      "address": "38.180.18.103:3128",
+      "ip": "38.180.18.103",
+      "last_checked_at": "2026-11-12T02:37:50Z",
+      "latency_ms": 624.8,
+      "port": 3128,
+      "protocol": "http",
+      "proxy": "http://38.180.18.103:3128",
+      "quality_score": 82,
+      "quality_tier": "verified",
+      "source_count": 2,
+      "sources": [
+        "litport-live",
+        "proxmint-all",
+        "proxynest-http",
+        "proxyscraper-api-http",
+        "proxyscraper-api-http-stable"
+      ],
+      "status": "verified",
+      "status_code": 200,
+      "success_streak": 2,
+      "supports_https": true
+    },
+    {
+      "address": "217.14.192.183:1080",
+      "ip": "217.14.192.183",
+      "last_checked_at": "2026-11-12T02:37:50Z",
+      "latency_ms": 1067.3,
+      "port": 1080,
+      "protocol": "socks4",
+      "proxy": "socks4://217.14.192.183:1080",
+      "quality_score": 77,
+      "quality_tier": "verified",
+      "source_count": 6,
+      "sources": [
+        "hproxy-api-socks4",
+        "hproxy-socks4",
+        "litport-live",
+        "maximilianfeix-all",
+        "monosans-all",
+        "proxifly-all",
+        "proxio-socks4"
+      ],
+      "status": "verified",
+      "status_code": 200,
+      "success_streak": 2,
+      "supports_https": true
+    },
+    {
+      "address": "146.190.80.158:9090",
+      "ip": "146.190.80.158",
+      "last_checked_at": "2026-11-12T02:37:50Z",
+      "latency_ms": 705.3,
+      "port": 9090,
+      "protocol": "http",
+      "proxy": "http://146.190.80.158:9090",
+      "quality_score": 76,
+      "quality_tier": "verified",
+      "source_count": 1,
+      "sources": [
+        "proxmint-all"
+      ],
+      "status": "verified",
+      "status_code": 200,
+      "success_streak": 2,
+      "supports_https": true
+    },
+    {
+      "address": "139.59.1.14:1080",
+      "ip": "139.59.1.14",
+      "last_checked_at": "2026-11-12T02:37:50Z",
+      "latency_ms": 1176.2,
+      "port": 1080,
+      "protocol": "socks5",
+      "proxy": "socks5://139.59.1.14:1080",
+      "quality_score": 74,
+      "quality_tier": "verified",
+      "source_count": 4,
+      "sources": [
+        "hproxy-socks5",
+        "proxy-free-socks5",
+        "proxyscrape-all",
+        "thordata-socks5"
+      ],
+      "status": "verified",
+      "status_code": 200,
+      "success_streak": 2,
+      "supports_https": true
+    },
+    {
+      "address": "186.225.132.10:4145",
+      "ip": "186.225.132.10",
+      "last_checked_at": "2026-11-12T02:37:50Z",
+      "latency_ms": 1002.7,
+      "port": 4145,
+      "protocol": "socks4",
+      "proxy": "socks4://186.225.132.10:4145",
+      "quality_score": 70,
+      "quality_tier": "verified",
+      "source_count": 1,
+      "sources": [
+        "maximilianfeix-all"
+      ],
+      "status": "verified",
+      "status_code": 200,
+      "success_streak": 2,
+      "supports_https": true
+    },
+    {
+      "address": "103.133.26.73:3128",
+      "ip": "103.133.26.73",
+      "last_checked_at": "2026-11-12T02:37:50Z",
+      "latency_ms": 1119.5,
+      "port": 3128,
+      "protocol": "http",
+      "proxy": "http://103.133.26.73:3128",
+      "quality_score": 68,
+      "quality_tier": "verified",
+      "source_count": 1,
+      "sources": [
+        "maximilianfeix-all"
+      ],
+      "status": "verified",
+      "status_code": 200,
+      "success_streak": 2,
+      "supports_https": true
+    },
+    {
+      "address": "109.160.97.49:4145",
+      "ip": "109.160.97.49",
+      "last_checked_at": "2026-11-12T02:37:50Z",
+      "latency_ms": 1136.8,
+      "port": 4145,
+      "protocol": "socks4",
+      "proxy": "socks4://109.160.97.49:4145",
+      "quality_score": 67,
+      "quality_tier": "verified",
+      "source_count": 1,
+      "sources": [
+        "proxio-socks4"
+      ],
+      "status": "verified",
+      "status_code": 200,
+      "success_streak": 2,
+      "supports_https": true
+    },
+    {
+      "address": "103.10.231.189:8080",
+      "ip": "103.10.231.189",
+      "last_checked_at": "2026-11-12T02:37:50Z",
+      "latency_ms": 1068.5,
+      "port": 8080,
+      "protocol": "http",
+      "proxy": "http://103.10.231.189:8080",
+      "quality_score": 65,
+      "quality_tier": "verified",
+      "source_count": 0,
+      "sources": [
+        "proxynest-http"
+      ],
+      "status": "verified",
+      "status_code": 200,
+      "success_streak": 2,
+      "supports_https": true
+    }
+  ]
 }
