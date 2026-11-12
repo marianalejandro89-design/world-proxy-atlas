@@ -650,7 +650,7 @@ def update_records(
             # streak; only an explicitly attempted failure resets the streak above.
             state[key] = {
                 field: value[field]
-                for field in ("quality_policy", "last_seen", "last_attempt_at", "success_streak", "sources", "source_groups")
+                for field in (\n                    "quality_policy", "last_seen", "last_attempt_at", "success_streak",\n                    "sources", "source_groups",\n                )
                 if field in value
             }
     return records, state
@@ -922,7 +922,9 @@ def main() -> None:
     print(
         f"Feeds fetched: {healthy}/{len(sources)}; "
         f"feeds with candidates: {feeds_with_candidates}/{healthy}; "
-        f"unique candidates: {len(discovered)}; pending rechecks recovered: {len(pending_rechecks)}; selected: {len(candidates)}"
+        f"unique candidates: {len(discovered)}; "
+        f"pending rechecks recovered: {len(pending_rechecks)}; "
+        f"selected: {len(candidates)}"
     )
     passed, failure_reasons = asyncio.run(validate_all(candidates, concurrency))
     checked_at = now_iso()
