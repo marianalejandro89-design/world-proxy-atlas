@@ -1,75 +1,62 @@
 # World Proxy Atlas
 
-**Global proxy discovery · Independent validation · Hourly refresh · Open data**
+**Public proxy discovery · Independent validation · Quality-gated publishing**
 
 [![Refresh + deploy](https://github.com/marianalejandro89-design/world-proxy-atlas/actions/workflows/refresh-and-pages.yml/badge.svg)](https://github.com/marianalejandro89-design/world-proxy-atlas/actions/workflows/refresh-and-pages.yml)
 [![CI](https://github.com/marianalejandro89-design/world-proxy-atlas/actions/workflows/ci.yml/badge.svg)](https://github.com/marianalejandro89-design/world-proxy-atlas/actions/workflows/ci.yml)
 
-World Proxy Atlas collects candidates from public, machine-readable feeds, independently tests them, and publishes protocol-separated TXT lists plus JSON/CSV metadata. Public feed entries are untrusted candidates, never assumed to be alive.
+World Proxy Atlas collects candidates from public machine-readable feeds, validates them independently, and publishes only endpoints that meet the current quality policy. Feed entries are untrusted candidates and are never treated as working proxies without a successful check.
 
-- Protocols: HTTP, HTTPS-to-proxy, SOCKS4 and SOCKS5. HTTP CONNECT-capable endpoints are reported as HTTP, not mislabeled as TLS-to-proxy HTTPS.
-- Quality: public-IP validation, bounded connection checks, latency scoring, repeat-success streaks and independent-source attribution.
-- Automation: hourly GitHub Actions schedule, manual workflow trigger, tests, protected snapshot publishing and GitHub Pages deployment.
-- No paid services or API keys required. Free-tier quotas, schedule delays and runner availability still apply.
+## Public dashboard
 
-## Website
+https://marianalejandro89-design.github.io/world-proxy-atlas/
 
-One-time repository setting required: open **Settings → Pages → Build and deployment**, set **Source** to **GitHub Actions**, and save. The default `GITHUB_TOKEN` cannot enable Pages for a repository that has never had Pages configured. After this one-time switch, hourly publishing and deployment are automatic.
+GitHub Pages must be configured once under **Settings → Pages → Build and deployment → Source → GitHub Actions**. After that, the scheduled workflow builds and deploys the dashboard.
 
-Website URL after the first successful Pages deployment: https://marianalejandro89-design.github.io/world-proxy-atlas/
+## Publication policy
+
+An endpoint is included in public TXT, JSON and CSV output only when all of these conditions are met:
+
+1. It is a literal public IP address and uses an allowlisted port. Hostnames, credentials and private/reserved addresses are rejected.
+2. A bounded HTTPS request succeeds and returns the expected response marker.
+3. It passes at least two consecutive scheduled validation cycles.
+4. Its measured request latency is no more than 1,500 ms.
+5. Its quality score is at least 55/100.
+
+The **Strong** tier is stricter: score at least 75, three or more consecutive successful checks, and latency no more than 900 ms.
+
+Failed, slow, low-scoring, first-seen and stale endpoints are excluded from the published snapshot. When feeds are unavailable or no endpoint qualifies, the current public snapshot is emptied rather than retaining old entries. The internal validation state is retained for at most 48 hours to support repeat checks.
+
+These checks reduce stale and unreliable entries; they cannot guarantee that a proxy remains online after publication. Public proxy operators are untrusted. A successful connectivity test is not proof of anonymity, privacy, security or operator integrity.
 
 ## Downloads
 
-Generated files are committed under proxies/ and mirrored under site/files/:
+All files are generated from the same quality-gated snapshot:
 
-| File | Purpose |
+| File | Description |
 |---|---|
-| proxies/all.txt | All verified endpoints with protocol scheme |
-| proxies/http.txt, https.txt, socks4.txt, socks5.txt | Protocol-specific lists |
-| proxies/http-connect.txt | HTTP endpoints that passed an HTTPS destination test |
-| proxies/strong.txt and proxies/strong/ | Repeat-tested strong tier, split by protocol |
-| proxies/proxies.json and proxies/proxies.csv | Full metadata and spreadsheet export |
-| data/stats.json | Latest run metrics |
-| data/sources.json | Feed health and attribution |
+| `proxies/all.txt` | All qualified endpoints with protocol schemes |
+| `proxies/http.txt`, `https.txt`, `socks4.txt`, `socks5.txt` | Protocol-specific lists |
+| `proxies/http-connect.txt` | HTTP proxies that passed an HTTPS destination test |
+| `proxies/strong.txt` and `proxies/strong/` | Strong-tier endpoints |
+| `proxies/proxies.json`, `proxies/proxies.csv` | Full metadata and spreadsheet export |
+| `data/stats.json` | Current snapshot metrics |
+| `data/sources.json` | Feed health and source attribution |
 
-A proxy may go offline immediately after validation. A successful check does not prove operator trustworthiness, anonymity, privacy or future uptime. Do not transmit credentials, cookies, API keys, payment data or personal information through public proxies.
+HTTP CONNECT-capable proxies are labelled HTTP, not TLS-to-proxy HTTPS. The HTTPS protocol category is reserved for endpoints where TLS is negotiated with the proxy itself.
 
-## Collection catalogue
+## Automation and checks
 
-The catalogue contains 33 endpoints across 14 publisher groups: 10 independently counted publishers plus four non-independent aggregator groups. Multiple protocol files from one publisher count as one group. See config/sources.toml and docs/SOURCE_DISCOVERY.md.
+GitHub Actions runs the collection and deployment workflow at minute 17 of every hour (UTC). You can also start it manually from **Actions → Refresh proxy data and deploy dashboard → Run workflow**. Schedules are best-effort and may be delayed by GitHub.
 
-Sources were discovered using English, Simplified Chinese, Russian, Spanish, Portuguese, Indonesian, German, French, Japanese and Korean search terms. Feeds are enabled only when endpoint, format, update signal and protocol meaning can be documented.
+Each refresh runs unit tests, collects and validates candidates, checks the generated snapshot against the publication policy, commits the generated data, and deploys the static site. CI also runs the test suite and Ruff lint checks on changes.
 
-## Quality policy
+## Sources and responsible use
 
-1. Fetch sources over HTTPS with byte and line limits.
-2. Parse literal IP endpoints only. Reject credentials, hostnames, private/reserved ranges and non-allowlisted ports.
-3. Deduplicate by protocol, IP and port, preserving source attribution.
-4. Validate with one bounded HTTPS request to a fixed canary URL and verify its expected response.
-5. Score latency, repeat success and independent source diversity.
-6. Promote an endpoint to strong only after repeat success, a score threshold and a latency ceiling.
-7. Never replace a known-good snapshot when every source fetch fails or a run validates no candidates despite an existing inventory.
+The catalogue contains public text/API feeds across multiple publishers and languages. Sources are grouped by publisher so protocol-specific mirrors do not inflate independent-source counts. See `config/sources.toml` and `docs/SOURCE_DISCOVERY.md` for the current source register and protocol notes.
 
-The score is a ranking heuristic, not a security grade. Country, ISP and anonymity are not inferred without trustworthy measurement.
+Use public proxies only where permitted by applicable law, service terms and network policies. Do not use this project to evade access controls, bans or rate limits. Never transmit passwords, cookies, API keys, payment details or personal information through public proxies. Upstream data remains subject to each publisher's terms; the MIT license applies to this repository's own code.
 
-## Automation
+## Security
 
-GitHub Actions runs at minute 17 of every hour (UTC) and can be started from Actions → Refresh proxy data & deploy dashboard → Run workflow. Scheduled workflows are best-effort and can be delayed by GitHub; they are not a 100% uptime guarantee.
-
-## Local development
-
-Python 3.11 or newer:
-
-    python -m venv .venv
-    source .venv/bin/activate
-    python -m pip install -e ".[test]"
-    python -m pytest -q
-    python -m atlas.pipeline
-
-## Replit
-
-The repository includes .replit and replit.nix for previewing the static dashboard. Replit is a development preview only; GitHub Actions is the scheduled runner.
-
-## Responsible use and source terms
-
-Use public proxies only where permitted by applicable law, service terms and network policies. Do not use this project to evade access controls, bans or rate limits. The MIT license applies only to this project's own code; upstream data remains subject to each publisher's terms. See SECURITY.md, CONTRIBUTING.md and LICENSE.
+The collector applies response-size, line-count, timeout and concurrency limits. It validates literal public IP endpoints and rejects credentials, hostnames, private/reserved ranges and non-allowlisted ports. See [SECURITY.md](SECURITY.md) for the security policy and [CONTRIBUTING.md](CONTRIBUTING.md) for source catalogue changes.
