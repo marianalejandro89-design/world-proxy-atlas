@@ -337,7 +337,7 @@ def update_records(
         strong = quality >= 75 and streak >= 3 and item["latency_ms"] <= 900
         # Public output is fail-closed: first-time, slow and low-scoring endpoints
         # remain private to the short-lived state until they qualify.
-        if streak >= 2 and item["latency_ms"] <= 1500 and quality >= 55:
+        if streak >= 2 and item["latency_ms"] <= 1200 and quality >= 60:
             records.append({
                 "ip": candidate.ip, "port": candidate.port, "address": candidate.address,
                 "protocol": candidate.protocol, "proxy": candidate.proxy,
@@ -422,11 +422,11 @@ def publish(
         "feed_count": len(healthy),
         "feeds_configured": len(source_results),
         "quality_definition": (
-            "Published entries passed two consecutive hourly checks, scored at least 55/100, "
-            "completed the HTTPS canary request within 1500 ms, and were checked in this run."
+            "Published entries passed two consecutive hourly checks, scored at least 60/100, "
+            "completed the HTTPS canary request within 1200 ms, and were checked in this run."
         ),
         "minimum_quality_score": 55,
-        "maximum_latency_ms": 1500,
+        "maximum_latency_ms": 1200,
         "minimum_success_streak": 2,
     }
     payload = {"generated_at": checked_at, "count": len(records), "proxies": records}
