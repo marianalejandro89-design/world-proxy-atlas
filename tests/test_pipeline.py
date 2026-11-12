@@ -180,3 +180,20 @@ def test_recently_checked_candidates_are_held_out_until_observation_window():
     assert recent not in selected
     assert due in selected
     assert new in selected
+
+
+
+def test_failed_candidates_are_not_retested_every_five_minutes():
+    now = datetime(2026, 11, 12, 12, 0, tzinfo=UTC)
+    failed = Candidate("8.8.8.8", 8080, "http")
+    _, state = update_records([], {}, "2026-11-12T12:00:00Z", attempted=[failed])
+
+    selected_soon = select_candidates(
+        [failed], state, 10, now=now + timedelta(minutes=10)
+    )
+    selected_later = select_candidates(
+        [failed], state, 10, now=now + timedelta(minutes=50)
+    )
+
+    assert failed not in selected_soon
+    assert failed in selected_later
