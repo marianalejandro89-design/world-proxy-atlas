@@ -18,7 +18,7 @@ main{padding:46px 0 70px}.intro{max-width:720px;margin-bottom:28px}.eyebrow{colo
 .section{margin:34px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:14px}.section h2{font-size:21px;letter-spacing:-.025em;margin:0}.section p{color:var(--muted);margin:3px 0 0;font-size:14px}
 .downloads{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.download{display:block;padding:13px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink)}.download:hover{border-color:#9bbcaf;text-decoration:none}.download b{display:block;font-size:14px}.download small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
 .toolbar{display:grid;grid-template-columns:minmax(190px,2fr) repeat(3,minmax(125px,1fr));gap:10px;margin:15px 0}.filter-field{display:flex;flex-direction:column;gap:5px;min-width:0}.filter-field span,.export-field span{font-size:11px;color:var(--muted);font-weight:750;letter-spacing:.03em}.toolbar input,.toolbar select,.export-field select{width:100%;min-height:40px;padding:8px 11px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit}.directory-summary{font-size:12px;color:var(--muted);margin:-4px 0 10px}.export-panel{padding:16px;border:1px solid var(--line);border-radius:11px;background:var(--surface);margin:0 0 13px}.export-intro{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:13px}.export-intro b{font-size:15px}.export-intro p{margin:3px 0 0;color:var(--muted);font-size:13px}.export-intro span{color:var(--muted);font-size:12px;text-align:right}.export-controls{display:flex;align-items:end;gap:10px;flex-wrap:wrap}.export-field{display:flex;flex-direction:column;gap:5px;min-width:220px;flex:1}.action-button{min-height:40px;padding:8px 13px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font:inherit;font-size:13px;font-weight:700;cursor:pointer}.action-button.primary{background:var(--accent);border-color:var(--accent);color:#fff}.action-button:disabled{opacity:.45;cursor:not-allowed}.download[aria-disabled=true]{opacity:.45;pointer-events:none}
-.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:11px;background:var(--surface)}table{width:100%;border-collapse:collapse;min-width:690px}th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line)}th{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:#fafbfc}td{font-size:13px}tbody tr:last-child td{border-bottom:0}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.tier{display:inline-block;border-radius:5px;padding:3px 7px;background:var(--accent-soft);color:var(--accent);font-size:11px;font-weight:750}.copy{border:1px solid var(--line);background:#fff;border-radius:6px;padding:5px 9px;color:var(--accent);cursor:pointer;font:inherit;font-size:12px}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:11px;background:var(--surface)}table{width:100%;border-collapse:collapse;min-width:790px}th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line)}th{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:#fafbfc}td{font-size:13px}tbody tr:last-child td{border-bottom:0}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.tier{display:inline-block;border-radius:5px;padding:3px 7px;background:var(--accent-soft);color:var(--accent);font-size:11px;font-weight:750}.copy{border:1px solid var(--line);background:#fff;border-radius:6px;padding:5px 9px;color:var(--accent);cursor:pointer;font:inherit;font-size:12px}
 footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);font-size:13px}.footer-inner{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 @media(max-width:980px){.toolbar{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:720px){.toolbar{grid-template-columns:repeat(2,minmax(0,1fr))}.export-intro{display:block}.export-intro span{display:block;text-align:left;margin-top:7px}.export-field{min-width:100%}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.downloads{grid-template-columns:repeat(2,minmax(0,1fr))}.nav-links{gap:12px}.shell{padding:0 17px}main{padding-top:34px}}
 @media(max-width:430px){.nav-links a:first-child{display:none}.metrics{gap:8px}.metric{padding:14px}.metric strong{font-size:25px}.downloads{gap:8px}}
@@ -83,7 +83,7 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);f
 <label class="filter-field"><span>Sort results</span><select id="sort-by" aria-label="Sort results"><option value="quality">Best quality first</option><option value="fastest">Fastest first</option><option value="address">Endpoint A–Z</option></select></label>
 </div>
 <div class="directory-summary" id="directory-summary">Filters apply to both the directory and custom downloads.</div>
-<div class="table-wrap"><table><thead><tr><th>Endpoint</th><th>Protocol</th><th>Response</th><th>Quality</th><th>Successful checks</th><th></th></tr></thead><tbody id="rows"><tr><td colspan="6">Loading qualified entries…</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Endpoint</th><th>Protocol</th><th>Response</th><th>Last checked</th><th>Quality</th><th>Successful checks</th><th></th></tr></thead><tbody id="rows"><tr><td colspan="7">Loading qualified entries…</td></tr></tbody></table></div>
 </section>
 </main>
 <footer><div class="shell footer-inner"><span>World Proxy Atlas · Open data, independently checked.</span><span id="updated">Snapshot timestamp unavailable</span></div></footer>
@@ -152,7 +152,7 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);f
     if (!matches.length) {
       const row = document.createElement("tr");
       const cell = document.createElement("td");
-      cell.colSpan = 6;
+      cell.colSpan = 7;
       cell.textContent = proxies.length
         ? "No entries match these filters. Adjust the filters to broaden the results."
         : "No proxies currently meet the publication threshold. The next scheduled run will check again.";
@@ -163,16 +163,29 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);f
 
     matches.slice(0,200).forEach(item => {
       const row = document.createElement("tr");
+      const checkedAt = new Date(item.last_checked_at);
+      const ageMinutes = Number.isFinite(checkedAt.getTime())
+        ? Math.max(0, Math.floor((Date.now() - checkedAt.getTime()) / 60000))
+        : null;
+      const checkedLabel = ageMinutes === null
+        ? "Unknown"
+        : ageMinutes < 60
+          ? ageMinutes + "m ago"
+          : Math.floor(ageMinutes / 60) + "h " + (ageMinutes % 60) + "m ago";
       const values = [
         [item.address,"mono"],[String(item.protocol || "").toUpperCase(),""],
         [Math.round(Number(item.latency_ms)) + " ms",""],
-        [item.quality_score + "/100",""],[item.success_streak + " consecutive",""]
+        [checkedLabel,""],[item.quality_score + "/100",""],
+        [item.success_streak + " consecutive",""]
       ];
       values.forEach(([value,className],index) => {
         const cell = document.createElement("td");
         cell.textContent = value;
         if (className) cell.className = className;
-        if (index === 3) {
+        if (index === 3 && Number.isFinite(checkedAt.getTime())) {
+          cell.title = checkedAt.toLocaleString();
+        }
+        if (index === 4) {
           const tier = document.createElement("span");
           tier.className = "tier";
           tier.textContent = item.quality_tier || "verified";
