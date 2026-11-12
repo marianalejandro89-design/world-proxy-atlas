@@ -650,7 +650,10 @@ def update_records(
             # streak; only an explicitly attempted failure resets the streak above.
             state[key] = {
                 field: value[field]
-                for field in (\n                    "quality_policy", "last_seen", "last_attempt_at", "success_streak",\n                    "sources", "source_groups",\n                )
+                for field in (
+                    "quality_policy", "last_seen", "last_attempt_at", "success_streak",
+                    "sources", "source_groups",
+                )
                 if field in value
             }
     return records, state
