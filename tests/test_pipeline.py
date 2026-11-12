@@ -2,6 +2,8 @@ import asyncio
 import json
 from datetime import UTC, datetime, timedelta
 
+import pytest
+
 import atlas.pipeline as pipeline
 from atlas.pipeline import (
     Candidate,
@@ -102,21 +104,21 @@ def test_publish_source_count_counts_only_groups_with_parsed_candidates(tmp_path
     sources = [
         {
             "id": "feed-a", "group": "publisher-a", "name": "Feed A",
-            "url": "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/all.txt",
+            "url": "https://feed-a.invalid/proxies.txt",
             "status": "ok",
             "line_count": 20, "error": None, "independent": True,
             "unique_candidates": 5,
         },
         {
             "id": "feed-a-mirror", "group": "publisher-a", "name": "Feed A mirror",
-            "url": "https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/all/data.txt",
+            "url": "https://feed-a-mirror.invalid/proxies.txt",
             "status": "ok",
             "line_count": 20, "error": None, "independent": True,
             "unique_candidates": 2,
         },
         {
             "id": "feed-empty", "group": "publisher-empty", "name": "Empty Feed",
-            "url": "https://raw.githubusercontent.com/litportnet/free-proxy-list/live/proxies/all.txt",
+            "url": "https://feed-empty.invalid/proxies.txt",
             "status": "ok",
             "line_count": 0, "error": None, "independent": True,
             "unique_candidates": 0,
@@ -567,3 +569,48 @@ def test_failed_candidate_cooldown_survives_following_empty_run():
     )
 
     assert failed not in selected
+
+
+class _ChunkedBody:
+    def __init__(self, chunks):
+        self.chunks = chunks
+
+    async def iter_chunked(self, chunk_size):
+        for chunk in self.chunks:
+            yield chunk
+
+
+def test_bounded_source_reader_reads_every_chunk():
+    body = asyncio.run(pipeline.read_bounded_body(
+        _ChunkedBody([b"first\n", b"second\n", b"third\n"]), limit=32
+    ))
+    assert body == b"first\nsecond\nthird\n"
+
+
+def test_bounded_source_reader_rejects_oversized_stream():
+    with pytest.raises(ValueError, match="byte limit"):
+        asyncio.run(pipeline.read_bounded_body(
+            _ChunkedBody([b"1234", b"5678"]), limit=7
+        ))
+
+
+def test_source_catalogue_rejects_reserved_example_domains(tmp_path, monkeypatch):
+    source_file = tmp_path / "sources.toml"
+    source_file.write_text(
+        '[[sources]]\nid = "bad-feed"\nurl = "https://example.com/proxies.txt"\n',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(pipeline, "SOURCE_CONFIG", source_file)
+    with pytest.raises(RuntimeError, match="real public HTTPS"):
+        load_sources()
+
+
+def test_source_catalogue_rejects_non_https_feeds(tmp_path, monkeypatch):
+    source_file = tmp_path / "sources.toml"
+    source_file.write_text(
+        '[[sources]]\nid = "bad-feed"\nurl = "http://proxy-feed.example.org/list.txt"\n',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(pipeline, "SOURCE_CONFIG", source_file)
+    with pytest.raises(RuntimeError, match="real public HTTPS"):
+        load_sources()
