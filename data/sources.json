@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-12T10:42:08Z",
+  "generated_at": "2026-11-12T11:37:35Z",
   "sources": [
     {
       "error": null,
       "group": "monosans",
       "id": "monosans-all",
       "independent": true,
-      "line_count": 664,
+      "line_count": 1221,
       "name": "monosans/proxy-list",
       "status": "ok",
       "url": "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/all.txt"
@@ -16,7 +16,7 @@
       "group": "litport",
       "id": "litport-live",
       "independent": true,
-      "line_count": 1303,
+      "line_count": 557,
       "name": "litportnet/free-proxy-list",
       "status": "ok",
       "url": "https://raw.githubusercontent.com/litportnet/free-proxy-list/live/proxies/all.txt"
@@ -46,7 +46,7 @@
       "group": "proxy-free",
       "id": "proxy-free-socks5",
       "independent": true,
-      "line_count": 1898,
+      "line_count": 2103,
       "name": "proxy-free/free-proxy-list SOCKS5",
       "status": "ok",
       "url": "https://raw.githubusercontent.com/proxy-free/free-proxy-list/main/socks5.txt"
@@ -56,7 +56,7 @@
       "group": "hproxy",
       "id": "hproxy-http",
       "independent": true,
-      "line_count": 971,
+      "line_count": 3223,
       "name": "hproxy-com/free-proxy-list HTTP",
       "status": "ok",
       "url": "https://raw.githubusercontent.com/hproxy-com/free-proxy-list/main/http.txt"
@@ -66,7 +66,7 @@
       "group": "hproxy",
       "id": "hproxy-https",
       "independent": true,
-      "line_count": 953,
+      "line_count": 3075,
       "name": "hproxy-com/free-proxy-list TLS-to-proxy HTTPS",
       "status": "ok",
       "url": "https://raw.githubusercontent.com/hproxy-com/free-proxy-list/main/https.txt"
@@ -76,7 +76,7 @@
       "group": "hproxy",
       "id": "hproxy-socks4",
       "independent": true,
-      "line_count": 616,
+      "line_count": 570,
       "name": "hproxy-com/free-proxy-list SOCKS4",
       "status": "ok",
       "url": "https://raw.githubusercontent.com/hproxy-com/free-proxy-list/main/socks4.txt"
@@ -86,7 +86,7 @@
       "group": "hproxy",
       "id": "hproxy-socks5",
       "independent": true,
-      "line_count": 833,
+      "line_count": 1354,
       "name": "hproxy-com/free-proxy-list SOCKS5",
       "status": "ok",
       "url": "https://raw.githubusercontent.com/hproxy-com/free-proxy-list/main/socks5.txt"
@@ -96,7 +96,7 @@
       "group": "maximilianfeix",
       "id": "maximilianfeix-all",
       "independent": true,
-      "line_count": 179,
+      "line_count": 1301,
       "name": "maximilianfeix/free-proxy-list",
       "status": "ok",
       "url": "https://raw.githubusercontent.com/maximilianfeix/free-proxy-list/main/all.txt"
@@ -106,7 +106,7 @@
       "group": "proxyscrape",
       "id": "proxyscrape-all",
       "independent": true,
-      "line_count": 170,
+      "line_count": 1780,
       "name": "ProxyScrape/free-proxy-list (upstream HTTPS label = HTTP CONNECT)",
       "status": "ok",
       "url": "https://raw.githubusercontent.com/ProxyScrape/free-proxy-list/main/proxies/all/data.txt"
@@ -126,7 +126,7 @@
       "group": "proxmint",
       "id": "proxmint-all",
       "independent": true,
-      "line_count": 651,
+      "line_count": 144,
       "name": "proxmint/free-proxy-list (upstream HTTPS subset = HTTP CONNECT)",
       "status": "ok",
       "url": "https://raw.githubusercontent.com/proxmint/free-proxy-list/main/proxies/all.txt"
@@ -136,7 +136,7 @@
       "group": "proxio",
       "id": "proxio-http",
       "independent": true,
-      "line_count": 748,
+      "line_count": 341,
       "name": "proxio-io/proxy-list HTTP",
       "status": "ok",
       "url": "https://raw.githubusercontent.com/proxio-io/proxy-list/main/http.txt"
@@ -146,7 +146,7 @@
       "group": "proxio",
       "id": "proxio-https-connect",
       "independent": true,
-      "line_count": 399,
+      "line_count": 844,
       "name": "proxio-io/proxy-list HTTP CONNECT",
       "status": "ok",
       "url": "https://raw.githubusercontent.com/proxio-io/proxy-list/main/https.txt"
@@ -156,7 +156,7 @@
       "group": "proxio",
       "id": "proxio-socks4",
       "independent": true,
-      "line_count": 156,
+      "line_count": 1308,
       "name": "proxio-io/proxy-list SOCKS4",
       "status": "ok",
       "url": "https://raw.githubusercontent.com/proxio-io/proxy-list/main/socks4.txt"
@@ -166,7 +166,7 @@
       "group": "proxio",
       "id": "proxio-socks5",
       "independent": true,
-      "line_count": 577,
+      "line_count": 1207,
       "name": "proxio-io/proxy-list SOCKS5",
       "status": "ok",
       "url": "https://raw.githubusercontent.com/proxio-io/proxy-list/main/socks5.txt"
@@ -216,7 +216,7 @@
       "group": "proxyscraper-api",
       "id": "proxyscraper-api-http",
       "independent": false,
-      "line_count": 20,
+      "line_count": 195,
       "name": "Proxy Scraper keyless API HTTP CONNECT",
       "status": "ok",
       "url": "https://api.proxyscraper.com/v1/http.txt"
@@ -236,7 +236,7 @@
       "group": "proxyscraper-api",
       "id": "proxyscraper-api-socks5",
       "independent": false,
-      "line_count": 28,
+      "line_count": 35,
       "name": "Proxy Scraper keyless API SOCKS5",
       "status": "ok",
       "url": "https://api.proxyscraper.com/v1/socks5.txt"
@@ -256,7 +256,7 @@
       "group": "stormsia",
       "id": "stormsia-working",
       "independent": false,
-      "line_count": 330,
+      "line_count": 153,
       "name": "Stormsia open proxy list (15-minute validator)",
       "status": "ok",
       "url": "https://raw.githubusercontent.com/stormsia/proxy-list/main/working_proxies.txt"
@@ -266,7 +266,7 @@
       "group": "proxynest",
       "id": "proxynest-http",
       "independent": false,
-      "line_count": 1185,
+      "line_count": 3142,
       "name": "ProxyNest keyless export HTTP",
       "status": "ok",
       "url": "https://proxynest.live/api/export?format=txt&protocol=http"
@@ -286,7 +286,7 @@
       "group": "proxynest",
       "id": "proxynest-socks5",
       "independent": false,
-      "line_count": 11,
+      "line_count": 10,
       "name": "ProxyNest keyless export SOCKS5",
       "status": "ok",
       "url": "https://proxynest.live/api/export?format=txt&protocol=socks5"
@@ -296,7 +296,7 @@
       "group": "proxywing",
       "id": "proxywing-all",
       "independent": false,
-      "line_count": 209,
+      "line_count": 205,
       "name": "ProxyWing keyless live export (HTTPS label normalized to HTTP CONNECT)",
       "status": "ok",
       "url": "https://proxywing.com/api/free-proxy-list?format=txt&proxy_format=protocolipport"
@@ -306,7 +306,7 @@
       "group": "hproxy",
       "id": "hproxy-api-http",
       "independent": true,
-      "line_count": 746,
+      "line_count": 1045,
       "name": "HProxy keyless API HTTP",
       "status": "ok",
       "url": "https://hproxy.com/api/proxy-list?format=txt&protocol=http"
@@ -316,7 +316,7 @@
       "group": "hproxy",
       "id": "hproxy-api-socks4",
       "independent": true,
-      "line_count": 518,
+      "line_count": 512,
       "name": "HProxy keyless API SOCKS4",
       "status": "ok",
       "url": "https://hproxy.com/api/proxy-list?format=txt&protocol=socks4"
@@ -326,7 +326,7 @@
       "group": "hproxy",
       "id": "hproxy-api-socks5",
       "independent": true,
-      "line_count": 40,
+      "line_count": 868,
       "name": "HProxy keyless API SOCKS5",
       "status": "ok",
       "url": "https://hproxy.com/api/proxy-list?format=txt&protocol=socks5"
