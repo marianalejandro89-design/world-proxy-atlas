@@ -1,26 +1,26 @@
 {
   "by_protocol": {
-    "http": 9,
+    "http": 14,
     "https": 0,
-    "socks4": 3,
-    "socks5": 3
+    "socks4": 2,
+    "socks5": 2
   },
   "feed_count": 33,
   "feeds_configured": 33,
-  "generated_at": "2026-11-12T03:29:21Z",
+  "generated_at": "2026-11-12T04:30:09Z",
   "maximum_latency_ms": 1200,
-  "median_latency_ms": 745.4,
+  "median_latency_ms": 786.6,
   "minimum_quality_score": 60,
   "minimum_success_streak": 2,
   "quality_definition": "Published entries passed two checks at least 45 minutes apart, scored at least 60/100, completed the HTTPS canary request within 1200 ms, and were checked in this run.",
   "source_count": 10,
   "sources_configured": 10,
   "strong_by_protocol": {
-    "http": 4,
+    "http": 6,
     "https": 0,
-    "socks4": 0,
-    "socks5": 0
+    "socks4": 1,
+    "socks5": 1
   },
-  "strong_count": 4,
-  "total_verified": 15
+  "strong_count": 8,
+  "total_verified": 18
 }
