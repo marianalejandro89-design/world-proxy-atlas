@@ -23,8 +23,8 @@ Each run:
 2. Parses and deduplicates literal public-IP candidates.
 3. Tests each selected candidate with a bounded HTTPS canary request.
 4. Updates short-lived repeat-success state.
-5. Publishes only endpoints with at least two fast successful checks separated by at least 45 minutes, latency at or below 1,200 ms, and a quality score of at least 60/100.
-6. Marks Strong endpoints only at score 75 or higher, at least three fast successful checks, each separated by at least 45 minutes, and latency at or below 900 ms.
+5. Publishes endpoints with at least two fast successful checks separated by at least 45 minutes and latency at or below 1,200 ms. The quality score ranks candidates using speed, repeat reliability and independent source attribution; its current 60/100 floor is a defensive invariant rather than a separate selection gate.
+6. Marks Strong endpoints after at least three fast successful checks, each separated by at least 45 minutes, and latency at or below 900 ms. The score remains a ranking signal within the published set.
 7. Runs production snapshot assertions before committing generated data and deploying Pages.
 
 A failed, slow or low-scoring endpoint is omitted immediately when it is sampled. A previously qualified endpoint that is not selected in the current batch remains available only until its last successful check reaches 90 minutes; an explicit failed recheck removes it immediately. If feeds are unavailable or none yields usable candidates, the run publishes an empty snapshot instead of keeping old entries visible. Validation state is retained for no more than 48 hours.

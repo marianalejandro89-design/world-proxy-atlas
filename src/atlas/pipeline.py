@@ -574,7 +574,9 @@ def publish(
     healthy = [source for source in source_results if source["status"] == "ok"]
     groups = {
         source.get("group", source["id"])
-        for source in healthy if source.get("independent", True)
+        for source in healthy
+        if source.get("independent", True)
+        and int(source.get("unique_candidates", 0)) > 0
     }
     configured_groups = {
         source.get("group", source["id"])
@@ -654,9 +656,12 @@ def publish(
         "feeds_configured": len(source_results),
         "quality_definition": (
             "Published entries passed two checks at least 45 minutes apart, "
-            "scored at least 60/100, completed the HTTPS canary request within 1200 ms, "
-            "and were last checked within 90 minutes. Entries not sampled in this run "
-            "are retained only inside that recheck window; sampled failures are removed."
+            "completed the HTTPS canary request within 1200 ms, and were last checked "
+            "within 90 minutes. The quality score ranks endpoints using speed, repeat "
+            "reliability and source diversity; the 60/100 floor is defensive, not an "
+            "independent filter under the current scoring formula. Entries not sampled "
+            "in this run are retained only inside that recheck window; sampled failures "
+            "are removed."
         ),
         "minimum_quality_score": 60,
         "maximum_latency_ms": 1200,

@@ -97,6 +97,37 @@ def test_non_independent_mirror_does_not_count_for_diversity():
     assert candidate.source_groups == ()
 
 
+def test_publish_source_count_counts_only_groups_with_parsed_candidates(tmp_path, monkeypatch):
+    monkeypatch.setattr(pipeline, "ROOT", tmp_path)
+    sources = [
+        {
+            "id": "feed-a", "group": "publisher-a", "name": "Feed A",
+            "url": "https://feed-a.example/proxies.txt", "status": "ok",
+            "line_count": 20, "error": None, "independent": True,
+            "unique_candidates": 5,
+        },
+        {
+            "id": "feed-a-mirror", "group": "publisher-a", "name": "Feed A mirror",
+            "url": "https://mirror.example/proxies.txt", "status": "ok",
+            "line_count": 20, "error": None, "independent": True,
+            "unique_candidates": 2,
+        },
+        {
+            "id": "feed-empty", "group": "publisher-empty", "name": "Empty Feed",
+            "url": "https://empty.example/proxies.txt", "status": "ok",
+            "line_count": 0, "error": None, "independent": True,
+            "unique_candidates": 0,
+        },
+    ]
+
+    pipeline.publish([], sources, {}, "2026-11-12T16:00:00Z")
+    stats = json.loads((tmp_path / "data" / "stats.json").read_text(encoding="utf-8"))
+
+    assert stats["source_count"] == 1
+    assert stats["sources_configured"] == 2
+    assert stats["feeds_with_candidates"] == 2
+
+
 def test_repeat_success_increases_score():
     assert score(200, 3, 2) > score(200, 1, 1)
 

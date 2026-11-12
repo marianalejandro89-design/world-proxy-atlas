@@ -21,9 +21,10 @@ An endpoint is included in public TXT, JSON and CSV output only when all of thes
 2. A bounded HTTPS request succeeds and returns the expected response marker.
 3. It passes at least two fast validation cycles separated by at least 45 minutes.
 4. Its measured request latency is no more than 1,200 ms.
-5. Its quality score is at least 60/100.
 
-The **Strong** tier is stricter: score at least 75, three or more fast successful checks, each separated by at least 45 minutes, and latency no more than 900 ms.
+The quality score is a ranking signal based on response speed, repeat reliability and independent source attribution. The current formula places any otherwise eligible endpoint above the 60/100 defensive floor, so that floor does not act as a separate filter.
+
+The **Strong** tier requires three or more fast successful checks, each separated by at least 45 minutes, and latency no more than 900 ms. The displayed score helps rank endpoints within those tiers.
 
 Failed, slow, low-scoring, first-seen and stale endpoints are excluded from the published snapshot. An endpoint not selected in a particular batch remains in the snapshot only until its last successful check reaches 90 minutes; if it is selected and fails, it is removed immediately. When all feeds fail or none yields usable candidates, the current public snapshot is emptied rather than retaining old entries. The internal validation state is retained for at most 48 hours to support repeat checks.
 
