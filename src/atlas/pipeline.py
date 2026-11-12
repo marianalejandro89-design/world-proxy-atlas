@@ -64,7 +64,14 @@ def now_iso() -> str:
 def read_json(path: Path, fallback: Any) -> Any:
     try:
         return json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
+    except FileNotFoundError:
+        print(f"INFO: {path.name} does not exist yet; using the initial empty state.")
+        return fallback
+    except (OSError, json.JSONDecodeError) as exc:
+        print(
+            f"WARNING: could not read {path.name} "
+            f"({type(exc).__name__}: {str(exc)[:160]}); using fallback data."
+        )
         return fallback
 
 
