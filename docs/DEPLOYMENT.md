@@ -21,7 +21,7 @@ Each run:
 
 1. Fetches the configured public feeds with bounded time, size and concurrency limits.
 2. Parses and deduplicates literal public-IP candidates.
-3. Tests each selected candidate with a bounded HTTPS canary request.
+3. Tests each selected candidate against Google's live `robots.txt` HTTPS endpoint and Cloudflare Trace as fallback. TLS certificates are verified; one target must return HTTP 200 and its expected plain-text marker.
 4. Updates short-lived repeat-success state.
 5. Publishes endpoints with at least two fast successful checks separated by at least 45 minutes and latency at or below 1,200 ms. The quality score ranks candidates using speed, repeat reliability and independent source attribution; its current 60/100 floor is a defensive invariant rather than a separate selection gate.
 6. Marks Strong endpoints after at least three fast successful checks, each separated by at least 45 minutes, and latency at or below 900 ms. The score remains a ranking signal within the published set.
