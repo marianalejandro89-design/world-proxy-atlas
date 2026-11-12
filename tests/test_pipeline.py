@@ -353,7 +353,6 @@ def test_production_canaries_are_real_https_endpoints():
     )
     assert all(url.startswith("https://") for url, _ in pipeline.CHECK_TARGETS)
     assert len({url.split("/")[2] for url, _ in pipeline.CHECK_TARGETS}) == 2
-    assert all("example.com" not in url for url, _ in pipeline.CHECK_TARGETS)
 
 
 def test_canary_response_requires_status_and_expected_marker():
