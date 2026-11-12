@@ -1,7 +1,12 @@
 from datetime import UTC, datetime, timedelta
 
 from atlas.pipeline import (
-    Candidate, load_sources, parse_candidate, score, select_candidates, update_records,
+    Candidate,
+    load_sources,
+    parse_candidate,
+    score,
+    select_candidates,
+    update_records,
 )
 
 
