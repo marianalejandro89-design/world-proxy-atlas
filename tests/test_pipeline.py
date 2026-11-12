@@ -197,3 +197,19 @@ def test_failed_candidates_are_not_retested_every_five_minutes():
 
     assert failed not in selected_soon
     assert failed in selected_later
+
+
+
+def test_failed_candidate_cooldown_survives_following_empty_run():
+    now = datetime(2026, 11, 12, 12, 0, tzinfo=UTC)
+    failed = Candidate("8.8.8.8", 8080, "http")
+    _, first_state = update_records(
+        [], {}, "2026-11-12T12:00:00Z", attempted=[failed]
+    )
+    _, next_state = update_records([], first_state, "2026-11-12T12:05:00Z")
+
+    selected = select_candidates(
+        [failed], next_state, 10, now=now + timedelta(minutes=10)
+    )
+
+    assert failed not in selected
