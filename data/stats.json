@@ -1,15 +1,18 @@
 {
   "by_protocol": {
-    "http": 124,
+    "http": 0,
     "https": 0,
-    "socks4": 67,
-    "socks5": 43
+    "socks4": 0,
+    "socks5": 0
   },
   "feed_count": 33,
   "feeds_configured": 33,
-  "generated_at": "2026-11-11T23:53:35Z",
-  "median_latency_ms": 1890.6,
-  "quality_definition": "An HTTPS request returned HTTP 200 and the expected Example Domain marker.",
+  "generated_at": "2026-11-12T00:06:12Z",
+  "maximum_latency_ms": 1200,
+  "median_latency_ms": null,
+  "minimum_quality_score": 55,
+  "minimum_success_streak": 2,
+  "quality_definition": "Published entries passed two consecutive hourly checks, scored at least 60/100, completed the HTTPS canary request within 1200 ms, and were checked in this run.",
   "source_count": 10,
   "sources_configured": 10,
   "strong_by_protocol": {
@@ -19,5 +22,5 @@
     "socks5": 0
   },
   "strong_count": 0,
-  "total_verified": 234
+  "total_verified": 0
 }
