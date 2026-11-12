@@ -1,4 +1,5 @@
 import asyncio
+import json
 from datetime import UTC, datetime, timedelta
 
 import atlas.pipeline as pipeline
@@ -33,6 +34,15 @@ def test_compact_state_writer_round_trips_valid_json(tmp_path):
     assert path.read_bytes().endswith(b"\n")
     assert read_json(path, {}) == state
     assert b": " not in path.read_bytes()
+
+
+def test_read_json_recovers_legacy_state_literal_newline_suffix(tmp_path, capsys):
+    path = tmp_path / "state.json"
+    state = {"http|8.8.8.8|8080": {"quality_policy": 2, "success_streak": 2}}
+    path.write_text(json.dumps(state) + "\\n", encoding="utf-8")
+
+    assert read_json(path, {}) == state
+    assert "recovered state.json" in capsys.readouterr().out
 
 
 def test_read_json_warns_when_state_file_is_corrupt(tmp_path, capsys):

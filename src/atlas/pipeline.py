@@ -63,7 +63,21 @@ def now_iso() -> str:
 
 def read_json(path: Path, fallback: Any) -> Any:
     try:
-        return json.loads(path.read_text(encoding="utf-8"))
+        raw = path.read_text(encoding="utf-8")
+        try:
+            return json.loads(raw)
+        except json.JSONDecodeError:
+            # Recover the legacy compact-state writer's literal "\\n" suffix.
+            # This is intentionally restricted to state.json; other malformed
+            # JSON remains a hard warning and falls back to the supplied value.
+            if path.name == "state.json" and raw.endswith("\\n"):
+                recovered = json.loads(raw[:-2])
+                print(
+                    "WARNING: recovered state.json from a legacy literal newline "
+                    "suffix; the corrected writer will normalize it."
+                )
+                return recovered
+            raise
     except FileNotFoundError:
         print(f"INFO: {path.name} does not exist yet; using the initial empty state.")
         return fallback
