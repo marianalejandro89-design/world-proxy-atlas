@@ -426,13 +426,9 @@ def update_records(
             })
         state[candidate.key] = {
             "quality_policy": 2,
-            "first_seen": prior.get("first_seen", checked_at),
             "last_seen": checked_at,
             "last_attempt_at": checked_at,
             "success_streak": streak,
-            "total_passes": int(prior.get("total_passes", 0)) + 1,
-            "last_latency_ms": item["latency_ms"],
-            "sources": sorted(set(prior.get("sources", [])) | set(candidate.sources)),
         }
 
     attempted_keys = {candidate.key for candidate in (attempted or [])}
@@ -443,9 +439,8 @@ def update_records(
         if not isinstance(prior, dict):
             prior = {}
         state[candidate.key] = {
-            **prior,
             "quality_policy": 2,
-            "first_seen": prior.get("first_seen", checked_at),
+            "last_seen": prior.get("last_seen"),
             "last_attempt_at": checked_at,
             "success_streak": 0,
         }
@@ -501,7 +496,11 @@ def update_records(
         if old_time >= cutoff:
             # Not selected is not the same as failed. Preserve its repeat-success
             # streak; only an explicitly attempted failure resets the streak above.
-            state[key] = dict(value)
+            state[key] = {
+                field: value[field]
+                for field in ("quality_policy", "last_seen", "last_attempt_at", "success_streak")
+                if field in value
+            }
     return records, state
 
 
@@ -722,7 +721,12 @@ def publish(
         write_json(folder / "sources.json", {
             "generated_at": checked_at, "sources": source_payload
         })
-    write_json(STATE_FILE, state)
+    # This internal hot-path file is stored compactly: it is committed on
+    # every refresh, and verbose diagnostics/attribution live in public stats.
+    write_text(
+        STATE_FILE,
+        json.dumps(state, sort_keys=True, separators=(",", ":")) + "\\n",
+    )
     write_json(history_file, history)
 
 

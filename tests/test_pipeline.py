@@ -213,6 +213,43 @@ def test_feed_outage_disables_carry_forward():
 
 
 
+
+def test_state_records_keep_only_fields_used_by_validation_policy():
+    candidate = Candidate("8.8.8.8", 8080, "http")
+    passed = [{"candidate": candidate, "latency_ms": 400.0, "status_code": 200}]
+
+    _, state = update_records(passed, {}, "2026-11-12T10:00:00Z")
+
+    assert set(state[candidate.key]) == {
+        "quality_policy", "last_seen", "last_attempt_at", "success_streak"
+    }
+
+
+def test_unselected_state_is_compacted_without_losing_repeat_fields():
+    candidate = Candidate("8.8.8.8", 8080, "http")
+    previous = {
+        candidate.key: {
+            "quality_policy": 2,
+            "last_seen": "2026-11-12T10:00:00Z",
+            "last_attempt_at": "2026-11-12T10:00:00Z",
+            "success_streak": 2,
+            "first_seen": "2026-11-11T10:00:00Z",
+            "total_passes": 7,
+            "last_latency_ms": 400,
+            "sources": ["feed-a", "feed-b"],
+        }
+    }
+
+    _, state = update_records([], previous, "2026-11-12T10:05:00Z")
+
+    assert state[candidate.key] == {
+        "quality_policy": 2,
+        "last_seen": "2026-11-12T10:00:00Z",
+        "last_attempt_at": "2026-11-12T10:00:00Z",
+        "success_streak": 2,
+    }
+
+
 def test_unselected_successful_candidate_keeps_its_repeat_streak():
     candidate = Candidate("8.8.8.8", 8080, "http")
     previous = {
