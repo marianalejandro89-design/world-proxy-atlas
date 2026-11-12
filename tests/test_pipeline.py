@@ -110,3 +110,19 @@ def test_failed_proxy_is_removed_from_public_snapshot_immediately():
 
 def test_quality_score_rewards_speed_repeatability_and_source_diversity():
     assert score(300, 4, 2) > score(1400, 2, 0)
+
+
+
+def test_slow_success_does_not_count_toward_fast_quality_streak():
+    candidate = Candidate("8.8.8.8", 8080, "http", ("feed-a",), ("publisher-a",))
+    slow = [{"candidate": candidate, "latency_ms": 1501.0, "status_code": 200}]
+    fast = [{"candidate": candidate, "latency_ms": 500.0, "status_code": 200}]
+
+    _, state = update_records(slow, {}, "2026-11-11T10:00:00Z")
+    first_fast, state = update_records(fast, state, "2026-11-11T11:00:00Z")
+    assert first_fast == []
+    assert state[candidate.key]["success_streak"] == 1
+
+    second_fast, _ = update_records(fast, state, "2026-11-11T12:00:00Z")
+    assert len(second_fast) == 1
+    assert second_fast[0]["success_streak"] == 2
