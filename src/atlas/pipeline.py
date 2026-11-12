@@ -321,7 +321,7 @@ async def validate_one(
             return {
                 "candidate": candidate, "latency_ms": latency, "status_code": status
             }, None
-        except asyncio.TimeoutError:
+        except TimeoutError:
             return None, "timeout"
         except Exception as exc:
             # Keep failures isolated, but make their classes observable in run stats.
