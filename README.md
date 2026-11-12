@@ -25,7 +25,7 @@ An endpoint is included in public TXT, JSON and CSV output only when all of thes
 
 The **Strong** tier is stricter: score at least 75, three or more fast successful checks, each separated by at least 45 minutes, and latency no more than 900 ms.
 
-Failed, slow, low-scoring, first-seen and stale endpoints are excluded from the published snapshot. When feeds are unavailable or no endpoint qualifies, the current public snapshot is emptied rather than retaining old entries. The internal validation state is retained for at most 48 hours to support repeat checks.
+Failed, slow, low-scoring, first-seen and stale endpoints are excluded from the published snapshot. An endpoint not selected in a particular batch remains in the snapshot only until its last successful check reaches 90 minutes; if it is selected and fails, it is removed immediately. When all feeds fail or none yields usable candidates, the current public snapshot is emptied rather than retaining old entries. The internal validation state is retained for at most 48 hours to support repeat checks.
 
 These checks reduce stale and unreliable entries; they cannot guarantee that a proxy remains online after publication. Public proxy operators are untrusted. A successful connectivity test is not proof of anonymity, privacy, security or operator integrity.
 

@@ -33,6 +33,7 @@ ALLOWED_PORTS = {
 }
 MAX_SOURCE_BYTES = 6 * 1024 * 1024
 MAX_SOURCE_LINES = 30000
+PUBLIC_RECORD_MAX_AGE = timedelta(minutes=90)
 
 
 @dataclass(frozen=True)
@@ -367,6 +368,8 @@ def update_records(
     previous: dict[str, Any],
     checked_at: str,
     attempted: list[Candidate] | None = None,
+    previous_records: list[dict[str, Any]] | None = None,
+    retain_unattempted: bool = True,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     checked_dt = datetime.fromisoformat(checked_at.replace("Z", "+00:00"))
     state: dict[str, Any] = {}
@@ -425,9 +428,7 @@ def update_records(
             "sources": sorted(set(prior.get("sources", [])) | set(candidate.sources)),
         }
 
-    records.sort(
-        key=lambda row: (-row["quality_score"], row["latency_ms"], row["address"])
-    )
+    attempted_keys = {candidate.key for candidate in (attempted or [])}
     for candidate in attempted or []:
         if candidate.key in state:
             continue
@@ -442,12 +443,51 @@ def update_records(
             "success_streak": 0,
         }
 
+    # Preserve a previously verified entry when this run did not sample it.
+    # A selected failure is deliberately not retained: attempted_keys blocks it.
+    if retain_unattempted:
+        current_keys = {
+            f'{item["protocol"]}|{item["ip"]}|{item["port"]}' for item in records
+        }
+        for prior_record in previous_records or []:
+            try:
+                key = (
+                    f'{prior_record["protocol"]}|{prior_record["ip"]}|'
+                    f'{int(prior_record["port"])}'
+                )
+                last_checked = datetime.fromisoformat(
+                    prior_record["last_checked_at"].replace("Z", "+00:00")
+                )
+            except (KeyError, TypeError, ValueError):
+                continue
+
+            age = checked_dt - last_checked
+            if (
+                key in attempted_keys
+                or key in current_keys
+                or prior_record.get("status") != "verified"
+                or int(prior_record.get("success_streak", 0)) < 2
+                or float(prior_record.get("latency_ms", 999999)) > 1200
+                or int(prior_record.get("quality_score", 0)) < 60
+                or age < timedelta(0)
+                or age > PUBLIC_RECORD_MAX_AGE
+            ):
+                continue
+
+            records.append(dict(prior_record))
+            current_keys.add(key)
+
+    records.sort(
+        key=lambda row: (-row["quality_score"], row["latency_ms"], row["address"])
+    )
+
+    # Retain state for 48 hours from the latest activity, not merely the last success.
     cutoff = checked_dt - timedelta(hours=48)
     for key, value in previous.items():
         if key in state or not isinstance(value, dict):
             continue
         try:
-            timestamp = value.get("last_seen") or value.get("last_attempt_at")
+            timestamp = value.get("last_attempt_at") or value.get("last_seen")
             old_time = datetime.fromisoformat(timestamp.replace("Z", "+00:00"))
         except (KeyError, TypeError, ValueError):
             continue
@@ -535,10 +575,15 @@ def publish(
     )
     fetch_failed = sum(1 for item in source_results if item["status"] != "ok")
     validation_failure_reasons = run_metrics.get("validation_failure_reasons", {})
+    newly_verified = int(run_metrics.get("newly_verified", 0))
+    retained_verified = max(0, len(records) - newly_verified)
 
     stats = {
         "generated_at": checked_at,
         "total_verified": len(records),
+        "newly_verified": newly_verified,
+        "retained_verified": retained_verified,
+        "public_record_max_age_minutes": int(PUBLIC_RECORD_MAX_AGE.total_seconds() / 60),
         "discovered_candidates": discovered_candidates,
         "selected_candidates": int(run_metrics.get("selected_candidates", validation_attempted)),
         "validation_attempted": validation_attempted,
@@ -549,7 +594,7 @@ def publish(
             if validation_attempted else 0.0
         ),
         "publication_yield_pct": (
-            round(len(records) / validation_attempted * 100, 1)
+            round(newly_verified / validation_attempted * 100, 1)
             if validation_attempted else 0.0
         ),
         "validation_failure_reasons": dict(sorted(validation_failure_reasons.items())),
@@ -590,7 +635,8 @@ def publish(
         "quality_definition": (
             "Published entries passed two checks at least 45 minutes apart, "
             "scored at least 60/100, completed the HTTPS canary request within 1200 ms, "
-            "and were checked in this run."
+            "and were last checked within 90 minutes. Entries not sampled in this run "
+            "are retained only inside that recheck window; sampled failures are removed."
         ),
         "minimum_quality_score": 60,
         "maximum_latency_ms": 1200,
@@ -620,6 +666,8 @@ def publish(
     history.append({
         "generated_at": checked_at,
         "total_verified": len(records),
+        "newly_verified": newly_verified,
+        "retained_verified": retained_verified,
         "strong_count": len(strong),
     })
     history = history[-168:]
@@ -678,6 +726,13 @@ def main() -> None:
     previous_state = read_json(STATE_FILE, {})
     if not isinstance(previous_state, dict):
         previous_state = {}
+    previous_payload = read_json(ROOT / "data" / "proxies.json", {})
+    previous_records = (
+        previous_payload.get("proxies", [])
+        if isinstance(previous_payload, dict)
+        and isinstance(previous_payload.get("proxies", []), list)
+        else []
+    )
 
     source_results = asyncio.run(collect_sources(sources))
     healthy = sum(1 for item in source_results if item["status"] == "ok")
@@ -695,9 +750,23 @@ def main() -> None:
     )
     passed, failure_reasons = asyncio.run(validate_all(candidates, concurrency))
     checked_at = now_iso()
+    # Retention is allowed only when at least one feed produced a usable pool.
+    # Complete feed/parse outages still publish an empty snapshot fail-closed.
+    retain_unattempted = healthy > 0 and bool(discovered)
     records, state = update_records(
-        passed, previous_state, checked_at, attempted=candidates
+        passed,
+        previous_state,
+        checked_at,
+        attempted=candidates,
+        previous_records=previous_records,
+        retain_unattempted=retain_unattempted,
     )
+    passed_keys = {item["candidate"].key for item in passed}
+    newly_verified = sum(
+        1 for item in records
+        if f'{item["protocol"]}|{item["ip"]}|{item["port"]}' in passed_keys
+    )
+    retained_verified = len(records) - newly_verified
     run_metrics = {
         "discovered_candidates": len(discovered),
         "selected_candidates": len(candidates),
@@ -705,6 +774,8 @@ def main() -> None:
         "validation_passed": len(passed),
         "validation_failure_reasons": failure_reasons,
         "publication_hold_reasons": publication_hold_reasons(passed, records, state),
+        "newly_verified": newly_verified,
+        "retained_verified": retained_verified,
     }
     publish(records, source_results, state, checked_at, run_metrics=run_metrics)
     print(

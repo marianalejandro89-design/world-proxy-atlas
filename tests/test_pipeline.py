@@ -108,6 +108,109 @@ def test_publication_holds_explain_pending_repeat_and_slow_successes():
         "repeat_validation_pending": 1,
     }
 
+
+def _verified_record(candidate, checked_at):
+    return {
+        "ip": candidate.ip,
+        "port": candidate.port,
+        "address": candidate.address,
+        "protocol": candidate.protocol,
+        "proxy": candidate.proxy,
+        "latency_ms": 400.0,
+        "status": "verified",
+        "status_code": 200,
+        "supports_https": True,
+        "quality_score": 80,
+        "quality_tier": "verified",
+        "success_streak": 2,
+        "source_count": 1,
+        "sources": ["feed-a"],
+        "last_checked_at": checked_at,
+    }
+
+
+def test_unattempted_verified_proxy_is_retained_inside_90_minute_window():
+    candidate = Candidate("8.8.8.8", 8080, "http")
+    prior_record = _verified_record(candidate, "2026-11-11T10:00:00Z")
+
+    records, _ = update_records(
+        [],
+        {},
+        "2026-11-11T10:20:00Z",
+        previous_records=[prior_record],
+    )
+
+    assert len(records) == 1
+    assert records[0]["last_checked_at"] == "2026-11-11T10:00:00Z"
+
+
+def test_unattempted_verified_proxy_expires_after_90_minutes():
+    candidate = Candidate("8.8.8.8", 8080, "http")
+    prior_record = _verified_record(candidate, "2026-11-11T10:00:00Z")
+
+    records, _ = update_records(
+        [],
+        {},
+        "2026-11-11T11:31:00Z",
+        previous_records=[prior_record],
+    )
+
+    assert records == []
+
+
+def test_selected_failed_proxy_is_removed_even_inside_retention_window():
+    candidate = Candidate("8.8.8.8", 8080, "http")
+    prior_record = _verified_record(candidate, "2026-11-11T10:00:00Z")
+    previous_state = {
+        candidate.key: {
+            "quality_policy": 2,
+            "last_seen": "2026-11-11T10:00:00Z",
+            "success_streak": 2,
+        }
+    }
+
+    records, state = update_records(
+        [],
+        previous_state,
+        "2026-11-11T10:05:00Z",
+        attempted=[candidate],
+        previous_records=[prior_record],
+    )
+
+    assert records == []
+    assert state[candidate.key]["success_streak"] == 0
+
+
+def test_feed_outage_disables_carry_forward():
+    candidate = Candidate("8.8.8.8", 8080, "http")
+    prior_record = _verified_record(candidate, "2026-11-11T10:00:00Z")
+
+    records, _ = update_records(
+        [],
+        {},
+        "2026-11-11T10:05:00Z",
+        previous_records=[prior_record],
+        retain_unattempted=False,
+    )
+
+    assert records == []
+
+
+def test_state_retention_uses_latest_failed_attempt_not_old_success():
+    candidate = Candidate("8.8.8.8", 8080, "http")
+    previous = {
+        candidate.key: {
+            "last_seen": "2026-11-09T10:00:00Z",
+            "last_attempt_at": "2026-11-11T23:55:00Z",
+            "success_streak": 0,
+        }
+    }
+
+    _, state = update_records([], previous, "2026-11-12T00:00:00Z")
+
+    assert candidate.key in state
+    assert state[candidate.key]["last_attempt_at"] == "2026-11-11T23:55:00Z"
+
 def test_validate_all_reports_failure_categories(monkeypatch):
     candidates = [
         Candidate("8.8.8.8", 8080, "http"),

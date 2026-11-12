@@ -38,7 +38,7 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);f
 <div class="metric"><span>Qualified proxies</span><strong id="total">—</strong></div>
 <div class="metric"><span>Strong tier</span><strong id="strong">—</strong></div>
 <div class="metric"><span>Median response</span><strong id="latency">—</strong></div>
-<div class="metric"><span>Healthy feeds</span><strong id="feeds">—</strong></div>
+<div class="metric"><span>Feeds with candidates</span><strong id="feeds">—</strong></div>
 </section>
 <section class="section" id="downloads">
 <div class="section-head"><div><h2>Downloads</h2><p>Download the current snapshot or build a custom export from the live directory.</p></div></div>
@@ -341,7 +341,7 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);f
     $("total").textContent=snapshotFresh ? number(stats.total_verified) : "—";
     $("strong").textContent=snapshotFresh ? number(stats.strong_count) : "—";
     $("latency").textContent=snapshotFresh && stats.median_latency_ms != null ? Math.round(stats.median_latency_ms) + " ms" : "—";
-    $("feeds").textContent=snapshotFresh ? number(stats.feed_count) + " / " + number(stats.feeds_configured) : "—";
+    $("feeds").textContent=snapshotFresh ? number(stats.feeds_with_candidates) + " / " + number(stats.feeds_configured) : "—";
     $("all-count").textContent=snapshotFresh ? number(stats.total_verified) + " qualified entries" : "Unavailable — snapshot stale";
     ["http","https","socks4","socks5"].forEach(key => {
       $(key + "-count").textContent=snapshotFresh ? number(stats.by_protocol && stats.by_protocol[key]) + " qualified entries" : "Snapshot stale";
@@ -363,7 +363,9 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);f
       ? "Latest run: " + number(discovered) + " unique candidates · " +
         number(tested) + " tested · " + number(passed) + " passed (" +
         passRate.toFixed(1) + "%) · " + number(stats.total_verified) +
-        " published · " + number(repeatPending) + " awaiting repeat check · " +
+        " published (" + number(stats.newly_verified || 0) + " new, " +
+        number(stats.retained_verified || 0) + " retained) · " +
+        number(repeatPending) + " awaiting repeat check · " +
         number(latencyHeld) + " over latency limit · " +
         number(feedsWithCandidates) + " feeds yielded candidates"
       : "Latest validation diagnostics unavailable until a fresh snapshot is loaded";

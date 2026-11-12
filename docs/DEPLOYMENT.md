@@ -27,7 +27,7 @@ Each run:
 6. Marks Strong endpoints only at score 75 or higher, at least three fast successful checks, each separated by at least 45 minutes, and latency at or below 900 ms.
 7. Runs production snapshot assertions before committing generated data and deploying Pages.
 
-A failed, slow, low-scoring or stale endpoint is omitted from the next snapshot. If feeds are unavailable or no endpoint qualifies, the run publishes an empty snapshot instead of keeping old entries visible. Validation state is retained for no more than 48 hours.
+A failed, slow or low-scoring endpoint is omitted immediately when it is sampled. A previously qualified endpoint that is not selected in the current batch remains available only until its last successful check reaches 90 minutes; an explicit failed recheck removes it immediately. If feeds are unavailable or none yields usable candidates, the run publishes an empty snapshot instead of keeping old entries visible. Validation state is retained for no more than 48 hours.
 
 ## Operational verification
 

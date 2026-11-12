@@ -73,6 +73,7 @@ jobs:
           python - <<'PY'
           import csv
           import json
+          from datetime import datetime
           from pathlib import Path
 
           with open("data/proxies.json", encoding="utf-8") as stream:
@@ -85,6 +86,7 @@ jobs:
           proxies = payload.get("proxies", [])
           assert payload.get("count") == len(proxies), "Proxy count does not match payload"
           assert stats.get("total_verified") == len(proxies), "Stats count does not match payload"
+          assert stats["newly_verified"] + stats["retained_verified"] == len(proxies), "New and retained proxy counts do not balance"
           assert stats.get("generated_at") == payload.get("generated_at"), "Snapshot timestamps differ"
           assert stats.get("generated_at") == source_payload.get("generated_at"), "Source diagnostics timestamp differs"
           assert len({proxy.get("proxy") for proxy in proxies}) == len(proxies), "Duplicate public proxy entries"
@@ -92,7 +94,7 @@ jobs:
           assert stats["validation_attempted"] == stats["selected_candidates"], "Selected/tested totals differ"
           assert stats["validation_passed"] + stats["validation_failed"] == stats["validation_attempted"], "Validation totals do not balance"
           assert sum(stats["validation_failure_reasons"].values()) == stats["validation_failed"], "Failure categories do not balance"
-          assert sum(stats["publication_hold_reasons"].values()) == stats["validation_passed"] - stats["total_verified"], "Publication hold reasons do not balance"
+          assert sum(stats["publication_hold_reasons"].values()) == stats["validation_passed"] - stats["newly_verified"], "Publication hold reasons do not balance"
           assert stats["feeds_configured"] == stats["feed_count"] + stats["feeds_fetch_failed"], "Feed fetch totals do not balance"
           assert stats["discovered_candidates"] >= stats["selected_candidates"], "Selected candidates exceed discovered pool"
 
@@ -101,7 +103,10 @@ jobs:
               assert proxy.get("success_streak", 0) >= 2, "Proxy lacks repeat validation"
               assert proxy.get("latency_ms", 999999) <= 1200, "Slow proxy in public output"
               assert proxy.get("quality_score", 0) >= 60, "Low-quality proxy in public output"
-              assert proxy.get("last_checked_at") == stats["generated_at"], "Stale proxy in public output"
+              checked_at = datetime.fromisoformat(proxy["last_checked_at"].replace("Z", "+00:00"))
+              generated_at = datetime.fromisoformat(stats["generated_at"].replace("Z", "+00:00"))
+              age_seconds = (generated_at - checked_at).total_seconds()
+              assert 0 <= age_seconds <= stats["public_record_max_age_minutes"] * 60, "Proxy record exceeded the 90-minute recheck window"
               assert proxy.get("proxy") == f'{proxy["protocol"]}://{proxy["address"]}', "Proxy URL does not match metadata"
               if proxy["quality_tier"] == "strong":
                   assert proxy["success_streak"] >= 3, "Strong proxy lacks three successful checks"
