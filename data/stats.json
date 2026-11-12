@@ -1,15 +1,15 @@
 {
   "by_protocol": {
-    "http": 1,
+    "http": 0,
     "https": 0,
     "socks4": 0,
-    "socks5": 1
+    "socks5": 0
   },
   "feed_count": 33,
   "feeds_configured": 33,
-  "generated_at": "2026-11-12T01:40:37Z",
+  "generated_at": "2026-11-12T01:51:47Z",
   "maximum_latency_ms": 1200,
-  "median_latency_ms": 580.5,
+  "median_latency_ms": null,
   "minimum_quality_score": 60,
   "minimum_success_streak": 2,
   "quality_definition": "Published entries passed two checks at least 45 minutes apart, scored at least 60/100, completed the HTTPS canary request within 1200 ms, and were checked in this run.",
@@ -22,5 +22,5 @@
     "socks5": 0
   },
   "strong_count": 0,
-  "total_verified": 2
+  "total_verified": 0
 }

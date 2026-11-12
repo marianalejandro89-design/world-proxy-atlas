@@ -1,3 +1,1 @@
 proxy,protocol,ip,port,latency_ms,quality_score,quality_tier,success_streak,source_count,last_checked_at
-http://159.203.61.169:80,http,159.203.61.169,80,132.3,91,verified,2,2,2026-11-12T01:40:37Z
-socks5://119.18.52.156:1080,socks5,119.18.52.156,1080,1028.8,77,verified,2,6,2026-11-12T01:40:37Z
