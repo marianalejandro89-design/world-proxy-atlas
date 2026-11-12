@@ -244,3 +244,39 @@ group = "hproxy"
 name = "HProxy keyless API SOCKS5"
 url = "https://hproxy.com/api/proxy-list?format=txt&protocol=socks5"
 default_protocol = "socks5"
+
+
+# Relayglass maintains a frequently refreshed, independently checked aggregate.
+# These feeds widen candidate discovery but are not counted as independent
+# provenance groups because the operator aggregates upstream public sources.
+[[sources]]
+id = "relayglass-http"
+group = "relayglass"
+independent = false
+name = "Relayglass free proxy list HTTP"
+url = "https://raw.githubusercontent.com/relayglass/free-proxy-list/main/protocol/http/http.txt"
+default_protocol = "http"
+
+[[sources]]
+id = "relayglass-https-connect"
+group = "relayglass"
+independent = false
+name = "Relayglass free proxy list HTTP CONNECT"
+url = "https://raw.githubusercontent.com/relayglass/free-proxy-list/main/protocol/https/https.txt"
+default_protocol = "http"
+
+[[sources]]
+id = "relayglass-socks4"
+group = "relayglass"
+independent = false
+name = "Relayglass free proxy list SOCKS4"
+url = "https://raw.githubusercontent.com/relayglass/free-proxy-list/main/protocol/socks4/socks4.txt"
+default_protocol = "socks4"
+
+[[sources]]
+id = "relayglass-socks5"
+group = "relayglass"
+independent = false
+name = "Relayglass free proxy list SOCKS5"
+url = "https://raw.githubusercontent.com/relayglass/free-proxy-list/main/protocol/socks5/socks5.txt"
+default_protocol = "socks5"

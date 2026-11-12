@@ -343,6 +343,21 @@ def test_state_retention_uses_latest_failed_attempt_not_old_success():
     assert candidate.key in state
     assert state[candidate.key]["last_attempt_at"] == "2026-11-11T23:55:00Z"
 
+def test_canary_response_requires_status_and_expected_marker():
+    assert pipeline.canary_response_valid(200, b"Example Domain", "Example Domain")
+    assert not pipeline.canary_response_valid(403, b"Example Domain", "Example Domain")
+    assert not pipeline.canary_response_valid(200, b"Access denied", "Example Domain")
+
+
+def test_relayglass_connect_feed_is_normalized_to_http():
+    sources = load_sources()
+    relayglass = next(source for source in sources if source["id"] == "relayglass-https-connect")
+    candidate = parse_candidate("8.8.8.8:8080", relayglass)
+    assert candidate is not None
+    assert candidate.protocol == "http"
+    assert candidate.source_groups == ()
+
+
 def test_validate_all_reports_failure_categories(monkeypatch):
     candidates = [
         Candidate("8.8.8.8", 8080, "http"),

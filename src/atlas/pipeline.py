@@ -19,8 +19,13 @@ import aiohttp
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_CONFIG = ROOT / "config" / "sources.toml"
 STATE_FILE = ROOT / "data" / "state.json"
-CHECK_URL = "https://example.com/"
-CHECK_MARKER = "Example Domain"
+# Two independently hosted HTTPS canaries reduce false negatives caused by
+# destination-specific filtering. A pass still requires a real HTTPS response
+# with the expected marker; publication thresholds are unchanged.
+CHECK_TARGETS = (
+    ("https://example.com/", "Example Domain"),
+    ("https://www.cloudflare.com/cdn-cgi/trace", "ip="),
+)
 USER_AGENT = "WorldProxyAtlas/1.1 (+https://github.com/marianalejandro89-design/world-proxy-atlas)"
 PROTOCOLS = {"http", "https", "socks4", "socks5"}
 ALLOWED_PORTS = {
@@ -301,53 +306,72 @@ def select_candidates(
     chosen.extend(exploration[: max(0, limit - len(chosen))])
     return chosen
 
+def canary_response_valid(status: int, body: bytes, marker: str) -> bool:
+    """Require a successful response carrying the target-specific canary marker."""
+    return status == 200 and marker.encode("ascii") in body
+
+
 async def validate_one(
     candidate: Candidate,
     semaphore: asyncio.Semaphore,
     proxy_connector: Any,
 ) -> tuple[dict[str, Any] | None, str | None]:
-    """Return the canary result plus a low-cardinality failure reason."""
+    """Check a proxy against alternate HTTPS canaries without relaxing quality gates."""
     async with semaphore:
-        started = time.perf_counter()
-        timeout = aiohttp.ClientTimeout(total=7, connect=4, sock_read=5)
-        try:
-            headers = {"User-Agent": USER_AGENT, "Accept": "text/html"}
-            if candidate.protocol == "https":
-                # TLS is negotiated with the proxy itself before the CONNECT tunnel.
-                async with aiohttp.ClientSession(
-                    timeout=timeout, trust_env=False, headers=headers
-                ) as client:
-                    async with client.get(
-                        CHECK_URL, proxy=candidate.proxy, ssl=True, allow_redirects=False
-                    ) as response:
-                        body = await response.content.read(8192)
-                        status = response.status
-            else:
-                # ProxyConnector supports HTTP, SOCKS4(a) and SOCKS5(h).
-                connector = proxy_connector.from_url(candidate.proxy)
-                async with aiohttp.ClientSession(
-                    connector=connector, timeout=timeout, trust_env=False, headers=headers
-                ) as client:
-                    async with client.get(
-                        CHECK_URL, ssl=True, allow_redirects=False
-                    ) as response:
-                        body = await response.content.read(8192)
-                        status = response.status
+        last_failure = "unknown"
+        for check_url, marker in CHECK_TARGETS:
+            started = time.perf_counter()
+            timeout = aiohttp.ClientTimeout(total=8, connect=4, sock_read=6)
+            headers = {"User-Agent": USER_AGENT, "Accept": "text/html,*/*;q=0.8"}
+            try:
+                if candidate.protocol == "https":
+                    # TLS is negotiated with the proxy itself before the CONNECT tunnel.
+                    async with aiohttp.ClientSession(
+                        timeout=timeout, trust_env=False, headers=headers
+                    ) as client:
+                        async with client.get(
+                            check_url, proxy=candidate.proxy, ssl=True,
+                            allow_redirects=False,
+                        ) as response:
+                            body = await response.content.read(8192)
+                            status = response.status
+                else:
+                    # ProxyConnector supports HTTP, SOCKS4(a) and SOCKS5(h).
+                    connector = proxy_connector.from_url(candidate.proxy)
+                    async with aiohttp.ClientSession(
+                        connector=connector, timeout=timeout, trust_env=False,
+                        headers=headers,
+                    ) as client:
+                        async with client.get(
+                            check_url, ssl=True, allow_redirects=False
+                        ) as response:
+                            body = await response.content.read(8192)
+                            status = response.status
 
-            if status != 200:
-                return None, f"http_status_{status}"
-            body_text = body.decode("utf-8", errors="replace")
-            if CHECK_MARKER not in body_text:
-                return None, "canary_marker_missing"
-            latency = round((time.perf_counter() - started) * 1000, 1)
-            return {
-                "candidate": candidate, "latency_ms": latency, "status_code": status
-            }, None
-        except TimeoutError:
-            return None, "timeout"
-        except Exception as exc:
-            # Keep failures isolated, but make their classes observable in run stats.
-            return None, type(exc).__name__
+                if not canary_response_valid(status, body, marker):
+                    last_failure = (
+                        f"http_status_{status}" if status != 200
+                        else "canary_marker_missing"
+                    )
+                    continue
+
+                # Measure the successful request only. A blocked first canary must
+                # not inflate the latency of a successful alternate destination.
+                latency = round((time.perf_counter() - started) * 1000, 1)
+                return {
+                    "candidate": candidate, "latency_ms": latency, "status_code": status
+                }, None
+            except TimeoutError:
+                last_failure = "timeout"
+            except aiohttp.ClientConnectorError:
+                last_failure = "connect_error"
+            except aiohttp.ClientError as exc:
+                last_failure = type(exc).__name__
+            except Exception as exc:
+                # Keep failures isolated, but make their classes observable in run stats.
+                last_failure = type(exc).__name__
+
+        return None, last_failure
 
 
 async def validate_all(

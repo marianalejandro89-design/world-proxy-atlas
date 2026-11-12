@@ -1,8 +1,8 @@
 # Source discovery register
 
-Last reviewed: 2026-11-11
+Last reviewed: 2026-11-12
 
-Active catalogue: 33 public feed endpoints across 14 publisher groups. Ten groups are independent publishers; four aggregator groups are intentionally marked independent=false because their data is drawn from public upstream proxy pools and can overlap other configured feeds. Multiple protocol shards from one publisher count once.
+Active catalogue: 37 public feed endpoints across 15 publisher groups. Ten groups are independent publishers; five aggregator groups are intentionally marked independent=false because their data is drawn from public upstream proxy pools and can overlap other configured feeds. Multiple protocol shards from one publisher count once.
 
 ## Active publishers
 
@@ -21,7 +21,7 @@ Active catalogue: 33 public feed endpoints across 14 publisher groups. Ten group
 | Proxy Scraper keyless API | 4 | Non-GitHub API with known overlap, excluded from independent count |
 | Stormsia proxy-list | 1 | 15-minute validator, mixed protocol feed; treated as aggregator |
 | ProxyNest | 3 | Keyless text exports for HTTP, SOCKS4 and SOCKS5; fair-use limited |
-| ProxyWing | 1 | Keyless live export; HTTPS category explicitly means HTTP CONNECT |
+| ProxyWing | 1 | Keyless live export; HTTPS category explicitly means HTTP CONNECT |\n| Relayglass | 4 | HTTP, HTTP CONNECT, SOCKS4 and SOCKS5; independently checked upstream aggregate, excluded from diversity scoring |
 
 ## Discovery languages
 
@@ -36,7 +36,7 @@ Candidate feeds were not activated merely because they appeared in search result
 - fyvri/fresh-proxy-list — claims hourly updates, but archive feeds could not be verified within safe size/format limits at review time.
 - gproxynet/free-proxy-list — checked snapshot reported zero entries.
 - TheSpeedX/SOCKS-List — raw-file metadata was not consistently retrievable via the review integration.
-- ProxyNest and ProxyLister — public download pages were found, but stable documented feed URLs and schemas were not confirmed; this project avoids scraping HTML UIs.
+- ProxyNest and ProxyLister — public download pages were found, but stable documented feed URLs and schemas were not confirmed; this project avoids scraping HTML UIs.\n- roosterkid/openproxylist — current raw-list update cadence could not be established confidently enough for automated inclusion.
 
 ## Additional non-GitHub sources
 
@@ -50,3 +50,4 @@ ProxyNest documents `/api/export?format=txt&protocol=...` for HTTP, SOCKS4 and S
 The keyless API at https://api.proxyscraper.com/v1/ documents HTTP and SOCKS5 feeds plus stable sublists, a 60 requests/minute limit and CC BY 4.0 data terms. Its docs identify overlap with proxio.io and proxmint, so its four feeds are requested every five minutes but excluded from source-diversity scoring. This API is distinct from api.proxyscrape.com.
 
 Before adding a source, re-check its current URL, terms, protocol definition, update cadence, response size and upstream overlap.
+\n## Validation target resilience\n\nEach candidate is tested against two HTTPS canaries (`example.com` and Cloudflare Trace). A destination-specific block or outage on the first canary can therefore be distinguished from a dead proxy. A pass still requires HTTP 200 and the exact expected marker from one canary. The public latency ceiling, two successful observations at least 45 minutes apart, strong-tier rules, and fail-closed publication behavior are unchanged. Only the successful request duration is used for the latency decision.\n
