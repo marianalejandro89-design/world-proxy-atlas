@@ -102,19 +102,22 @@ def test_publish_source_count_counts_only_groups_with_parsed_candidates(tmp_path
     sources = [
         {
             "id": "feed-a", "group": "publisher-a", "name": "Feed A",
-            "url": "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/all.txt", "status": "ok",
+            "url": "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/all.txt",
+            "status": "ok",
             "line_count": 20, "error": None, "independent": True,
             "unique_candidates": 5,
         },
         {
             "id": "feed-a-mirror", "group": "publisher-a", "name": "Feed A mirror",
-            "url": "https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/all/data.txt", "status": "ok",
+            "url": "https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/all/data.txt",
+            "status": "ok",
             "line_count": 20, "error": None, "independent": True,
             "unique_candidates": 2,
         },
         {
             "id": "feed-empty", "group": "publisher-empty", "name": "Empty Feed",
-            "url": "https://raw.githubusercontent.com/litportnet/free-proxy-list/live/proxies/all.txt", "status": "ok",
+            "url": "https://raw.githubusercontent.com/litportnet/free-proxy-list/live/proxies/all.txt",
+            "status": "ok",
             "line_count": 0, "error": None, "independent": True,
             "unique_candidates": 0,
         },
