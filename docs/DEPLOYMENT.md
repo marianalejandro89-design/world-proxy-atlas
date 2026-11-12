@@ -15,7 +15,7 @@ https://marianalejandro89-design.github.io/world-proxy-atlas/
 
 ## Scheduled refresh
 
-The refresh workflow runs hourly at minute 17 UTC and can also be started manually. GitHub-hosted schedules are best-effort; a delayed or missed run is possible.
+The refresh workflow runs every five minutes (UTC) and can also be started manually. GitHub-hosted schedules are best-effort; a delayed or missed run is possible. Runs are serialized rather than cancelling an active refresh, and candidates checked within the last 45 minutes are held out of selection so frequent schedules do not reset the repeat-observation interval.
 
 Each run:
 
@@ -23,8 +23,8 @@ Each run:
 2. Parses and deduplicates literal public-IP candidates.
 3. Tests each selected candidate with a bounded HTTPS canary request.
 4. Updates short-lived repeat-success state.
-5. Publishes only endpoints with at least two consecutive fast successful checks, latency at or below 1,200 ms, and a quality score of at least 60/100.
-6. Marks Strong endpoints only at score 75 or higher, at least three consecutive successes, and latency at or below 900 ms.
+5. Publishes only endpoints with at least two fast successful checks separated by at least 45 minutes, latency at or below 1,200 ms, and a quality score of at least 60/100.
+6. Marks Strong endpoints only at score 75 or higher, at least three fast successful checks, each separated by at least 45 minutes, and latency at or below 900 ms.
 7. Runs production snapshot assertions before committing generated data and deploying Pages.
 
 A failed, slow, low-scoring or stale endpoint is omitted from the next snapshot. If feeds are unavailable or no endpoint qualifies, the run publishes an empty snapshot instead of keeping old entries visible. Validation state is retained for no more than 48 hours.
