@@ -18,7 +18,7 @@ GitHub Pages must be configured once under **Settings → Pages → Build and de
 An endpoint is included in public TXT, JSON and CSV output only when all of these conditions are met:
 
 1. It is a literal public IP address and uses an allowlisted port. Hostnames, credentials and private/reserved addresses are rejected.
-2. A bounded HTTPS request succeeds and returns the expected response marker.
+2. A bounded HTTPS request succeeds against at least one of two independent canary destinations and returns that destination's expected response marker.
 3. It passes at least two fast validation cycles separated by at least 45 minutes.
 4. Its measured request latency is no more than 1,200 ms.
 
@@ -60,4 +60,4 @@ Use public proxies only where permitted by applicable law, service terms and net
 
 ## Security
 
-The collector applies response-size, line-count, timeout and concurrency limits. It validates literal public IP endpoints and rejects credentials, hostnames, private/reserved ranges and non-allowlisted ports. See [SECURITY.md](SECURITY.md) for the security policy and [CONTRIBUTING.md](CONTRIBUTING.md) for source catalogue changes.
+The collector applies response-size, line-count, timeout and concurrency limits. Validation uses two HTTPS canaries to reduce destination-specific false negatives; this does not change the latency or repeat-success publication gates. It validates literal public IP endpoints and rejects credentials, hostnames, private/reserved ranges and non-allowlisted ports. See [SECURITY.md](SECURITY.md) for the security policy and [CONTRIBUTING.md](CONTRIBUTING.md) for source catalogue changes.
