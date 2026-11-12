@@ -92,7 +92,7 @@ def test_publication_requires_two_successful_checks():
     second_records, _ = update_records(passed, state, "2026-11-11T11:00:00Z")
     assert len(second_records) == 1
     assert second_records[0]["success_streak"] == 2
-    assert second_records[0]["quality_score"] >= 55
+    assert second_records[0]["quality_score"] >= 60
 
 
 def test_slow_proxy_is_never_published_even_after_repeat_success():
