@@ -50,8 +50,8 @@ jobs:
 
       - name: Collect and validate
         env:
-          ATLAS_MAX_CANDIDATES: "3000"
-          ATLAS_CONCURRENCY: "100"
+          ATLAS_MAX_CANDIDATES: "1500"
+          ATLAS_CONCURRENCY: "150"
         run: python -m atlas.pipeline
 
       - name: Production snapshot checks
