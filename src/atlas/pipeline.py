@@ -204,37 +204,46 @@ def merge_candidates(results: list[dict[str, Any]]) -> list[Candidate]:
 
 
 def select_candidates(
-    candidates: list[Candidate], state: dict[str, Any], limit: int
+    candidates: list[Candidate], state: dict[str, Any], limit: int,
+    now: datetime | None = None,
 ) -> list[Candidate]:
-    hour = datetime.now(UTC).strftime("%Y%m%d%H")
+    now = now or datetime.now(UTC)
+    window_key = now.strftime("%Y%m%d%H")
     repeatable = []
-    now = datetime.now(UTC)
+    cooling_down = set()
     for item in candidates:
         previous = state.get(item.key, {})
         if not isinstance(previous, dict):
             continue
         last = previous.get("last_seen")
         streak = int(previous.get("success_streak", 0))
-        if not last or streak < 1:
+        if not last:
             continue
         try:
             elapsed = now - datetime.fromisoformat(last.replace("Z", "+00:00"))
         except (TypeError, ValueError):
             continue
-        if timedelta(minutes=45) <= elapsed <= timedelta(hours=2, minutes=15):
+        if streak >= 1 and elapsed < timedelta(minutes=45):
+            # Do not let a five-minute run reset the observation interval.
+            cooling_down.add(item.key)
+        elif streak >= 1 and elapsed <= timedelta(hours=2, minutes=15):
             repeatable.append(item)
     repeatable.sort(
         key=lambda item: (-int(state[item.key].get("success_streak", 0)), item.key)
     )
     chosen = repeatable[: min(limit // 3, len(repeatable))]
     chosen_keys = {item.key for item in chosen}
-    exploration = [item for item in candidates if item.key not in chosen_keys]
+    exploration = [
+        item for item in candidates
+        if item.key not in chosen_keys and item.key not in cooling_down
+    ]
     exploration.sort(
-        key=lambda item: hashlib.sha256(f"{hour}:{item.key}".encode()).hexdigest()
+        key=lambda item: hashlib.sha256(
+            f"{window_key}:{item.key}".encode()
+        ).hexdigest()
     )
     chosen.extend(exploration[: max(0, limit - len(chosen))])
     return chosen
-
 
 async def validate_one(
     candidate: Candidate,
@@ -430,10 +439,10 @@ def publish(
         "feed_count": len(healthy),
         "feeds_configured": len(source_results),
         "quality_definition": (
-            "Published entries passed two consecutive hourly checks, scored at least 60/100, "
+            "Published entries passed two checks at least 45 minutes apart, scored at least 60/100, "
             "completed the HTTPS canary request within 1200 ms, and were checked in this run."
         ),
-        "minimum_quality_score": 55,
+        "minimum_quality_score": 60,
         "maximum_latency_ms": 1200,
         "minimum_success_streak": 2,
     }
