@@ -280,3 +280,88 @@ independent = false
 name = "Relayglass free proxy list SOCKS5"
 url = "https://raw.githubusercontent.com/relayglass/free-proxy-list/main/protocol/socks5/socks5.txt"
 default_protocol = "socks5"
+
+
+# Additional active aggregate feeds reviewed on 2026-11-12.
+# Each publisher aggregates upstream public lists, so these expand discovery
+# coverage but are excluded from independent-source diversity scoring.
+
+[[sources]]
+id = "vmheaven-http"
+group = "vmheaven"
+independent = false
+name = "VMHeaven free proxy list HTTP"
+url = "https://raw.githubusercontent.com/vmheaven/VMHeaven.io-Free-Proxy-List/main/http.txt"
+default_protocol = "http"
+
+[[sources]]
+id = "vmheaven-https-connect"
+group = "vmheaven"
+independent = false
+name = "VMHeaven free proxy list HTTP CONNECT"
+url = "https://raw.githubusercontent.com/vmheaven/VMHeaven.io-Free-Proxy-List/main/https.txt"
+default_protocol = "http"
+
+[[sources]]
+id = "vmheaven-socks4"
+group = "vmheaven"
+independent = false
+name = "VMHeaven free proxy list SOCKS4"
+url = "https://raw.githubusercontent.com/vmheaven/VMHeaven.io-Free-Proxy-List/main/socks4.txt"
+default_protocol = "socks4"
+
+[[sources]]
+id = "vmheaven-socks5"
+group = "vmheaven"
+independent = false
+name = "VMHeaven free proxy list SOCKS5"
+url = "https://raw.githubusercontent.com/vmheaven/VMHeaven.io-Free-Proxy-List/main/socks5.txt"
+default_protocol = "socks5"
+
+[[sources]]
+id = "dpangestuw-http"
+group = "dpangestuw"
+independent = false
+name = "dpangestuw/Free-Proxy HTTP"
+url = "https://raw.githubusercontent.com/dpangestuw/Free-Proxy/main/http_proxies.txt"
+default_protocol = "http"
+
+[[sources]]
+id = "dpangestuw-socks4"
+group = "dpangestuw"
+independent = false
+name = "dpangestuw/Free-Proxy SOCKS4"
+url = "https://raw.githubusercontent.com/dpangestuw/Free-Proxy/main/socks4_proxies.txt"
+default_protocol = "socks4"
+
+[[sources]]
+id = "dpangestuw-socks5"
+group = "dpangestuw"
+independent = false
+name = "dpangestuw/Free-Proxy SOCKS5"
+url = "https://raw.githubusercontent.com/dpangestuw/Free-Proxy/main/socks5_proxies.txt"
+default_protocol = "socks5"
+
+[[sources]]
+id = "vpslab-http"
+group = "vpslab"
+independent = false
+name = "VPSLab free proxy list HTTP"
+url = "https://raw.githubusercontent.com/VPSLabCloud/VPSLab-Free-Proxy-List/main/http_all.txt"
+default_protocol = "http"
+
+[[sources]]
+id = "vpslab-socks4"
+group = "vpslab"
+independent = false
+name = "VPSLab free proxy list SOCKS4"
+url = "https://raw.githubusercontent.com/VPSLabCloud/VPSLab-Free-Proxy-List/main/socks4_all.txt"
+default_protocol = "socks4"
+
+[[sources]]
+id = "vpslab-socks5"
+group = "vpslab"
+independent = false
+name = "VPSLab free proxy list SOCKS5"
+url = "https://raw.githubusercontent.com/VPSLabCloud/VPSLab-Free-Proxy-List/main/socks5_all.txt"
+default_protocol = "socks5"

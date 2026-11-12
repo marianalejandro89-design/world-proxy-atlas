@@ -2,7 +2,7 @@
 
 Last reviewed: 2026-11-12
 
-Active catalogue: 37 public feed endpoints across 15 publisher groups. Ten groups are independent publishers; five aggregator groups are intentionally marked independent=false because their data is drawn from public upstream proxy pools and can overlap other configured feeds. Multiple protocol shards from one publisher count once.
+Active catalogue: 47 public feed endpoints across 18 publisher groups. Ten groups are independent publishers; eight aggregator groups are intentionally marked independent=false because their data is drawn from public upstream proxy pools and can overlap other configured feeds. Multiple protocol shards from one publisher count once.
 
 ## Active publishers
 
@@ -21,7 +21,7 @@ Active catalogue: 37 public feed endpoints across 15 publisher groups. Ten group
 | Proxy Scraper keyless API | 4 | Non-GitHub API with known overlap, excluded from independent count |
 | Stormsia proxy-list | 1 | 15-minute validator, mixed protocol feed; treated as aggregator |
 | ProxyNest | 3 | Keyless text exports for HTTP, SOCKS4 and SOCKS5; fair-use limited |
-| ProxyWing | 1 | Keyless live export; HTTPS category explicitly means HTTP CONNECT |\n| Relayglass | 4 | HTTP, HTTP CONNECT, SOCKS4 and SOCKS5; independently checked upstream aggregate, excluded from diversity scoring |
+| ProxyWing | 1 | Keyless live export; HTTPS category explicitly means HTTP CONNECT |\n| Relayglass | 4 | HTTP, HTTP CONNECT, SOCKS4 and SOCKS5; independently checked upstream aggregate, excluded from diversity scoring |\n| VMHeaven | 4 | HTTP, HTTP CONNECT, SOCKS4 and SOCKS5; refreshed aggregate feeds, excluded from diversity scoring |\n| dpangestuw/Free-Proxy | 3 | HTTP, SOCKS4 and SOCKS5; mixed upstream aggregate, excluded from diversity scoring |\n| VPSLab | 3 | HTTP, SOCKS4 and SOCKS5; 15-minute aggregate feeds, excluded from diversity scoring |
 
 ## Discovery languages
 
@@ -50,4 +50,4 @@ ProxyNest documents `/api/export?format=txt&protocol=...` for HTTP, SOCKS4 and S
 The keyless API at https://api.proxyscraper.com/v1/ documents HTTP and SOCKS5 feeds plus stable sublists, a 60 requests/minute limit and CC BY 4.0 data terms. Its docs identify overlap with proxio.io and proxmint, so its four feeds are requested every five minutes but excluded from source-diversity scoring. This API is distinct from api.proxyscrape.com.
 
 Before adding a source, re-check its current URL, terms, protocol definition, update cadence, response size and upstream overlap.
-\n## Validation target resilience\n\nEach candidate is tested against two HTTPS canaries (`example.com` and Cloudflare Trace). A destination-specific block or outage on the first canary can therefore be distinguished from a dead proxy. A pass still requires HTTP 200 and the exact expected marker from one canary. The public latency ceiling, two successful observations at least 45 minutes apart, strong-tier rules, and fail-closed publication behavior are unchanged. Only the successful request duration is used for the latency decision.\n
+\n## Validation target resilience\n\nEach candidate is tested against two HTTPS canaries (`example.com` and Cloudflare Trace). A destination-specific block or outage on the first canary can therefore be distinguished from a dead proxy. A pass still requires HTTP 200 and the exact expected marker from one canary. The public latency ceiling, two successful observations at least 45 minutes apart, strong-tier rules, and fail-closed publication behavior are unchanged. Only the successful request duration is used for the latency decision.\n\nThe VMHeaven, dpangestuw and VPSLab endpoints were checked as live raw text feeds on 2026-11-12. Their repositories describe 15-minute or frequent refresh cycles. They are explicitly treated as aggregate discovery inputs, not independent provenance, and all candidates remain subject to this project's own protocol-aware validation and repeat-success policy. Their repository metadata did not declare a license at review time; only the public feed data is consumed, no upstream source code is copied, and users should consult each publisher's current terms.\n
