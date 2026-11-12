@@ -147,6 +147,10 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);f
     render();
   }).catch(error => {
     $("snapshot-status").textContent = error.message;
+    document.querySelectorAll(".download").forEach(link => {
+      link.removeAttribute("href");
+      link.setAttribute("aria-disabled", "true");
+    });
     $("rows").replaceChildren();
     const row = document.createElement("tr"), cell = document.createElement("td");
     cell.colSpan = 6; cell.textContent = error.message;
