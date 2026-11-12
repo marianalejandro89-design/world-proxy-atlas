@@ -9,11 +9,30 @@ from atlas.pipeline import (
     parse_candidate,
     publication_hold_reasons,
     read_json,
+    write_state,
     score,
     select_candidates,
     update_records,
     validate_all,
 )
+
+
+def test_compact_state_writer_round_trips_valid_json(tmp_path):
+    path = tmp_path / "state.json"
+    state = {
+        "http|8.8.8.8|8080": {
+            "quality_policy": 2,
+            "last_seen": "2026-11-12T10:00:00Z",
+            "last_attempt_at": "2026-11-12T10:00:00Z",
+            "success_streak": 2,
+        }
+    }
+
+    write_state(path, state)
+
+    assert path.read_bytes().endswith(b"\n")
+    assert read_json(path, {}) == state
+    assert b": " not in path.read_bytes()
 
 
 def test_read_json_warns_when_state_file_is_corrupt(tmp_path, capsys):
