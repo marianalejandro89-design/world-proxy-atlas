@@ -1,8 +1,8 @@
 import asyncio
 import json
+from datetime import UTC, datetime, timedelta
 
 import pytest
-from datetime import UTC, datetime, timedelta
 
 import atlas.pipeline as pipeline
 from atlas.pipeline import (
