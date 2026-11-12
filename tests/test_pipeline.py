@@ -12,6 +12,7 @@ from atlas.pipeline import (
     merge_candidates,
     parse_candidate,
     publication_hold_reasons,
+    pending_recheck_candidates,
     read_json,
     score,
     select_candidates,
