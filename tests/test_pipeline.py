@@ -1,6 +1,7 @@
 import asyncio
 import json
 from datetime import UTC, datetime, timedelta
+from types import SimpleNamespace
 
 import pytest
 
@@ -614,3 +615,41 @@ def test_source_catalogue_rejects_non_https_feeds(tmp_path, monkeypatch):
     monkeypatch.setattr(pipeline, "SOURCE_CONFIG", source_file)
     with pytest.raises(RuntimeError, match="real public HTTPS"):
         load_sources()
+
+
+class _RedirectContext:
+    async def __aenter__(self):
+        return SimpleNamespace(
+            status=302,
+            url=SimpleNamespace(scheme="https"),
+            raise_for_status=lambda: None,
+        )
+
+    async def __aexit__(self, exc_type, exc, traceback):
+        return False
+
+
+class _RedirectSession:
+    def __init__(self):
+        self.calls = []
+
+    def get(self, url, **kwargs):
+        self.calls.append((url, kwargs))
+        return _RedirectContext()
+
+
+def test_source_fetch_rejects_redirects_without_following_them(monkeypatch):
+    async def no_wait(_seconds):
+        return None
+
+    monkeypatch.setattr(pipeline.asyncio, "sleep", no_wait)
+    session = _RedirectSession()
+    source = {"id": "redirecting-feed", "url": "https://feeds.example.invalid/list.txt"}
+    result = asyncio.run(pipeline.fetch_source(
+        session, source, asyncio.Semaphore(1)
+    ))
+
+    assert result["status"] == "error"
+    assert "source redirects are disabled" in result["error"]
+    assert len(session.calls) == 3
+    assert all(call[1]["allow_redirects"] is False for call in session.calls)

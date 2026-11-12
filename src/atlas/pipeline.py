@@ -228,8 +228,10 @@ async def fetch_source(
     async with semaphore:
         for attempt in range(3):
             try:
-                async with session.get(source["url"], allow_redirects=True) as response:
+                async with session.get(source["url"], allow_redirects=False) as response:
                     response.raise_for_status()
+                    if 300 <= response.status < 400:
+                        raise ValueError("source redirects are disabled")
                     if response.url.scheme.lower() != "https":
                         raise ValueError("source redirected away from HTTPS")
                     raw = await read_bounded_body(response.content)

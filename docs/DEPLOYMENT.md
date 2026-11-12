@@ -19,7 +19,7 @@ The refresh workflow is configured for five-minute intervals at UTC minutes 2, 7
 
 Each run:
 
-1. Validates the source catalogue (real public HTTPS URLs, supported protocols and unique IDs), then fetches feeds with bounded time, streamed byte-size, line-count and concurrency limits. HTTPS redirects are required to remain HTTPS.
+1. Validates the source catalogue (real public HTTPS URLs, supported protocols and unique IDs), then fetches feeds with bounded time, streamed byte-size, line-count and concurrency limits. HTTP redirects are disabled entirely so a feed cannot downgrade transport or redirect the collector to an unintended host.
 2. Parses and deduplicates literal public-IP candidates.
 3. Tests each selected candidate against Google's live `robots.txt` HTTPS endpoint and Cloudflare Trace as fallback. TLS certificates are verified; one target must return HTTP 200 and its expected plain-text marker.
 4. Updates short-lived repeat-success state.
