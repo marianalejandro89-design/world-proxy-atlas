@@ -196,6 +196,25 @@ def test_feed_outage_disables_carry_forward():
     assert records == []
 
 
+
+def test_unselected_successful_candidate_keeps_its_repeat_streak():
+    candidate = Candidate("8.8.8.8", 8080, "http")
+    previous = {
+        candidate.key: {
+            "quality_policy": 2,
+            "last_seen": "2026-11-12T10:00:00Z",
+            "last_attempt_at": "2026-11-12T10:00:00Z",
+            "success_streak": 2,
+            "total_passes": 2,
+        }
+    }
+
+    _, state = update_records([], previous, "2026-11-12T10:05:00Z")
+
+    assert state[candidate.key]["success_streak"] == 2
+    assert state[candidate.key]["last_seen"] == "2026-11-12T10:00:00Z"
+
+
 def test_state_retention_uses_latest_failed_attempt_not_old_success():
     candidate = Candidate("8.8.8.8", 8080, "http")
     previous = {
