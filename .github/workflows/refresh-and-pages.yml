@@ -92,8 +92,8 @@ jobs:
           for proxy in proxies:
               assert proxy.get("status") == "verified", "Non-verified proxy in public output"
               assert proxy.get("success_streak", 0) >= 2, "Proxy lacks repeat validation"
-              assert proxy.get("latency_ms", 999999) <= 1500, "Slow proxy in public output"
-              assert proxy.get("quality_score", 0) >= 55, "Low-quality proxy in public output"
+              assert proxy.get("latency_ms", 999999) <= 1200, "Slow proxy in public output"
+              assert proxy.get("quality_score", 0) >= 60, "Low-quality proxy in public output"
               assert proxy.get("last_checked_at") == stats["generated_at"], "Stale proxy in public output"
           print(f"Production snapshot checks passed: {len(proxies)} qualified proxies")
           PY
