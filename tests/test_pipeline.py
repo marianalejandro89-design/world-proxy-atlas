@@ -312,7 +312,10 @@ def test_failed_proxy_is_removed_from_public_snapshot_immediately():
     assert len(records) == 1
 
     records_after_failure, retained_state = update_records(
-        [], state, "2026-11-11T12:00:00Z"
+        [],
+        state,
+        "2026-11-11T12:00:00Z",
+        attempted=[candidate],
     )
     assert records_after_failure == []
     assert retained_state[candidate.key]["success_streak"] == 0
