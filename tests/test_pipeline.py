@@ -102,19 +102,22 @@ def test_publish_source_count_counts_only_groups_with_parsed_candidates(tmp_path
     sources = [
         {
             "id": "feed-a", "group": "publisher-a", "name": "Feed A",
-            "url": "https://feed-a.example/proxies.txt", "status": "ok",
+            "url": "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/all.txt",
+            "status": "ok",
             "line_count": 20, "error": None, "independent": True,
             "unique_candidates": 5,
         },
         {
             "id": "feed-a-mirror", "group": "publisher-a", "name": "Feed A mirror",
-            "url": "https://mirror.example/proxies.txt", "status": "ok",
+            "url": "https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/all/data.txt",
+            "status": "ok",
             "line_count": 20, "error": None, "independent": True,
             "unique_candidates": 2,
         },
         {
             "id": "feed-empty", "group": "publisher-empty", "name": "Empty Feed",
-            "url": "https://empty.example/proxies.txt", "status": "ok",
+            "url": "https://raw.githubusercontent.com/litportnet/free-proxy-list/live/proxies/all.txt",
+            "status": "ok",
             "line_count": 0, "error": None, "independent": True,
             "unique_candidates": 0,
         },
@@ -343,10 +346,20 @@ def test_state_retention_uses_latest_failed_attempt_not_old_success():
     assert candidate.key in state
     assert state[candidate.key]["last_attempt_at"] == "2026-11-11T23:55:00Z"
 
+def test_production_canaries_are_real_https_endpoints():
+    assert pipeline.CHECK_TARGETS == (
+        ("https://www.google.com/robots.txt", "User-agent: *"),
+        ("https://www.cloudflare.com/cdn-cgi/trace", "ip="),
+    )
+    assert all(url.startswith("https://") for url, _ in pipeline.CHECK_TARGETS)
+    assert len({url.split("/")[2] for url, _ in pipeline.CHECK_TARGETS}) == 2
+
+
 def test_canary_response_requires_status_and_expected_marker():
-    assert pipeline.canary_response_valid(200, b"Example Domain", "Example Domain")
-    assert not pipeline.canary_response_valid(403, b"Example Domain", "Example Domain")
-    assert not pipeline.canary_response_valid(200, b"Access denied", "Example Domain")
+    assert pipeline.canary_response_valid(200, b"User-agent: *", "User-agent: *")
+    assert not pipeline.canary_response_valid(403, b"User-agent: *", "User-agent: *")
+    assert not pipeline.canary_response_valid(200, b"Access denied", "User-agent: *")
+    assert pipeline.canary_response_valid(200, b"ip=203.0.113.1", "ip=")
 
 
 def test_vmheaven_https_feed_is_normalized_to_http_connect():

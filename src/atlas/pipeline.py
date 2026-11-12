@@ -19,11 +19,12 @@ import aiohttp
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_CONFIG = ROOT / "config" / "sources.toml"
 STATE_FILE = ROOT / "data" / "state.json"
-# Two independently hosted HTTPS canaries reduce false negatives caused by
-# destination-specific filtering. A pass still requires a real HTTPS response
-# with the expected marker; publication thresholds are unchanged.
+# Production HTTPS canaries operated by two independent providers.
+# Google robots.txt is a stable plain-text 200 response; Cloudflare Trace is
+# a documented diagnostic endpoint that includes the request's egress IP.
+# Either exact marker proves that the proxy completed a real TLS HTTPS request.
 CHECK_TARGETS = (
-    ("https://example.com/", "Example Domain"),
+    ("https://www.google.com/robots.txt", "User-agent: *"),
     ("https://www.cloudflare.com/cdn-cgi/trace", "ip="),
 )
 USER_AGENT = "WorldProxyAtlas/1.1 (+https://github.com/marianalejandro89-design/world-proxy-atlas)"
@@ -322,7 +323,7 @@ async def validate_one(
         for check_url, marker in CHECK_TARGETS:
             started = time.perf_counter()
             timeout = aiohttp.ClientTimeout(total=8, connect=4, sock_read=6)
-            headers = {"User-Agent": USER_AGENT, "Accept": "text/html,*/*;q=0.8"}
+            headers = {"User-Agent": USER_AGENT, "Accept": "text/plain,*/*;q=0.8"}
             try:
                 if candidate.protocol == "https":
                     # TLS is negotiated with the proxy itself before the CONNECT tunnel.

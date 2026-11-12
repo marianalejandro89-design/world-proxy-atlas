@@ -19,6 +19,8 @@ An endpoint is included in public TXT, JSON and CSV output only when all of thes
 
 1. It is a literal public IP address and uses an allowlisted port. Hostnames, credentials and private/reserved addresses are rejected.
 2. A bounded HTTPS request succeeds against at least one of two independent canary destinations and returns that destination's expected response marker.
+
+The production canaries are [Google's live robots.txt](https://www.google.com/robots.txt) (`User-agent: *`) and [Cloudflare Trace](https://www.cloudflare.com/cdn-cgi/trace) (`ip=`). They are operated by different providers. A successful check requires TLS verification, HTTP 200 and the expected body marker from either endpoint.
 3. It passes at least two fast validation cycles separated by at least 45 minutes.
 4. Its measured request latency is no more than 1,200 ms.
 
