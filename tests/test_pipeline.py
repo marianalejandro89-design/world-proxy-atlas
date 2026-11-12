@@ -12,9 +12,9 @@ from atlas.pipeline import (
     read_json,
     score,
     select_candidates,
-    write_state,
     update_records,
     validate_all,
+    write_state,
 )
 
 
