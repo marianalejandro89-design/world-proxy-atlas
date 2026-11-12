@@ -8,11 +8,27 @@ from atlas.pipeline import (
     merge_candidates,
     parse_candidate,
     publication_hold_reasons,
+    read_json,
     score,
     select_candidates,
     update_records,
     validate_all,
 )
+
+
+def test_read_json_warns_when_state_file_is_corrupt(tmp_path, capsys):
+    path = tmp_path / "state.json"
+    path.write_text("{invalid", encoding="utf-8")
+
+    assert read_json(path, {}) == {}
+    assert "WARNING: could not read state.json" in capsys.readouterr().out
+
+
+def test_read_json_logs_expected_missing_initial_state(tmp_path, capsys):
+    path = tmp_path / "state.json"
+
+    assert read_json(path, {}) == {}
+    assert "INFO: state.json does not exist yet" in capsys.readouterr().out
 
 
 def test_parse_and_normalize_socks5_hostname():
