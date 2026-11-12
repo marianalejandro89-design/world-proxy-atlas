@@ -215,18 +215,27 @@ def select_candidates(
         previous = state.get(item.key, {})
         if not isinstance(previous, dict):
             continue
-        last = previous.get("last_seen")
+        last_attempt = previous.get("last_attempt_at") or previous.get("last_seen")
+        last_success = previous.get("last_seen")
         streak = int(previous.get("success_streak", 0))
-        if not last:
+        if not last_attempt:
             continue
         try:
-            elapsed = now - datetime.fromisoformat(last.replace("Z", "+00:00"))
+            attempt_elapsed = now - datetime.fromisoformat(last_attempt.replace("Z", "+00:00"))
+            success_elapsed = (
+                now - datetime.fromisoformat(last_success.replace("Z", "+00:00"))
+                if last_success else None
+            )
         except (TypeError, ValueError):
             continue
-        if streak >= 1 and elapsed < timedelta(minutes=45):
-            # Do not let a five-minute run reset the observation interval.
+        if attempt_elapsed < timedelta(minutes=45):
+            # Avoid retesting both passing and failing candidates too frequently.
+            # This keeps the repeat-observation interval meaningful and frees slots.
             cooling_down.add(item.key)
-        elif streak >= 1 and elapsed <= timedelta(hours=2, minutes=15):
+        elif (
+            streak >= 1 and success_elapsed is not None
+            and success_elapsed <= timedelta(hours=2, minutes=15)
+        ):
             repeatable.append(item)
     repeatable.sort(
         key=lambda item: (-int(state[item.key].get("success_streak", 0)), item.key)
@@ -317,6 +326,7 @@ def update_records(
     passed: list[dict[str, Any]],
     previous: dict[str, Any],
     checked_at: str,
+    attempted: list[Candidate] | None = None,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     checked_dt = datetime.fromisoformat(checked_at.replace("Z", "+00:00"))
     state: dict[str, Any] = {}
@@ -368,6 +378,7 @@ def update_records(
             "quality_policy": 2,
             "first_seen": prior.get("first_seen", checked_at),
             "last_seen": checked_at,
+            "last_attempt_at": checked_at,
             "success_streak": streak,
             "total_passes": int(prior.get("total_passes", 0)) + 1,
             "last_latency_ms": item["latency_ms"],
@@ -377,6 +388,20 @@ def update_records(
     records.sort(
         key=lambda row: (-row["quality_score"], row["latency_ms"], row["address"])
     )
+    for candidate in attempted or []:
+        if candidate.key in state:
+            continue
+        prior = previous.get(candidate.key, {})
+        if not isinstance(prior, dict):
+            prior = {}
+        state[candidate.key] = {
+            **prior,
+            "quality_policy": 2,
+            "first_seen": prior.get("first_seen", checked_at),
+            "last_attempt_at": checked_at,
+            "success_streak": 0,
+        }
+
     cutoff = checked_dt - timedelta(hours=48)
     for key, value in previous.items():
         if key in state or not isinstance(value, dict):
@@ -536,7 +561,9 @@ def main() -> None:
     # A healthy collection run with zero passing proxies must publish an empty
     # snapshot rather than leave previously working-but-now-dead entries online.
     checked_at = now_iso()
-    records, state = update_records(passed, previous_state, checked_at)
+    records, state = update_records(
+        passed, previous_state, checked_at, attempted=candidates
+    )
     publish(records, source_results, state, checked_at)
     print(
         f"Published {len(records)} verified endpoints; "
