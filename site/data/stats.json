@@ -5,13 +5,13 @@
     "socks4": 0,
     "socks5": 0
   },
-  "discovered_candidates": 6938,
+  "discovered_candidates": 7575,
   "feed_count": 33,
   "feeds_configured": 33,
   "feeds_fetch_failed": 0,
   "feeds_with_candidates": 32,
   "feeds_without_candidates": 1,
-  "generated_at": "2026-11-12T15:30:11Z",
+  "generated_at": "2026-11-12T15:57:27Z",
   "maximum_latency_ms": 1200,
   "median_latency_ms": null,
   "minimum_quality_score": 60,
@@ -19,19 +19,19 @@
   "newly_verified": 0,
   "public_record_max_age_minutes": 90,
   "publication_hold_reasons": {
-    "latency_over_limit": 94,
-    "repeat_validation_pending": 32
+    "latency_over_limit": 95,
+    "repeat_validation_pending": 30
   },
   "publication_yield_pct": 0.0,
   "quality_definition": "Published entries passed two checks at least 45 minutes apart, completed the HTTPS canary request within 1200 ms, and were last checked within 90 minutes. The quality score ranks endpoints using speed, repeat reliability and source diversity; the 60/100 floor is defensive, not an independent filter under the current scoring formula. Entries not sampled in this run are retained only inside that recheck window; sampled failures are removed.",
   "retained_verified": 0,
   "selected_candidates": 1500,
-  "source_candidate_lines": 19614,
+  "source_candidate_lines": 22416,
   "source_count": 10,
   "source_duplicate_lines": 1,
-  "source_parsed_candidate_lines": 11414,
-  "source_rejected_lines": 8200,
-  "source_unique_candidates": 11413,
+  "source_parsed_candidate_lines": 12532,
+  "source_rejected_lines": 9884,
+  "source_unique_candidates": 12531,
   "sources_configured": 10,
   "strong_by_protocol": {
     "http": 0,
@@ -42,17 +42,17 @@
   "strong_count": 0,
   "total_verified": 0,
   "validation_attempted": 1500,
-  "validation_failed": 1374,
+  "validation_failed": 1375,
   "validation_failure_reasons": {
-    "ClientConnectorCertificateError": 180,
-    "ClientConnectorSSLError": 13,
-    "ClientOSError": 65,
-    "ClientProxyConnectionError": 10,
+    "ClientConnectorCertificateError": 158,
+    "ClientConnectorSSLError": 12,
+    "ClientOSError": 63,
+    "ClientProxyConnectionError": 6,
     "IncompleteReadError": 13,
-    "ProxyConnectionError": 34,
-    "ProxyError": 145,
-    "timeout": 914
+    "ProxyConnectionError": 35,
+    "ProxyError": 139,
+    "timeout": 949
   },
-  "validation_pass_rate_pct": 8.4,
-  "validation_passed": 126
+  "validation_pass_rate_pct": 8.3,
+  "validation_passed": 125
 }
