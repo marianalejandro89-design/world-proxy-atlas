@@ -287,7 +287,8 @@ def test_state_records_keep_only_fields_used_by_validation_policy():
     _, state = update_records(passed, {}, "2026-11-12T10:00:00Z")
 
     assert set(state[candidate.key]) == {
-        "quality_policy", "last_seen", "last_attempt_at", "success_streak"
+        "quality_policy", "last_seen", "last_attempt_at", "success_streak",
+        "sources", "source_groups",
     }
 
 
@@ -313,6 +314,7 @@ def test_unselected_state_is_compacted_without_losing_repeat_fields():
         "last_seen": "2026-11-12T10:00:00Z",
         "last_attempt_at": "2026-11-12T10:00:00Z",
         "success_streak": 2,
+        "sources": ["feed-a", "feed-b"],
     }
 
 
