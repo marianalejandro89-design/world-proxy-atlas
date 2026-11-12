@@ -9,9 +9,9 @@ from atlas.pipeline import (
     parse_candidate,
     publication_hold_reasons,
     read_json,
-    write_state,
     score,
     select_candidates,
+    write_state,
     update_records,
     validate_all,
 )
