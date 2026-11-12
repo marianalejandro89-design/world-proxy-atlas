@@ -5,13 +5,13 @@
     "socks4": 0,
     "socks5": 0
   },
-  "discovered_candidates": 7545,
+  "discovered_candidates": 5515,
   "feed_count": 33,
   "feeds_configured": 33,
   "feeds_fetch_failed": 0,
-  "feeds_with_candidates": 33,
-  "feeds_without_candidates": 0,
-  "generated_at": "2026-11-12T15:21:54Z",
+  "feeds_with_candidates": 32,
+  "feeds_without_candidates": 1,
+  "generated_at": "2026-11-12T15:26:02Z",
   "maximum_latency_ms": 1200,
   "median_latency_ms": null,
   "minimum_quality_score": 60,
@@ -19,18 +19,18 @@
   "newly_verified": 0,
   "public_record_max_age_minutes": 90,
   "publication_hold_reasons": {
-    "latency_over_limit": 6
+    "latency_over_limit": 5
   },
   "publication_yield_pct": 0.0,
   "quality_definition": "Published entries passed two checks at least 45 minutes apart, scored at least 60/100, completed the HTTPS canary request within 1200 ms, and were last checked within 90 minutes. Entries not sampled in this run are retained only inside that recheck window; sampled failures are removed.",
   "retained_verified": 0,
-  "selected_candidates": 117,
-  "source_candidate_lines": 21721,
+  "selected_candidates": 39,
+  "source_candidate_lines": 14677,
   "source_count": 10,
   "source_duplicate_lines": 1,
-  "source_parsed_candidate_lines": 12785,
-  "source_rejected_lines": 8936,
-  "source_unique_candidates": 12784,
+  "source_parsed_candidate_lines": 8874,
+  "source_rejected_lines": 5803,
+  "source_unique_candidates": 8873,
   "sources_configured": 10,
   "strong_by_protocol": {
     "http": 0,
@@ -40,15 +40,12 @@
   },
   "strong_count": 0,
   "total_verified": 0,
-  "validation_attempted": 117,
-  "validation_failed": 111,
+  "validation_attempted": 39,
+  "validation_failed": 34,
   "validation_failure_reasons": {
-    "ClientOSError": 5,
-    "IncompleteReadError": 1,
-    "ProxyConnectionError": 1,
-    "ProxyError": 1,
-    "timeout": 103
+    "ClientOSError": 1,
+    "timeout": 33
   },
-  "validation_pass_rate_pct": 5.1,
-  "validation_passed": 6
+  "validation_pass_rate_pct": 12.8,
+  "validation_passed": 5
 }
