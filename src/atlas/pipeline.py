@@ -365,6 +365,59 @@ def select_candidates(
     chosen.extend(exploration[: max(0, limit - len(chosen))])
     return chosen
 
+
+def pending_recheck_candidates(
+    state: dict[str, Any],
+    discovered: list[Candidate],
+    now: datetime | None = None,
+) -> list[Candidate]:
+    """Recover pending successful candidates even when rotating feeds omit them."""
+    now = now or datetime.now(UTC)
+    discovered_keys = {item.key for item in discovered}
+    recovered: list[Candidate] = []
+    for key, value in state.items():
+        if (
+            key in discovered_keys
+            or not isinstance(value, dict)
+            or value.get("quality_policy") != 2
+            or int(value.get("success_streak", 0)) < 1
+        ):
+            continue
+        last_success = value.get("last_seen")
+        if not isinstance(last_success, str):
+            continue
+        try:
+            age = now - datetime.fromisoformat(last_success.replace("Z", "+00:00"))
+            protocol, ip, raw_port = key.split("|", 2)
+            port = int(raw_port)
+        except (TypeError, ValueError):
+            continue
+        if age < timedelta(0) or age > timedelta(hours=2, minutes=15):
+            continue
+        try:
+            address = ipaddress.ip_address(ip)
+        except ValueError:
+            continue
+        if (
+            protocol not in PROTOCOLS
+            or not address.is_global
+            or address.is_multicast
+            or address.is_reserved
+            or not 1 <= port <= 65535
+        ):
+            continue
+        sources = value.get("sources", ())
+        groups = value.get("source_groups", ())
+        recovered.append(Candidate(
+            str(address), port, protocol,
+            tuple(item for item in sources if isinstance(item, str))
+                if isinstance(sources, (list, tuple)) else (),
+            tuple(item for item in groups if isinstance(item, str))
+                if isinstance(groups, (list, tuple)) else (),
+        ))
+    return recovered
+
+
 def canary_response_valid(status: int, body: bytes, marker: str) -> bool:
     """Require a successful response carrying the target-specific canary marker."""
     return status == 200 and marker.encode("ascii") in body
@@ -526,6 +579,8 @@ def update_records(
             "last_seen": checked_at,
             "last_attempt_at": checked_at,
             "success_streak": streak,
+            "sources": list(candidate.sources),
+            "source_groups": list(candidate.source_groups),
         }
 
     attempted_keys = {candidate.key for candidate in (attempted or [])}
@@ -595,7 +650,7 @@ def update_records(
             # streak; only an explicitly attempted failure resets the streak above.
             state[key] = {
                 field: value[field]
-                for field in ("quality_policy", "last_seen", "last_attempt_at", "success_streak")
+                for field in ("quality_policy", "last_seen", "last_attempt_at", "success_streak", "sources", "source_groups")
                 if field in value
             }
     return records, state
@@ -691,6 +746,7 @@ def publish(
         "public_record_max_age_minutes": int(PUBLIC_RECORD_MAX_AGE.total_seconds() / 60),
         "discovered_candidates": discovered_candidates,
         "selected_candidates": int(run_metrics.get("selected_candidates", validation_attempted)),
+        "recheck_candidates": int(run_metrics.get("recheck_candidates", 0)),
         "validation_attempted": validation_attempted,
         "validation_passed": validation_passed,
         "validation_failed": max(0, validation_attempted - validation_passed),
@@ -857,14 +913,16 @@ def main() -> None:
     discovered = merge_candidates(source_results)
     # Fail closed: if feeds are unavailable or provide no usable candidates,
     # publish an empty snapshot rather than retaining old public entries.
-    candidates = select_candidates(discovered, previous_state, len(discovered))
+    pending_rechecks = pending_recheck_candidates(previous_state, discovered)
+    validation_pool = discovered + pending_rechecks
+    candidates = select_candidates(validation_pool, previous_state, len(validation_pool))
     feeds_with_candidates = sum(
         1 for item in source_results if int(item.get("unique_candidates", 0)) > 0
     )
     print(
         f"Feeds fetched: {healthy}/{len(sources)}; "
         f"feeds with candidates: {feeds_with_candidates}/{healthy}; "
-        f"unique candidates: {len(discovered)}; selected: {len(candidates)}"
+        f"unique candidates: {len(discovered)}; pending rechecks recovered: {len(pending_rechecks)}; selected: {len(candidates)}"
     )
     passed, failure_reasons = asyncio.run(validate_all(candidates, concurrency))
     checked_at = now_iso()
@@ -888,6 +946,7 @@ def main() -> None:
     run_metrics = {
         "discovered_candidates": len(discovered),
         "selected_candidates": len(candidates),
+        "recheck_candidates": len(pending_rechecks),
         "validation_attempted": len(candidates),
         "validation_passed": len(passed),
         "validation_failure_reasons": failure_reasons,
