@@ -721,13 +721,13 @@ def publish(
         write_json(folder / "sources.json", {
             "generated_at": checked_at, "sources": source_payload
         })
-    # This internal hot-path file is stored compactly: it is committed on
-    # every refresh, and verbose diagnostics/attribution live in public stats.
-    write_text(
-        STATE_FILE,
-        json.dumps(state, sort_keys=True, separators=(",", ":")) + "\\n",
-    )
+    write_state(STATE_FILE, state)
     write_json(history_file, history)
+
+
+def write_state(path: Path, state: dict[str, Any]) -> None:
+    """Persist only validation-policy fields in compact, valid JSON."""
+    write_text(path, json.dumps(state, sort_keys=True, separators=(",", ":")) + "\n")
 
 
 def main() -> None:
