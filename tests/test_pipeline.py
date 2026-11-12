@@ -541,6 +541,59 @@ def test_recently_checked_candidates_are_held_out_until_observation_window():
 
 
 
+def test_pending_successful_candidate_is_rechecked_when_feed_omits_it():
+    now = datetime(2026, 11, 12, 12, 0, tzinfo=UTC)
+    candidate = Candidate("8.8.8.8", 8080, "http", ("feed-a",), ("publisher-a",))
+    checked = (now - timedelta(minutes=60)).isoformat().replace("+00:00", "Z")
+    state = {
+        candidate.key: {
+            "quality_policy": 2,
+            "last_seen": checked,
+            "last_attempt_at": checked,
+            "success_streak": 1,
+            "sources": ["feed-a"],
+            "source_groups": ["publisher-a"],
+        }
+    }
+
+    recovered = pending_recheck_candidates(state, [], now=now)
+
+    assert recovered == [candidate]
+    assert candidate in select_candidates(recovered, state, 1, now=now)
+
+
+def test_pending_candidate_already_in_feed_is_not_duplicated():
+    now = datetime(2026, 11, 12, 12, 0, tzinfo=UTC)
+    candidate = Candidate("8.8.8.8", 8080, "http")
+    checked = (now - timedelta(minutes=60)).isoformat().replace("+00:00", "Z")
+    state = {
+        candidate.key: {
+            "quality_policy": 2,
+            "last_seen": checked,
+            "last_attempt_at": checked,
+            "success_streak": 1,
+        }
+    }
+
+    assert pending_recheck_candidates(state, [candidate], now=now) == []
+
+
+def test_expired_pending_candidate_is_not_recovered():
+    now = datetime(2026, 11, 12, 12, 0, tzinfo=UTC)
+    candidate = Candidate("8.8.8.8", 8080, "http")
+    checked = (now - timedelta(hours=3)).isoformat().replace("+00:00", "Z")
+    state = {
+        candidate.key: {
+            "quality_policy": 2,
+            "last_seen": checked,
+            "last_attempt_at": checked,
+            "success_streak": 1,
+        }
+    }
+
+    assert pending_recheck_candidates(state, [], now=now) == []
+
+
 def test_full_pool_selection_includes_every_candidate_above_old_sample_cap():
     now = datetime(2026, 11, 12, 12, 0, tzinfo=UTC)
     candidates = [
