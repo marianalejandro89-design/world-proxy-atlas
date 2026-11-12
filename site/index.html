@@ -338,9 +338,12 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);f
   $("download-export").addEventListener("click",downloadExport);
   $("copy-export").addEventListener("click",copyExport);
 
+  // GitHub Pages may briefly serve an older CDN object after a successful deploy.
+  // A per-load URL version bypasses stale edge-cache entries for both snapshot files.
+  const snapshotCacheKey = "?v=" + Date.now();
   Promise.all([
-    fetch("data/stats.json",{cache:"no-store"}),
-    fetch("data/proxies.json",{cache:"no-store"})
+    fetch("data/stats.json" + snapshotCacheKey,{cache:"no-store"}),
+    fetch("data/proxies.json" + snapshotCacheKey,{cache:"no-store"})
   ]).then(async ([statsResponse,proxyResponse]) => {
     if (!statsResponse.ok || !proxyResponse.ok) throw new Error("Snapshot is not available yet.");
     const stats=await statsResponse.json();
