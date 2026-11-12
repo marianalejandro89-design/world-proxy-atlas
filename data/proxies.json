@@ -1,5 +1,52 @@
 {
-  "count": 0,
-  "generated_at": "2026-11-12T00:36:38Z",
-  "proxies": []
+  "count": 2,
+  "generated_at": "2026-11-12T01:40:37Z",
+  "proxies": [
+    {
+      "address": "159.203.61.169:80",
+      "ip": "159.203.61.169",
+      "last_checked_at": "2026-11-12T01:40:37Z",
+      "latency_ms": 132.3,
+      "port": 80,
+      "protocol": "http",
+      "proxy": "http://159.203.61.169:80",
+      "quality_score": 91,
+      "quality_tier": "verified",
+      "source_count": 2,
+      "sources": [
+        "hproxy-http",
+        "proxio-http"
+      ],
+      "status": "verified",
+      "status_code": 200,
+      "success_streak": 2,
+      "supports_https": true
+    },
+    {
+      "address": "119.18.52.156:1080",
+      "ip": "119.18.52.156",
+      "last_checked_at": "2026-11-12T01:40:37Z",
+      "latency_ms": 1028.8,
+      "port": 1080,
+      "protocol": "socks5",
+      "proxy": "socks5://119.18.52.156:1080",
+      "quality_score": 77,
+      "quality_tier": "verified",
+      "source_count": 6,
+      "sources": [
+        "hproxy-api-socks5",
+        "hproxy-socks5",
+        "proxifly-all",
+        "proxio-socks5",
+        "proxmint-all",
+        "proxy-free-socks5",
+        "proxyscraper-api-socks5",
+        "thordata-socks5"
+      ],
+      "status": "verified",
+      "status_code": 200,
+      "success_streak": 2,
+      "supports_https": true
+    }
+  ]
 }
