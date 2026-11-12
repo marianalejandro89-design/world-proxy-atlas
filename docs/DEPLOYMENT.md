@@ -15,7 +15,7 @@ https://marianalejandro89-design.github.io/world-proxy-atlas/
 
 ## Scheduled refresh
 
-The refresh workflow runs every five minutes (UTC) and can also be started manually. GitHub-hosted schedules are best-effort; a delayed or missed run is possible. Runs are serialized rather than cancelling an active refresh, and candidates checked within the last 45 minutes are held out of selection so frequent schedules do not reset the repeat-observation interval.
+The refresh workflow is configured for five-minute intervals at UTC minutes 2, 7, 12, …, 57, offset from the start of each hour to reduce contention. It can also be started manually on `main`. GitHub-hosted schedules are best-effort; delayed or missed runs are possible during high load. Runs are serialized rather than cancelling an active refresh, and candidates checked within the last 45 minutes are held out of selection so frequent schedules do not reset the repeat-observation interval.
 
 Each run:
 
@@ -39,6 +39,6 @@ Review the latest run under the repository's **Actions** tab. A production refre
 - Generated data commit
 - GitHub Pages preflight and deployment
 
-If the Pages preflight fails, confirm that Pages source is set to **GitHub Actions**. If a snapshot is older than 90 minutes, the dashboard hides the directory and download links until a fresh snapshot is available.
+If the Pages preflight fails, confirm that Pages source is set to **GitHub Actions**. If a snapshot is older than 90 minutes, the dashboard hides the directory and download links until a fresh snapshot is available. The current `data/stats.json` records discovered candidates, attempted validations, pass/failure totals and publication yield; `data/sources.json` records per-feed fetch and parse counts. The production workflow also checks that the JSON, CSV and TXT downloads match the same generated snapshot.
 
 A successful validation is a point-in-time connectivity measurement, not a guarantee of uptime, anonymity, privacy or operator trust.

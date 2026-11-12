@@ -19,20 +19,20 @@ main{padding:46px 0 70px}.intro{max-width:720px;margin-bottom:28px}.eyebrow{colo
 .downloads{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.download{display:block;padding:13px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink)}.download:hover{border-color:#9bbcaf;text-decoration:none}.download b{display:block;font-size:14px}.download small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
 .toolbar{display:grid;grid-template-columns:minmax(190px,2fr) repeat(3,minmax(125px,1fr));gap:10px;margin:15px 0}.filter-field{display:flex;flex-direction:column;gap:5px;min-width:0}.filter-field span,.export-field span{font-size:11px;color:var(--muted);font-weight:750;letter-spacing:.03em}.toolbar input,.toolbar select,.export-field select{width:100%;min-height:40px;padding:8px 11px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit}.directory-summary{font-size:12px;color:var(--muted);margin:-4px 0 10px}.export-panel{padding:16px;border:1px solid var(--line);border-radius:11px;background:var(--surface);margin:0 0 13px}.export-intro{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:13px}.export-intro b{font-size:15px}.export-intro p{margin:3px 0 0;color:var(--muted);font-size:13px}.export-intro span{color:var(--muted);font-size:12px;text-align:right}.export-controls{display:flex;align-items:end;gap:10px;flex-wrap:wrap}.export-field{display:flex;flex-direction:column;gap:5px;min-width:220px;flex:1}.action-button{min-height:40px;padding:8px 13px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font:inherit;font-size:13px;font-weight:700;cursor:pointer}.action-button.primary{background:var(--accent);border-color:var(--accent);color:#fff}.action-button:disabled{opacity:.45;cursor:not-allowed}.download[aria-disabled=true]{opacity:.45;pointer-events:none}
 .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:11px;background:var(--surface)}table{width:100%;border-collapse:collapse;min-width:690px}th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line)}th{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:#fafbfc}td{font-size:13px}tbody tr:last-child td{border-bottom:0}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.tier{display:inline-block;border-radius:5px;padding:3px 7px;background:var(--accent-soft);color:var(--accent);font-size:11px;font-weight:750}.copy{border:1px solid var(--line);background:#fff;border-radius:6px;padding:5px 9px;color:var(--accent);cursor:pointer;font:inherit;font-size:12px}
-.notice{padding:14px 16px;background:#fff9ef;border:1px solid #f0dfc4;border-radius:10px;color:#6c522e;font-size:13px}.notice strong{color:#543c1c}
 footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);font-size:13px}.footer-inner{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 @media(max-width:980px){.toolbar{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:720px){.toolbar{grid-template-columns:repeat(2,minmax(0,1fr))}.export-intro{display:block}.export-intro span{display:block;text-align:left;margin-top:7px}.export-field{min-width:100%}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.downloads{grid-template-columns:repeat(2,minmax(0,1fr))}.nav-links{gap:12px}.shell{padding:0 17px}main{padding-top:34px}}
 @media(max-width:430px){.nav-links a:first-child{display:none}.metrics{gap:8px}.metric{padding:14px}.metric strong{font-size:25px}.downloads{gap:8px}}
 </style>
 </head>
 <body>
-<header><div class="shell nav"><a class="brand" href="./"><span class="brand-mark">W</span>World Proxy Atlas</a><nav class="nav-links" aria-label="Main navigation"><a href="#directory">Directory</a><a href="#downloads">Downloads</a><a href="https://github.com/marianalejandro89-design/world-proxy-atlas">Source code ↗</a></nav></div></header>
+<header><div class="shell nav"><a class="brand" href="./"><span class="brand-mark">W</span>World Proxy Atlas</a><nav class="nav-links" aria-label="Main navigation"><a href="#directory">Directory</a><a href="#downloads">Downloads</a><a href="data/sources.json" download="world-proxy-atlas-source-diagnostics.json">Source diagnostics</a><a href="https://github.com/marianalejandro89-design/world-proxy-atlas">Source code ↗</a></nav></div></header>
 <main class="shell">
 <section class="intro">
 <div class="eyebrow">Open network measurements</div>
 <h1>Public proxies, checked before publication.</h1>
 <p>We collect public proxy candidates, test them independently, and publish only endpoints that pass repeat checks, a response-time limit and a minimum quality score.</p>
 <div class="statusline"><span class="dot" aria-hidden="true"></span><span id="snapshot-status">Loading latest snapshot…</span><span>·</span><span>Scheduled refresh every 5 minutes</span></div>
+<div class="statusline" id="validation-status" aria-live="polite">Latest validation diagnostics loading…</div>
 </section>
 <section class="metrics" aria-label="Current snapshot summary">
 <div class="metric"><span>Qualified proxies</span><strong id="total">—</strong></div>
@@ -60,15 +60,15 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);f
   </div>
 </div>
 <div class="downloads">
-<a class="download" href="files/all.txt"><b>All protocols</b><small id="all-count">TXT · protocol included</small></a>
-<a class="download" href="files/http.txt"><b>HTTP</b><small id="http-count">Plain text</small></a>
-<a class="download" href="files/https.txt"><b>HTTPS proxy</b><small id="https-count">TLS to proxy</small></a>
-<a class="download" href="files/socks4.txt"><b>SOCKS4</b><small id="socks4-count">Plain text</small></a>
-<a class="download" href="files/socks5.txt"><b>SOCKS5</b><small id="socks5-count">Plain text</small></a>
-<a class="download" href="files/http-connect.txt"><b>HTTP CONNECT</b><small>HTTPS destination capable</small></a>
-<a class="download" href="files/strong.txt"><b>Strong tier</b><small id="strong-count">Repeat-tested, faster entries</small></a>
-<a class="download" href="files/proxies.json"><b>JSON metadata</b><small>Full validation details</small></a>
-<a class="download" href="files/proxies.csv"><b>CSV export</b><small>Spreadsheet compatible</small></a>
+<a class="download" href="files/all.txt" download="world-proxy-atlas-all.txt"><b>All protocols</b><small id="all-count">TXT · protocol included</small></a>
+<a class="download" href="files/http.txt" download="world-proxy-atlas-http.txt"><b>HTTP</b><small id="http-count">Plain text</small></a>
+<a class="download" href="files/https.txt" download="world-proxy-atlas-https-proxy.txt"><b>HTTPS proxy</b><small id="https-count">TLS to proxy</small></a>
+<a class="download" href="files/socks4.txt" download="world-proxy-atlas-socks4.txt"><b>SOCKS4</b><small id="socks4-count">Plain text</small></a>
+<a class="download" href="files/socks5.txt" download="world-proxy-atlas-socks5.txt"><b>SOCKS5</b><small id="socks5-count">Plain text</small></a>
+<a class="download" href="files/http-connect.txt" download="world-proxy-atlas-http-connect.txt"><b>HTTP CONNECT</b><small>HTTPS destination capable</small></a>
+<a class="download" href="files/strong.txt" download="world-proxy-atlas-strong.txt"><b>Strong tier</b><small id="strong-count">Repeat-tested, faster entries</small></a>
+<a class="download" href="files/proxies.json" download="world-proxy-atlas-proxies.json"><b>JSON metadata</b><small>Full validation details</small></a>
+<a class="download" href="files/proxies.csv" download="world-proxy-atlas-proxies.csv"><b>CSV export</b><small>Spreadsheet compatible</small></a>
 </div>
 </section>
 <section class="section" id="directory">
@@ -351,6 +351,17 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);f
     $("snapshot-status").textContent=snapshotFresh
       ? "Snapshot checked " + Math.max(0,Math.round(ageMinutes)) + " minutes ago"
       : "Snapshot stale — entries and downloads hidden until a fresh check";
+    const tested = Number(stats.validation_attempted || 0);
+    const passed = Number(stats.validation_passed || 0);
+    const passRate = Number(stats.validation_pass_rate_pct || 0);
+    const discovered = Number(stats.discovered_candidates || 0);
+    const feedsWithCandidates = Number(stats.feeds_with_candidates || 0);
+    $("validation-status").textContent = snapshotFresh
+      ? "Latest run: " + number(discovered) + " unique candidates · " +
+        number(tested) + " tested · " + number(passed) + " passed (" +
+        passRate.toFixed(1) + "%) · " + number(stats.total_verified) +
+        " published · " + number(feedsWithCandidates) + " feeds yielded candidates"
+      : "Latest validation diagnostics unavailable until a fresh snapshot is loaded";
     if (!snapshotFresh) {
       document.querySelectorAll(".download").forEach(link => {
         link.removeAttribute("href");
@@ -362,6 +373,7 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);f
     snapshotFresh=false;
     proxies=[];
     $("snapshot-status").textContent=error.message;
+    $("validation-status").textContent="Latest validation diagnostics unavailable";
     document.querySelectorAll(".download").forEach(link => {
       link.removeAttribute("href");
       link.setAttribute("aria-disabled","true");

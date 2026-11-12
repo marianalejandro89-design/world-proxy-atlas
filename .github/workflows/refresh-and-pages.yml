@@ -2,7 +2,7 @@ name: Refresh proxy data and deploy dashboard
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "2-57/5 * * * *"
   workflow_dispatch:
   push:
     branches: [main]
@@ -19,13 +19,13 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  actions: write
   contents: write
   pages: write
   id-token: write
 
 jobs:
   refresh-and-deploy:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     environment:
@@ -48,6 +48,20 @@ jobs:
       - name: Unit tests
         run: python -m pytest -q
 
+      - name: Validate dashboard JavaScript
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+
+          html = Path("site/index.html").read_text(encoding="utf-8")
+          scripts = re.findall(r"<script\\b[^>]*>(.*?)</script\\s*>", html, flags=re.I | re.S)
+          if len(scripts) != 1:
+              raise SystemExit(f"Expected exactly one inline script, found {len(scripts)}")
+          Path("/tmp/atlas-dashboard.js").write_text(scripts[0], encoding="utf-8")
+          PY
+          node --check /tmp/atlas-dashboard.js
+
       - name: Collect and validate
         env:
           ATLAS_MAX_CANDIDATES: "1500"
@@ -57,25 +71,67 @@ jobs:
       - name: Production snapshot checks
         run: |
           python - <<'PY'
+          import csv
           import json
-          from datetime import datetime, timezone
+          from pathlib import Path
 
           with open("data/proxies.json", encoding="utf-8") as stream:
               payload = json.load(stream)
           with open("data/stats.json", encoding="utf-8") as stream:
               stats = json.load(stream)
+          with open("data/sources.json", encoding="utf-8") as stream:
+              source_payload = json.load(stream)
 
           proxies = payload.get("proxies", [])
           assert payload.get("count") == len(proxies), "Proxy count does not match payload"
           assert stats.get("total_verified") == len(proxies), "Stats count does not match payload"
           assert stats.get("generated_at") == payload.get("generated_at"), "Snapshot timestamps differ"
+          assert stats.get("generated_at") == source_payload.get("generated_at"), "Source diagnostics timestamp differs"
+          assert len({proxy.get("proxy") for proxy in proxies}) == len(proxies), "Duplicate public proxy entries"
+          assert sum(stats["by_protocol"].values()) == len(proxies), "Protocol counts do not sum to total"
+          assert stats["validation_attempted"] == stats["selected_candidates"], "Selected/tested totals differ"
+          assert stats["validation_passed"] + stats["validation_failed"] == stats["validation_attempted"], "Validation totals do not balance"
+          assert sum(stats["validation_failure_reasons"].values()) == stats["validation_failed"], "Failure categories do not balance"
+          assert stats["feeds_configured"] == stats["feed_count"] + stats["feeds_fetch_failed"], "Feed fetch totals do not balance"
+          assert stats["discovered_candidates"] >= stats["selected_candidates"], "Selected candidates exceed discovered pool"
+
           for proxy in proxies:
               assert proxy.get("status") == "verified", "Non-verified proxy in public output"
               assert proxy.get("success_streak", 0) >= 2, "Proxy lacks repeat validation"
               assert proxy.get("latency_ms", 999999) <= 1200, "Slow proxy in public output"
               assert proxy.get("quality_score", 0) >= 60, "Low-quality proxy in public output"
               assert proxy.get("last_checked_at") == stats["generated_at"], "Stale proxy in public output"
-          print(f"Production snapshot checks passed: {len(proxies)} qualified proxies")
+              assert proxy.get("proxy") == f'{proxy["protocol"]}://{proxy["address"]}', "Proxy URL does not match metadata"
+              if proxy["quality_tier"] == "strong":
+                  assert proxy["success_streak"] >= 3, "Strong proxy lacks three successful checks"
+                  assert proxy["latency_ms"] <= 900, "Strong proxy exceeds latency limit"
+                  assert proxy["quality_score"] >= 75, "Strong proxy fails score threshold"
+
+          base = Path("site/files")
+          expected_all = [proxy["proxy"] for proxy in proxies]
+          assert (base / "all.txt").read_text(encoding="utf-8").splitlines() == expected_all, "all.txt differs from JSON snapshot"
+          assert json.loads((base / "proxies.json").read_text(encoding="utf-8")) == payload, "Download JSON differs from snapshot"
+          assert json.loads(Path("site/data/proxies.json").read_text(encoding="utf-8")) == payload, "Dashboard JSON differs from snapshot"
+          assert json.loads(Path("site/data/stats.json").read_text(encoding="utf-8")) == stats, "Dashboard stats differ from snapshot"
+          for protocol in ("http", "https", "socks4", "socks5"):
+              expected = [proxy["address"] for proxy in proxies if proxy["protocol"] == protocol]
+              assert (base / f"{protocol}.txt").read_text(encoding="utf-8").splitlines() == expected, f"{protocol}.txt differs from snapshot"
+          expected_strong = [proxy["proxy"] for proxy in proxies if proxy["quality_tier"] == "strong"]
+          assert (base / "strong.txt").read_text(encoding="utf-8").splitlines() == expected_strong, "strong.txt differs from snapshot"
+          expected_connect = [proxy["address"] for proxy in proxies if proxy["protocol"] == "http"]
+          assert (base / "http-connect.txt").read_text(encoding="utf-8").splitlines() == expected_connect, "HTTP CONNECT list differs from tested HTTP proxies"
+          with (base / "proxies.csv").open(encoding="utf-8", newline="") as stream:
+              assert len(list(csv.DictReader(stream))) == len(proxies), "CSV export row count differs from snapshot"
+
+          sources = source_payload.get("sources", [])
+          assert len(sources) == stats["feeds_configured"], "Source diagnostics count mismatch"
+          assert sum(1 for source in sources if source["status"] == "ok") == stats["feed_count"], "Healthy feed diagnostics mismatch"
+          assert sum(int(source.get("unique_candidates", 0)) for source in sources) == stats["source_unique_candidates"], "Per-feed candidate counts mismatch"
+          print(
+              f'Production snapshot checks passed: {len(proxies)} qualified '
+              f'({stats["strong_count"]} strong); {stats["validation_attempted"]} tested, '
+              f'{stats["validation_passed"]} passed; {len(sources)} feeds inspected'
+          )
           PY
 
       - name: Commit generated data

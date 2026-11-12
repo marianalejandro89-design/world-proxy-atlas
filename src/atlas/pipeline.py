@@ -183,14 +183,36 @@ async def collect_sources(sources: list[dict[str, Any]]) -> list[dict[str, Any]]
 
 
 def merge_candidates(results: list[dict[str, Any]]) -> list[Candidate]:
+    """Merge parsed endpoints and attach per-feed parse diagnostics in place."""
     merged: dict[str, Candidate] = {}
     for source in results:
+        source.update({
+            "candidate_lines": 0,
+            "parsed_candidate_lines": 0,
+            "unique_candidates": 0,
+            "duplicate_lines": 0,
+            "rejected_lines": 0,
+            "parse_status": "no_candidates" if source["status"] == "ok" else "fetch_failed",
+        })
         if source["status"] != "ok":
             continue
+
+        local_keys: set[str] = set()
         for line in source["lines"]:
+            cleaned = line.strip().split("#", 1)[0].strip().strip("\"'")
+            if not cleaned or cleaned.startswith(("//", ";")):
+                continue
+            source["candidate_lines"] += 1
             candidate = parse_candidate(line, source)
             if candidate is None:
+                source["rejected_lines"] += 1
                 continue
+
+            source["parsed_candidate_lines"] += 1
+            if candidate.key in local_keys:
+                source["duplicate_lines"] += 1
+            local_keys.add(candidate.key)
+
             old = merged.get(candidate.key)
             if old:
                 merged[candidate.key] = Candidate(
@@ -200,6 +222,9 @@ def merge_candidates(results: list[dict[str, Any]]) -> list[Candidate]:
                 )
             else:
                 merged[candidate.key] = candidate
+
+        source["unique_candidates"] = len(local_keys)
+        source["parse_status"] = "ok" if local_keys else "no_candidates"
     return list(merged.values())
 
 
@@ -258,7 +283,8 @@ async def validate_one(
     candidate: Candidate,
     semaphore: asyncio.Semaphore,
     proxy_connector: Any,
-) -> dict[str, Any] | None:
+) -> tuple[dict[str, Any] | None, str | None]:
+    """Return the canary result plus a low-cardinality failure reason."""
     async with semaphore:
         started = time.perf_counter()
         timeout = aiohttp.ClientTimeout(total=7, connect=4, sock_read=5)
@@ -286,32 +312,46 @@ async def validate_one(
                         body = await response.content.read(8192)
                         status = response.status
 
-            latency = round((time.perf_counter() - started) * 1000, 1)
+            if status != 200:
+                return None, f"http_status_{status}"
             body_text = body.decode("utf-8", errors="replace")
-            if status != 200 or CHECK_MARKER not in body_text:
-                return None
+            if CHECK_MARKER not in body_text:
+                return None, "canary_marker_missing"
+            latency = round((time.perf_counter() - started) * 1000, 1)
             return {
                 "candidate": candidate, "latency_ms": latency, "status_code": status
-            }
-        except Exception:
-            # A failed endpoint must not abort the rest of the batch.
-            return None
+            }, None
+        except asyncio.TimeoutError:
+            return None, "timeout"
+        except Exception as exc:
+            # Keep failures isolated, but make their classes observable in run stats.
+            return None, type(exc).__name__
 
 
-async def validate_all(candidates: list[Candidate], concurrency: int) -> list[dict[str, Any]]:
+async def validate_all(
+    candidates: list[Candidate], concurrency: int
+) -> tuple[list[dict[str, Any]], dict[str, int]]:
     from aiohttp_socks import ProxyConnector
 
     semaphore = asyncio.Semaphore(max(1, min(concurrency, 250)))
-    output = []
+    output: list[dict[str, Any]] = []
+    failures: dict[str, int] = {}
     for start in range(0, len(candidates), 300):
         batch = candidates[start:start + 300]
-        result = await asyncio.gather(
+        outcomes = await asyncio.gather(
             *(validate_one(item, semaphore, ProxyConnector) for item in batch)
         )
-        output.extend(item for item in result if item is not None)
+        for successful, failure_reason in outcomes:
+            if successful is not None:
+                output.append(successful)
+            else:
+                reason = failure_reason or "unknown"
+                failures[reason] = failures.get(reason, 0) + 1
         completed = min(start + len(batch), len(candidates))
         print(f"Validated {completed}/{len(candidates)}; {len(output)} passed")
-    return output
+
+    print("Validation failure reasons: " + json.dumps(dict(sorted(failures.items()))))
+    return output, failures
 
 
 def score(latency: float, streak: int, diversity: int) -> int:
@@ -423,7 +463,9 @@ def publish(
     source_results: list[dict[str, Any]],
     state: dict[str, Any],
     checked_at: str,
+    run_metrics: dict[str, Any] | None = None,
 ) -> None:
+    run_metrics = run_metrics or {}
     strong = [item for item in records if item["quality_tier"] == "strong"]
     protocols = ("http", "https", "socks4", "socks5")
     by_protocol = {
@@ -448,9 +490,57 @@ def publish(
         source.get("group", source["id"])
         for source in source_results if source.get("independent", True)
     }
+    validation_attempted = int(run_metrics.get("validation_attempted", 0))
+    validation_passed = int(run_metrics.get("validation_passed", len(records)))
+    discovered_candidates = int(run_metrics.get(
+        "discovered_candidates",
+        sum(int(item.get("unique_candidates", 0)) for item in source_results),
+    ))
+    feeds_with_candidates = sum(
+        1 for item in source_results if int(item.get("unique_candidates", 0)) > 0
+    )
+    feeds_without_candidates = sum(
+        1 for item in source_results
+        if item["status"] == "ok" and int(item.get("unique_candidates", 0)) == 0
+    )
+    fetch_failed = sum(1 for item in source_results if item["status"] != "ok")
+    validation_failure_reasons = run_metrics.get("validation_failure_reasons", {})
+
     stats = {
         "generated_at": checked_at,
         "total_verified": len(records),
+        "discovered_candidates": discovered_candidates,
+        "selected_candidates": int(run_metrics.get("selected_candidates", validation_attempted)),
+        "validation_attempted": validation_attempted,
+        "validation_passed": validation_passed,
+        "validation_failed": max(0, validation_attempted - validation_passed),
+        "validation_pass_rate_pct": (
+            round(validation_passed / validation_attempted * 100, 1)
+            if validation_attempted else 0.0
+        ),
+        "publication_yield_pct": (
+            round(len(records) / validation_attempted * 100, 1)
+            if validation_attempted else 0.0
+        ),
+        "validation_failure_reasons": dict(sorted(validation_failure_reasons.items())),
+        "source_candidate_lines": sum(
+            int(item.get("candidate_lines", 0)) for item in source_results
+        ),
+        "source_parsed_candidate_lines": sum(
+            int(item.get("parsed_candidate_lines", 0)) for item in source_results
+        ),
+        "source_duplicate_lines": sum(
+            int(item.get("duplicate_lines", 0)) for item in source_results
+        ),
+        "source_rejected_lines": sum(
+            int(item.get("rejected_lines", 0)) for item in source_results
+        ),
+        "source_unique_candidates": sum(
+            int(item.get("unique_candidates", 0)) for item in source_results
+        ),
+        "feeds_with_candidates": feeds_with_candidates,
+        "feeds_without_candidates": feeds_without_candidates,
+        "feeds_fetch_failed": fetch_failed,
         "strong_count": len(strong),
         "by_protocol": {protocol: len(by_protocol[protocol]) for protocol in protocols},
         "strong_by_protocol": {
@@ -479,6 +569,12 @@ def publish(
             "id": item["id"], "group": item.get("group", item["id"]),
             "name": item.get("name"), "url": item["url"],
             "status": item["status"], "line_count": item["line_count"],
+            "candidate_lines": item.get("candidate_lines", 0),
+            "parsed_candidate_lines": item.get("parsed_candidate_lines", 0),
+            "unique_candidates": item.get("unique_candidates", 0),
+            "duplicate_lines": item.get("duplicate_lines", 0),
+            "rejected_lines": item.get("rejected_lines", 0),
+            "parse_status": item.get("parse_status", "fetch_failed"),
             "error": item["error"], "independent": item.get("independent", True),
         }
         for item in source_results
@@ -552,20 +648,31 @@ def main() -> None:
 
     source_results = asyncio.run(collect_sources(sources))
     healthy = sum(1 for item in source_results if item["status"] == "ok")
-    # Fail closed: if feeds are unavailable, publish an empty current snapshot
-    # rather than continue advertising endpoints from an old validation cycle.
-    candidates = select_candidates(
-        merge_candidates(source_results), previous_state, limit
+    discovered = merge_candidates(source_results)
+    # Fail closed: if feeds are unavailable or provide no usable candidates,
+    # publish an empty snapshot rather than retaining old public entries.
+    candidates = select_candidates(discovered, previous_state, limit)
+    feeds_with_candidates = sum(
+        1 for item in source_results if int(item.get("unique_candidates", 0)) > 0
     )
-    print(f"Feeds healthy: {healthy}/{len(sources)}; selected candidates: {len(candidates)}")
-    passed = asyncio.run(validate_all(candidates, concurrency))
-    # A healthy collection run with zero passing proxies must publish an empty
-    # snapshot rather than leave previously working-but-now-dead entries online.
+    print(
+        f"Feeds fetched: {healthy}/{len(sources)}; "
+        f"feeds with candidates: {feeds_with_candidates}/{healthy}; "
+        f"unique candidates: {len(discovered)}; selected: {len(candidates)}"
+    )
+    passed, failure_reasons = asyncio.run(validate_all(candidates, concurrency))
     checked_at = now_iso()
     records, state = update_records(
         passed, previous_state, checked_at, attempted=candidates
     )
-    publish(records, source_results, state, checked_at)
+    run_metrics = {
+        "discovered_candidates": len(discovered),
+        "selected_candidates": len(candidates),
+        "validation_attempted": len(candidates),
+        "validation_passed": len(passed),
+        "validation_failure_reasons": failure_reasons,
+    }
+    publish(records, source_results, state, checked_at, run_metrics=run_metrics)
     print(
         f"Published {len(records)} verified endpoints; "
         f"{sum(item['quality_tier'] == 'strong' for item in records)} strong"

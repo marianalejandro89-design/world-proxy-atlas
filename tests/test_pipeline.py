@@ -1,12 +1,16 @@
+import asyncio
 from datetime import UTC, datetime, timedelta
 
+import atlas.pipeline as pipeline
 from atlas.pipeline import (
     Candidate,
     load_sources,
+    merge_candidates,
     parse_candidate,
     score,
     select_candidates,
     update_records,
+    validate_all,
 )
 
 
@@ -50,6 +54,55 @@ def test_non_independent_mirror_does_not_count_for_diversity():
 def test_repeat_success_increases_score():
     assert score(200, 3, 2) > score(200, 1, 1)
 
+
+
+def test_feed_merge_reports_parse_rejections_duplicates_and_empty_feeds():
+    feeds = [
+        {
+            "id": "feed-a", "group": "publisher-a", "status": "ok",
+            "lines": ["8.8.8.8:8080", "8.8.8.8:8080", "not-a-proxy"],
+        },
+        {
+            "id": "feed-empty", "group": "publisher-empty", "status": "ok",
+            "lines": ["# no candidates here", ""],
+        },
+        {"id": "feed-down", "group": "publisher-down", "status": "error", "lines": []},
+    ]
+
+    candidates = merge_candidates(feeds)
+
+    assert len(candidates) == 1
+    assert feeds[0]["candidate_lines"] == 3
+    assert feeds[0]["parsed_candidate_lines"] == 2
+    assert feeds[0]["unique_candidates"] == 1
+    assert feeds[0]["duplicate_lines"] == 1
+    assert feeds[0]["rejected_lines"] == 1
+    assert feeds[0]["parse_status"] == "ok"
+    assert feeds[1]["parse_status"] == "no_candidates"
+    assert feeds[2]["parse_status"] == "fetch_failed"
+
+
+def test_validate_all_reports_failure_categories(monkeypatch):
+    candidates = [
+        Candidate("8.8.8.8", 8080, "http"),
+        Candidate("1.1.1.1", 8080, "http"),
+        Candidate("9.9.9.9", 8080, "http"),
+    ]
+
+    async def fake_validate(candidate, semaphore, proxy_connector):
+        if candidate.ip == "8.8.8.8":
+            return {
+                "candidate": candidate, "latency_ms": 250.0, "status_code": 200
+            }, None
+        if candidate.ip == "1.1.1.1":
+            return None, "timeout"
+        return None, "canary_marker_missing"
+
+    monkeypatch.setattr(pipeline, "validate_one", fake_validate)
+    passed, failures = asyncio.run(validate_all(candidates, concurrency=3))
+
+    assert len(passed) == 1
+    assert failures == {"canary_marker_missing": 1, "timeout": 1}
 
 def test_expanded_common_proxy_ports_are_supported():
     candidate = parse_candidate(

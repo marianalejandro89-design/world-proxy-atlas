@@ -41,13 +41,13 @@ All files are generated from the same quality-gated snapshot:
 | `proxies/strong.txt` and `proxies/strong/` | Strong-tier endpoints |
 | `proxies/proxies.json`, `proxies/proxies.csv` | Full metadata and spreadsheet export |
 | `data/stats.json` | Current snapshot metrics |
-| `data/sources.json` | Feed health and source attribution |
+| `data/sources.json` | Feed fetch health, parsed/unique candidates, duplicates and rejected lines per feed |
 
 HTTP CONNECT-capable proxies are labelled HTTP, not TLS-to-proxy HTTPS. The HTTPS protocol category is reserved for endpoints where TLS is negotiated with the proxy itself.
 
 ## Automation and checks
 
-GitHub Actions runs the collection and deployment workflow every five minutes (UTC). You can also start it manually from **Actions → Refresh proxy data and deploy dashboard → Run workflow**. Schedules are best-effort and may be delayed by GitHub. Validation state prevents checks less than 45 minutes apart from counting as repeat successes; candidates are held out during that cooldown.
+GitHub Actions is configured for a five-minute cadence at UTC minutes 2, 7, 12, …, 57 (offset from the start of each hour to reduce scheduler contention). You can also start it manually from **Actions → Refresh proxy data and deploy dashboard → Run workflow** on `main`. Scheduled events remain best-effort: GitHub may delay or drop them during high load, so this is not a guaranteed five-minute service-level interval. The dashboard and `data/stats.json` expose the latest discovery count, validation attempts, pass rate, failure categories and publication yield. Per-feed parse diagnostics are available in `data/sources.json`. Validation state prevents checks less than 45 minutes apart from counting as repeat successes; candidates are held out during that cooldown.
 
 Each refresh runs unit tests, collects and validates candidates, checks the generated snapshot against the publication policy, commits the generated data, and deploys the static site. CI also runs the test suite and Ruff lint checks on changes.
 
