@@ -7,6 +7,7 @@ from atlas.pipeline import (
     load_sources,
     merge_candidates,
     parse_candidate,
+    publication_hold_reasons,
     score,
     select_candidates,
     update_records,
@@ -82,6 +83,30 @@ def test_feed_merge_reports_parse_rejections_duplicates_and_empty_feeds():
     assert feeds[1]["parse_status"] == "no_candidates"
     assert feeds[2]["parse_status"] == "fetch_failed"
 
+
+
+def test_publication_holds_explain_pending_repeat_and_slow_successes():
+    pending = Candidate("8.8.8.8", 8080, "http", ("feed-a",), ("publisher-a",))
+    slow = Candidate("1.1.1.1", 8080, "http", ("feed-b",), ("publisher-b",))
+    published = Candidate("9.9.9.9", 8080, "http", ("feed-c",), ("publisher-c",))
+    passed = [
+        {"candidate": pending, "latency_ms": 350.0, "status_code": 200},
+        {"candidate": slow, "latency_ms": 1400.0, "status_code": 200},
+        {"candidate": published, "latency_ms": 250.0, "status_code": 200},
+    ]
+    records = [{
+        "ip": published.ip, "port": published.port, "protocol": published.protocol,
+    }]
+    state = {
+        pending.key: {"success_streak": 1},
+        slow.key: {"success_streak": 0},
+        published.key: {"success_streak": 3},
+    }
+
+    assert publication_hold_reasons(passed, records, state) == {
+        "latency_over_limit": 1,
+        "repeat_validation_pending": 1,
+    }
 
 def test_validate_all_reports_failure_categories(monkeypatch):
     candidates = [

@@ -92,6 +92,7 @@ jobs:
           assert stats["validation_attempted"] == stats["selected_candidates"], "Selected/tested totals differ"
           assert stats["validation_passed"] + stats["validation_failed"] == stats["validation_attempted"], "Validation totals do not balance"
           assert sum(stats["validation_failure_reasons"].values()) == stats["validation_failed"], "Failure categories do not balance"
+          assert sum(stats["publication_hold_reasons"].values()) == stats["validation_passed"] - stats["total_verified"], "Publication hold reasons do not balance"
           assert stats["feeds_configured"] == stats["feed_count"] + stats["feeds_fetch_failed"], "Feed fetch totals do not balance"
           assert stats["discovered_candidates"] >= stats["selected_candidates"], "Selected candidates exceed discovered pool"
 

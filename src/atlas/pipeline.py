@@ -458,6 +458,36 @@ def update_records(
     return records, state
 
 
+def publication_hold_reasons(
+    passed: list[dict[str, Any]],
+    records: list[dict[str, Any]],
+    state: dict[str, Any],
+) -> dict[str, int]:
+    """Explain why successful canary checks were not published in this snapshot."""
+    published_keys = {
+        f'{item["protocol"]}|{item["ip"]}|{item["port"]}' for item in records
+    }
+    reasons: dict[str, int] = {}
+    for item in passed:
+        candidate: Candidate = item["candidate"]
+        if candidate.key in published_keys:
+            continue
+
+        latency = float(item["latency_ms"])
+        streak = int(state.get(candidate.key, {}).get("success_streak", 0))
+        if latency > 1200:
+            reason = "latency_over_limit"
+        elif streak < 2:
+            reason = "repeat_validation_pending"
+        elif score(latency, streak, len(candidate.source_groups)) < 60:
+            reason = "quality_score_below_threshold"
+        else:
+            reason = "other_publication_policy"
+        reasons[reason] = reasons.get(reason, 0) + 1
+
+    return dict(sorted(reasons.items()))
+
+
 def publish(
     records: list[dict[str, Any]],
     source_results: list[dict[str, Any]],
@@ -523,6 +553,9 @@ def publish(
             if validation_attempted else 0.0
         ),
         "validation_failure_reasons": dict(sorted(validation_failure_reasons.items())),
+        "publication_hold_reasons": dict(sorted(
+            run_metrics.get("publication_hold_reasons", {}).items()
+        )),
         "source_candidate_lines": sum(
             int(item.get("candidate_lines", 0)) for item in source_results
         ),
@@ -671,6 +704,7 @@ def main() -> None:
         "validation_attempted": len(candidates),
         "validation_passed": len(passed),
         "validation_failure_reasons": failure_reasons,
+        "publication_hold_reasons": publication_hold_reasons(passed, records, state),
     }
     publish(records, source_results, state, checked_at, run_metrics=run_metrics)
     print(

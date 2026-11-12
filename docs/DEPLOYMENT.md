@@ -39,6 +39,6 @@ Review the latest run under the repository's **Actions** tab. A production refre
 - Generated data commit
 - GitHub Pages preflight and deployment
 
-If the Pages preflight fails, confirm that Pages source is set to **GitHub Actions**. If a snapshot is older than 90 minutes, the dashboard hides the directory and download links until a fresh snapshot is available. The current `data/stats.json` records discovered candidates, attempted validations, pass/failure totals and publication yield; `data/sources.json` records per-feed fetch and parse counts. The production workflow also checks that the JSON, CSV and TXT downloads match the same generated snapshot.
+If the Pages preflight fails, confirm that Pages source is set to **GitHub Actions**. If a snapshot is older than 90 minutes, the dashboard hides the directory and download links until a fresh snapshot is available. The current `data/stats.json` records discovered candidates, attempted validations, pass/failure totals, publication yield and reasons successful checks were held out of publication; `data/sources.json` records per-feed fetch and parse counts. The production workflow also checks that the JSON, CSV and TXT downloads match the same generated snapshot.
 
 A successful validation is a point-in-time connectivity measurement, not a guarantee of uptime, anonymity, privacy or operator trust.

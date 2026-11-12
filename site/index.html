@@ -356,11 +356,16 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);f
     const passRate = Number(stats.validation_pass_rate_pct || 0);
     const discovered = Number(stats.discovered_candidates || 0);
     const feedsWithCandidates = Number(stats.feeds_with_candidates || 0);
+    const publicationHolds = stats.publication_hold_reasons || {};
+    const repeatPending = Number(publicationHolds.repeat_validation_pending || 0);
+    const latencyHeld = Number(publicationHolds.latency_over_limit || 0);
     $("validation-status").textContent = snapshotFresh
       ? "Latest run: " + number(discovered) + " unique candidates · " +
         number(tested) + " tested · " + number(passed) + " passed (" +
         passRate.toFixed(1) + "%) · " + number(stats.total_verified) +
-        " published · " + number(feedsWithCandidates) + " feeds yielded candidates"
+        " published · " + number(repeatPending) + " awaiting repeat check · " +
+        number(latencyHeld) + " over latency limit · " +
+        number(feedsWithCandidates) + " feeds yielded candidates"
       : "Latest validation diagnostics unavailable until a fresh snapshot is loaded";
     if (!snapshotFresh) {
       document.querySelectorAll(".download").forEach(link => {
