@@ -132,9 +132,11 @@ def load_sources() -> list[dict[str, Any]]:
             or not host
             or parsed.username
             or parsed.password
-            or host in reserved_hosts
-            or host.endswith((".example", ".invalid", ".test"))
-            or host.endswith(".localhost")
+            or any(
+                host == reserved or host.endswith("." + reserved)
+                for reserved in reserved_hosts
+            )
+            or host.endswith((".example", ".invalid", ".test", ".localhost"))
         ):
             raise RuntimeError(
                 f"Source {source_id!r} must use a real public HTTPS feed URL"
