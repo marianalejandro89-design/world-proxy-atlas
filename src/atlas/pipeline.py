@@ -40,6 +40,7 @@ ALLOWED_PORTS = {
 MAX_SOURCE_BYTES = 6 * 1024 * 1024
 MAX_SOURCE_LINES = 30000
 PUBLIC_RECORD_MAX_AGE = timedelta(minutes=90)
+MAX_VALIDATION_CONCURRENCY = 160
 
 
 @dataclass(frozen=True)
@@ -437,7 +438,7 @@ async def validate_all(
 ) -> tuple[list[dict[str, Any]], dict[str, int]]:
     from aiohttp_socks import ProxyConnector
 
-    semaphore = asyncio.Semaphore(max(1, min(concurrency, 250)))
+    semaphore = asyncio.Semaphore(max(1, min(concurrency, MAX_VALIDATION_CONCURRENCY)))
     output: list[dict[str, Any]] = []
     failures: dict[str, int] = {}
     for start in range(0, len(candidates), 300):
@@ -832,8 +833,13 @@ def write_state(path: Path, state: dict[str, Any]) -> None:
 
 
 def main() -> None:
-    limit = max(1, min(int(os.getenv("ATLAS_MAX_CANDIDATES", "8000")), 30000))
-    concurrency = max(1, min(int(os.getenv("ATLAS_CONCURRENCY", "50")), 250))
+    concurrency = max(
+        1,
+        min(
+            int(os.getenv("ATLAS_CONCURRENCY", str(MAX_VALIDATION_CONCURRENCY))),
+            MAX_VALIDATION_CONCURRENCY,
+        ),
+    )
     sources = load_sources()
     previous_state = read_json(STATE_FILE, {})
     if not isinstance(previous_state, dict):
@@ -851,7 +857,7 @@ def main() -> None:
     discovered = merge_candidates(source_results)
     # Fail closed: if feeds are unavailable or provide no usable candidates,
     # publish an empty snapshot rather than retaining old public entries.
-    candidates = select_candidates(discovered, previous_state, limit)
+    candidates = select_candidates(discovered, previous_state, len(discovered))
     feeds_with_candidates = sum(
         1 for item in source_results if int(item.get("unique_candidates", 0)) > 0
     )

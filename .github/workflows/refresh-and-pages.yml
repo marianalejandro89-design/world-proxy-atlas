@@ -28,7 +28,7 @@ jobs:
   refresh-and-deploy:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     environment:
       name: github-pages
     steps:
@@ -65,8 +65,7 @@ jobs:
 
       - name: Collect and validate
         env:
-          ATLAS_MAX_CANDIDATES: "2500"
-          ATLAS_CONCURRENCY: "80"
+          ATLAS_CONCURRENCY: "160"
         run: python -m atlas.pipeline
 
       - name: Production snapshot checks

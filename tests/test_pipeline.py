@@ -540,6 +540,23 @@ def test_recently_checked_candidates_are_held_out_until_observation_window():
 
 
 
+
+def test_full_pool_selection_includes_every_candidate_above_old_sample_cap():
+    now = datetime(2026, 11, 12, 12, 0, tzinfo=UTC)
+    candidates = [
+        Candidate("8.8.8.8", 10000 + index, "http")
+        for index in range(2605)
+    ]
+
+    selected = select_candidates(candidates, {}, len(candidates), now=now)
+
+    assert len(selected) == len(candidates)
+    assert {item.key for item in selected} == {item.key for item in candidates}
+
+
+def test_validation_concurrency_ceiling_is_explicit_and_bounded():
+    assert pipeline.MAX_VALIDATION_CONCURRENCY == 160
+
 def test_failed_candidates_are_not_retested_every_five_minutes():
     now = datetime(2026, 11, 12, 12, 0, tzinfo=UTC)
     failed = Candidate("8.8.8.8", 8080, "http")
