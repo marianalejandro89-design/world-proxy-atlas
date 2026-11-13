@@ -174,7 +174,7 @@ def test_publication_holds_explain_pending_repeat_and_slow_successes():
     published = Candidate("9.9.9.9", 8080, "http", ("feed-c",), ("publisher-c",))
     passed = [
         {"candidate": pending, "latency_ms": 350.0, "status_code": 200},
-        {"candidate": slow, "latency_ms": 1400.0, "status_code": 200},
+        {"candidate": slow, "latency_ms": 3501.0, "status_code": 200},
         {"candidate": published, "latency_ms": 250.0, "status_code": 200},
     ]
     records = [{
@@ -455,7 +455,7 @@ def test_publication_allows_one_successful_check():
 
 def test_proxy_over_3000ms_is_not_published_even_after_repeat_success():
     candidate = Candidate("8.8.8.8", 8080, "http", ("feed-a",), ("publisher-a",))
-    passed = [{"candidate": candidate, "latency_ms": 1501.0, "status_code": 200}]
+    passed = [{"candidate": candidate, "latency_ms": 3501.0, "status_code": 200}]
     _, state = update_records(passed, {}, "2026-11-11T10:00:00Z")
     records, _ = update_records(passed, state, "2026-11-11T11:00:00Z")
     assert records == []
@@ -511,7 +511,8 @@ def test_legacy_success_streaks_are_not_trusted_under_new_policy():
     passed = [{"candidate": candidate, "latency_ms": 400.0, "status_code": 200}]
 
     first, state = update_records(passed, previous, "2026-11-11T11:00:00Z")
-    assert first == []
+    assert len(first) == 1
+    assert first[0]["success_streak"] == 1
     assert state[candidate.key]["success_streak"] == 1
     assert state[candidate.key]["quality_policy"] == 2
 
