@@ -181,7 +181,7 @@ def test_publication_holds_explain_pending_repeat_and_slow_successes():
         "ip": published.ip, "port": published.port, "protocol": published.protocol,
     }]
     state = {
-        pending.key: {"success_streak": 1},
+        pending.key: {"success_streak": 0},
         slow.key: {"success_streak": 0},
         published.key: {"success_streak": 3},
     }
