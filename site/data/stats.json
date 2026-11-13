@@ -1,38 +1,37 @@
 {
   "by_protocol": {
-    "http": 0,
+    "http": 348,
     "https": 0,
-    "socks4": 0,
-    "socks5": 0
+    "socks4": 199,
+    "socks5": 79
   },
-  "discovered_candidates": 19937,
+  "discovered_candidates": 19959,
   "feed_count": 47,
   "feeds_configured": 47,
   "feeds_fetch_failed": 0,
-  "feeds_with_candidates": 47,
-  "feeds_without_candidates": 0,
-  "generated_at": "2026-11-13T00:05:52Z",
-  "maximum_latency_ms": 1200,
-  "median_latency_ms": null,
-  "minimum_quality_score": 60,
-  "minimum_success_streak": 2,
-  "newly_verified": 0,
+  "feeds_with_candidates": 46,
+  "feeds_without_candidates": 1,
+  "generated_at": "2026-11-13T01:07:16Z",
+  "maximum_latency_ms": 3000,
+  "median_latency_ms": 1559.4,
+  "minimum_quality_score": 18,
+  "minimum_success_streak": 1,
+  "newly_verified": 626,
   "public_record_max_age_minutes": 90,
   "publication_hold_reasons": {
-    "latency_over_limit": 947,
-    "repeat_validation_pending": 271
+    "latency_over_limit": 407
   },
-  "publication_yield_pct": 0.0,
-  "quality_definition": "Published entries passed two checks at least 45 minutes apart, completed the HTTPS canary request within 1200 ms, and were last checked within 90 minutes. The quality score ranks endpoints using speed, repeat reliability and source diversity; the 60/100 floor is defensive, not an independent filter under the current scoring formula. Entries not sampled in this run are retained only inside that recheck window; sampled failures are removed.",
+  "publication_yield_pct": 3.1,
+  "quality_definition": "Standard entries passed one HTTPS canary check within 3000 ms and were last checked within 90 minutes. The quality score floor is 18/100. Strong entries retain the stricter three-check, 45-minute, 900 ms and 75/100 requirements. Entries not sampled in this run are retained only inside the recheck window; sampled failures are removed.",
   "recheck_candidates": 0,
   "retained_verified": 0,
-  "selected_candidates": 19937,
-  "source_candidate_lines": 69132,
+  "selected_candidates": 19959,
+  "source_candidate_lines": 71494,
   "source_count": 10,
-  "source_duplicate_lines": 725,
-  "source_parsed_candidate_lines": 44443,
-  "source_rejected_lines": 24689,
-  "source_unique_candidates": 43718,
+  "source_duplicate_lines": 713,
+  "source_parsed_candidate_lines": 46076,
+  "source_rejected_lines": 25418,
+  "source_unique_candidates": 45363,
   "sources_configured": 10,
   "strong_by_protocol": {
     "http": 0,
@@ -41,17 +40,17 @@
     "socks5": 0
   },
   "strong_count": 0,
-  "total_verified": 0,
-  "validation_attempted": 19937,
-  "validation_failed": 18719,
+  "total_verified": 626,
+  "validation_attempted": 19959,
+  "validation_failed": 18926,
   "validation_failure_reasons": {
-    "ClientOSError": 809,
-    "IncompleteReadError": 205,
-    "ProxyConnectionError": 1408,
-    "ProxyError": 1174,
-    "connect_error": 967,
-    "timeout": 14156
+    "ClientOSError": 803,
+    "IncompleteReadError": 206,
+    "ProxyConnectionError": 1422,
+    "ProxyError": 1192,
+    "connect_error": 961,
+    "timeout": 14342
   },
-  "validation_pass_rate_pct": 6.1,
-  "validation_passed": 1218
+  "validation_pass_rate_pct": 5.2,
+  "validation_passed": 1033
 }
