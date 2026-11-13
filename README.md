@@ -82,15 +82,15 @@ TLS certificate verification remains enabled. Redirects are not followed during 
 
 | Rule | Standard tier | Strong tier |
 |---|---:|---:|
-| Successful observations | At least 2 | At least 3 |
-| Time between counted successes | At least 45 minutes | At least 45 minutes |
-| Maximum successful-check latency | 1,200 ms | 900 ms |
-| Minimum quality score | 60/100 | 75/100 |
+| Successful observations | At least 1 | At least 3 |
+| Time between counted successes | Not required | At least 45 minutes |
+| Maximum successful-check latency | 3,000 ms | 900 ms |
+| Minimum quality score | 18/100 | 75/100 |
 | Latest successful observation | Within 90 minutes | Within 90 minutes |
 
-The quality score ranks endpoints using response speed, repeat reliability and independent source attribution. It is not a substitute for the hard publication rules. Under the current scoring formula, the 60-point floor is a defensive invariant rather than an additional filter on otherwise eligible entries.
+The standard tier is intentionally permissive: one successful HTTPS canary check is enough, with a 3,000 ms ceiling and an 18/100 score floor. A single check does not guarantee long-term stability, so treat standard entries as provisional. The strong tier keeps the stricter repeatability and speed requirements.
 
-**Fail-closed behavior:** a first-time candidate is not published; a selected candidate that fails is removed; an unselected published entry expires after 90 minutes without a successful recheck. If feeds fail or no usable candidates are discovered, the pipeline does not keep stale entries visible. Validation state is retained for at most 48 hours.
+**Fail-closed behavior:** candidates must still complete a real HTTPS canary request with valid TLS and expected response content; a selected candidate that fails is removed; an unselected published entry expires after 90 minutes without a successful recheck. If feeds fail or no usable candidates are discovered, the pipeline does not keep stale entries visible. Validation state is retained for at most 48 hours.
 
 ## 🧰 Use the data
 
