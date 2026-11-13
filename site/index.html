@@ -30,7 +30,7 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);f
 <section class="intro">
 <div class="eyebrow">Open network measurements</div>
 <h1>Public proxies, checked before publication.</h1>
-<p>We collect public proxy candidates, test them independently, and publish only endpoints that pass repeat checks, a response-time limit and a minimum quality score.</p>
+<p>We collect public proxy candidates, test them independently, and publish endpoints after one successful HTTPS canary check, subject to a response-time limit and minimum quality score. The strong tier keeps stricter repeat checks.</p>
 <div class="statusline"><span class="dot" aria-hidden="true"></span><span id="snapshot-status">Loading latest snapshot…</span><span>·</span><span>Scheduled refresh hourly</span></div>
 <div class="statusline" id="validation-status" aria-live="polite">Latest validation diagnostics loading…</div>
 </section>
@@ -77,9 +77,9 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);f
 <label class="filter-field"><span>Search endpoint</span><input id="search" type="search" placeholder="IP address or proxy URL…" aria-label="Search endpoint"></label>
 <label class="filter-field"><span>Protocol</span><select id="protocol" aria-label="Filter by protocol"><option value="all">All protocols</option><option value="http">HTTP</option><option value="https">HTTPS proxy</option><option value="socks4">SOCKS4</option><option value="socks5">SOCKS5</option></select></label>
 <label class="filter-field"><span>Quality tier</span><select id="quality-tier" aria-label="Filter by quality tier"><option value="all">All tiers</option><option value="strong">Strong only</option><option value="verified">Verified</option></select></label>
-<label class="filter-field"><span>Max latency · ms</span><input id="max-latency" type="number" min="1" max="1200" step="50" value="1200" aria-label="Maximum latency in milliseconds"></label>
-<label class="filter-field"><span>Minimum quality · /100</span><input id="min-score" type="number" min="0" max="100" step="5" value="60" aria-label="Minimum quality score"></label>
-<label class="filter-field"><span>Minimum successful checks</span><input id="min-streak" type="number" min="2" max="10" step="1" value="2" aria-label="Minimum successful validation checks"></label>
+<label class="filter-field"><span>Max latency · ms</span><input id="max-latency" type="number" min="1" max="3000" step="50" value="3000" aria-label="Maximum latency in milliseconds"></label>
+<label class="filter-field"><span>Minimum quality · /100</span><input id="min-score" type="number" min="0" max="100" step="1" value="18" aria-label="Minimum quality score"></label>
+<label class="filter-field"><span>Minimum successful checks</span><input id="min-streak" type="number" min="1" max="10" step="1" value="1" aria-label="Minimum successful validation checks"></label>
 <label class="filter-field"><span>Sort results</span><select id="sort-by" aria-label="Sort results"><option value="quality">Best quality first</option><option value="fastest">Fastest first</option><option value="address">Endpoint A–Z</option></select></label>
 </div>
 <div class="directory-summary" id="directory-summary">Filters apply to both the directory and custom downloads.</div>
@@ -106,9 +106,9 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);f
     query: $("search").value.trim().toLowerCase(),
     protocol: $("protocol").value,
     tier: $("quality-tier").value,
-    maxLatency: numericFilter("max-latency",1200,1,1200),
-    minScore: numericFilter("min-score",60,0,100),
-    minStreak: numericFilter("min-streak",2,2,10),
+    maxLatency: numericFilter("max-latency",3000,1,3000),
+    minScore: numericFilter("min-score",18,0,100),
+    minStreak: numericFilter("min-streak",1,1,10),
     sortBy: $("sort-by").value
   });
 
