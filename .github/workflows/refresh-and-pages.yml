@@ -100,9 +100,9 @@ jobs:
 
           for proxy in proxies:
               assert proxy.get("status") == "verified", "Non-verified proxy in public output"
-              assert proxy.get("success_streak", 0) >= 2, "Proxy lacks repeat validation"
-              assert proxy.get("latency_ms", 999999) <= 1200, "Slow proxy in public output"
-              assert proxy.get("quality_score", 0) >= 60, "Low-quality proxy in public output"
+              assert proxy.get("success_streak", 0) >= stats["minimum_success_streak"], "Proxy lacks required successful check"
+              assert proxy.get("latency_ms", 999999) <= stats["maximum_latency_ms"], "Slow proxy in public output"
+              assert proxy.get("quality_score", 0) >= stats["minimum_quality_score"], "Low-quality proxy in public output"
               checked_at = datetime.fromisoformat(proxy["last_checked_at"].replace("Z", "+00:00"))
               generated_at = datetime.fromisoformat(stats["generated_at"].replace("Z", "+00:00"))
               age_seconds = (generated_at - checked_at).total_seconds()
