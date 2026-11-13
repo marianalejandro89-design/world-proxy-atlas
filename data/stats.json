@@ -1,37 +1,37 @@
 {
   "by_protocol": {
-    "http": 323,
+    "http": 348,
     "https": 0,
-    "socks4": 161,
+    "socks4": 217,
     "socks5": 65
   },
-  "discovered_candidates": 19802,
+  "discovered_candidates": 19483,
   "feed_count": 47,
   "feeds_configured": 47,
   "feeds_fetch_failed": 0,
   "feeds_with_candidates": 46,
   "feeds_without_candidates": 1,
-  "generated_at": "2026-11-13T10:19:41Z",
+  "generated_at": "2026-11-13T11:20:21Z",
   "maximum_latency_ms": 3000,
-  "median_latency_ms": 1690.6,
+  "median_latency_ms": 1603.4,
   "minimum_quality_score": 18,
   "minimum_success_streak": 1,
-  "newly_verified": 549,
+  "newly_verified": 630,
   "public_record_max_age_minutes": 90,
   "publication_hold_reasons": {
-    "latency_over_limit": 331
+    "latency_over_limit": 413
   },
-  "publication_yield_pct": 2.8,
+  "publication_yield_pct": 3.2,
   "quality_definition": "Standard entries passed one HTTPS canary check within 3000 ms and were last checked within 90 minutes. The quality score floor is 18/100. Strong entries retain the stricter three-check, 45-minute, 900 ms and 75/100 requirements. Entries not sampled in this run are retained only inside the recheck window; sampled failures are removed.",
   "recheck_candidates": 0,
   "retained_verified": 0,
-  "selected_candidates": 19802,
-  "source_candidate_lines": 65941,
+  "selected_candidates": 19483,
+  "source_candidate_lines": 68331,
   "source_count": 10,
-  "source_duplicate_lines": 654,
-  "source_parsed_candidate_lines": 41776,
-  "source_rejected_lines": 24165,
-  "source_unique_candidates": 41122,
+  "source_duplicate_lines": 657,
+  "source_parsed_candidate_lines": 43594,
+  "source_rejected_lines": 24737,
+  "source_unique_candidates": 42937,
   "sources_configured": 10,
   "strong_by_protocol": {
     "http": 0,
@@ -40,17 +40,18 @@
     "socks5": 0
   },
   "strong_count": 0,
-  "total_verified": 549,
-  "validation_attempted": 19802,
-  "validation_failed": 18922,
+  "total_verified": 630,
+  "validation_attempted": 19483,
+  "validation_failed": 18440,
   "validation_failure_reasons": {
-    "ClientOSError": 814,
-    "IncompleteReadError": 227,
-    "ProxyConnectionError": 1746,
-    "ProxyError": 1197,
-    "connect_error": 973,
-    "timeout": 13965
+    "ClientOSError": 785,
+    "IncompleteReadError": 193,
+    "ProxyConnectionError": 1479,
+    "ProxyError": 1134,
+    "ServerDisconnectedError": 1,
+    "connect_error": 888,
+    "timeout": 13960
   },
-  "validation_pass_rate_pct": 4.4,
-  "validation_passed": 880
+  "validation_pass_rate_pct": 5.4,
+  "validation_passed": 1043
 }
