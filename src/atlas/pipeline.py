@@ -40,6 +40,9 @@ ALLOWED_PORTS = {
 MAX_SOURCE_BYTES = 6 * 1024 * 1024
 MAX_SOURCE_LINES = 30000
 PUBLIC_RECORD_MAX_AGE = timedelta(minutes=90)
+PUBLIC_MAX_LATENCY_MS = 3000
+MIN_QUALITY_SCORE = 18
+MIN_SUCCESS_STREAK = 1
 MAX_VALIDATION_CONCURRENCY = 160
 
 
@@ -549,7 +552,7 @@ def update_records(
             int(prior.get("success_streak", 0))
             if prior.get("quality_policy") == 2 else 0
         )
-        if item["latency_ms"] > 1200:
+        if item["latency_ms"] > PUBLIC_MAX_LATENCY_MS:
             # Slow successes do not count toward the consecutive high-quality streak.
             streak = 0
         elif timedelta(minutes=45) <= elapsed <= timedelta(hours=2, minutes=15):
@@ -563,7 +566,7 @@ def update_records(
         strong = quality >= 75 and streak >= 3 and item["latency_ms"] <= 900
         # Public output is fail-closed: first-time, slow and low-scoring endpoints
         # remain private to the short-lived state until they qualify.
-        if streak >= 2 and item["latency_ms"] <= 1200 and quality >= 60:
+        if streak >= MIN_SUCCESS_STREAK and item["latency_ms"] <= PUBLIC_MAX_LATENCY_MS and quality >= MIN_QUALITY_SCORE:
             records.append({
                 "ip": candidate.ip, "port": candidate.port, "address": candidate.address,
                 "protocol": candidate.protocol, "proxy": candidate.proxy,
@@ -621,8 +624,8 @@ def update_records(
                 or key in current_keys
                 or prior_record.get("status") != "verified"
                 or int(prior_record.get("success_streak", 0)) < 2
-                or float(prior_record.get("latency_ms", 999999)) > 1200
-                or int(prior_record.get("quality_score", 0)) < 60
+                or float(prior_record.get("latency_ms", 999999)) > PUBLIC_MAX_LATENCY_MS
+                or int(prior_record.get("quality_score", 0)) < MIN_QUALITY_SCORE
                 or age < timedelta(0)
                 or age > PUBLIC_RECORD_MAX_AGE
             ):
@@ -676,11 +679,11 @@ def publication_hold_reasons(
 
         latency = float(item["latency_ms"])
         streak = int(state.get(candidate.key, {}).get("success_streak", 0))
-        if latency > 1200:
+        if latency > PUBLIC_MAX_LATENCY_MS:
             reason = "latency_over_limit"
-        elif streak < 2:
+        elif streak < MIN_SUCCESS_STREAK:
             reason = "repeat_validation_pending"
-        elif score(latency, streak, len(candidate.source_groups)) < 60:
+        elif score(latency, streak, len(candidate.source_groups)) < MIN_QUALITY_SCORE:
             reason = "quality_score_below_threshold"
         else:
             reason = "other_publication_policy"
@@ -797,17 +800,15 @@ def publish(
         "feed_count": len(healthy),
         "feeds_configured": len(source_results),
         "quality_definition": (
-            "Published entries passed two checks at least 45 minutes apart, "
-            "completed the HTTPS canary request within 1200 ms, and were last checked "
-            "within 90 minutes. The quality score ranks endpoints using speed, repeat "
-            "reliability and source diversity; the 60/100 floor is defensive, not an "
-            "independent filter under the current scoring formula. Entries not sampled "
-            "in this run are retained only inside that recheck window; sampled failures "
-            "are removed."
+            "Standard entries passed one HTTPS canary check within 3000 ms and were last checked "
+            "within 90 minutes. The quality score floor is 18/100. Strong entries retain "
+            "the stricter three-check, 45-minute, 900 ms and 75/100 requirements. Entries "
+            "not sampled in this run are retained only inside the recheck window; sampled "
+            "failures are removed."
         ),
-        "minimum_quality_score": 60,
-        "maximum_latency_ms": 1200,
-        "minimum_success_streak": 2,
+        "minimum_quality_score": MIN_QUALITY_SCORE,
+        "maximum_latency_ms": PUBLIC_MAX_LATENCY_MS,
+        "minimum_success_streak": MIN_SUCCESS_STREAK,
     }
     payload = {"generated_at": checked_at, "count": len(records), "proxies": records}
     source_payload = [
