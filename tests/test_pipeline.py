@@ -440,19 +440,20 @@ def test_proxywing_https_label_is_normalized_to_connect_http():
 
 
 
-def test_publication_requires_two_successful_checks():
+def test_publication_allows_one_successful_check():
     candidate = Candidate("8.8.8.8", 8080, "http", ("feed-a",), ("publisher-a",))
     passed = [{"candidate": candidate, "latency_ms": 500.0, "status_code": 200}]
     first_records, state = update_records(passed, {}, "2026-11-11T10:00:00Z")
-    assert first_records == []
+    assert len(first_records) == 1
+    assert first_records[0]["success_streak"] == 1
+    assert first_records[0]["quality_score"] >= 18
 
     second_records, _ = update_records(passed, state, "2026-11-11T11:00:00Z")
     assert len(second_records) == 1
     assert second_records[0]["success_streak"] == 2
-    assert second_records[0]["quality_score"] >= 60
 
 
-def test_slow_proxy_is_never_published_even_after_repeat_success():
+def test_proxy_over_3000ms_is_not_published_even_after_repeat_success():
     candidate = Candidate("8.8.8.8", 8080, "http", ("feed-a",), ("publisher-a",))
     passed = [{"candidate": candidate, "latency_ms": 1501.0, "status_code": 200}]
     _, state = update_records(passed, {}, "2026-11-11T10:00:00Z")
@@ -482,14 +483,14 @@ def test_quality_score_rewards_speed_repeatability_and_source_diversity():
 
 
 
-def test_slow_success_does_not_count_toward_fast_quality_streak():
+def test_over_limit_success_does_not_count_toward_publication_streak():
     candidate = Candidate("8.8.8.8", 8080, "http", ("feed-a",), ("publisher-a",))
-    slow = [{"candidate": candidate, "latency_ms": 1501.0, "status_code": 200}]
+    slow = [{"candidate": candidate, "latency_ms": 3501.0, "status_code": 200}]
     fast = [{"candidate": candidate, "latency_ms": 500.0, "status_code": 200}]
 
     _, state = update_records(slow, {}, "2026-11-11T10:00:00Z")
     first_fast, state = update_records(fast, state, "2026-11-11T11:00:00Z")
-    assert first_fast == []
+    assert len(first_fast) == 1
     assert state[candidate.key]["success_streak"] == 1
 
     second_fast, _ = update_records(fast, state, "2026-11-11T12:00:00Z")
