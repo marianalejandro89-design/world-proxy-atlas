@@ -215,5 +215,12 @@
     "retained_verified": 0,
     "strong_count": 0,
     "total_verified": 698
+  },
+  {
+    "generated_at": "2026-11-14T02:21:48Z",
+    "newly_verified": 674,
+    "retained_verified": 0,
+    "strong_count": 0,
+    "total_verified": 674
   }
 ]
